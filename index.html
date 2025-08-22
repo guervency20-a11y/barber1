@@ -171,7 +171,7 @@
     .hero .overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.2);
     }
     
     .hero-content {
@@ -247,51 +247,57 @@
       color: #ffffff;
     }
     
-    /* SECCIÓN SERVICIOS */
+    /* === SECCIÓN SERVICIOS POPULARES (ORIGINAL) === */
     .servicios-populares {
       position: relative;
       background: url('fondo.png') center/cover no-repeat;
-      padding: 3rem 1rem;
+      padding: 4rem 2rem;
       color: white;
       overflow: hidden;
     }
-    
+
+    /* Overlay con degradado más sutil */
     .overlay-negro {
       position: absolute;
       inset: 0;
       background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.6));
       z-index: 0;
     }
-    
+
+    /* Contenedor central */
     .limitar-ancho {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 20px 15px;
+      padding: 40px 20px;
       position: relative;
       z-index: 1;
     }
-    
+
+    /* Flex layout */
     .conteneur.servicios {
       display: flex;
-      flex-direction: column;
       align-items: flex-start;
-      gap: 1.5rem;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2.5rem;
     }
-    
+
+    /* Columna títulos */
     .services-title {
-      width: 100%;
+      flex: 1 1 clamp(220px, 25%, 300px);
     }
-    
+
     .etiqueta {
       font-size: 1rem;
       margin-bottom: 0.5rem;
       color: #dbb859;
       text-transform: uppercase;
       letter-spacing: 2px;
+      position: relative;
     }
-    
+
     .titulo-seccion {
-      font-size: 1.8rem;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
       margin: 0;
       font-family: 'Prata', serif;
       color: white;
@@ -300,39 +306,43 @@
       position: relative;
       text-shadow: 0 0 8px rgba(255,255,255,0.25);
     }
-    
+
+    /* Línea animada debajo del título */
     .titulo-seccion::after {
       content: '';
       position: absolute;
       bottom: -15px;
       left: 0;
-      width: 120px;
+      width: clamp(120px, 40%, 220px);
       height: 4px;
       background: linear-gradient(90deg, #ffffff, #ffd700, #ffffff);
       background-size: 300% 300%;
       animation: shine 3s ease-in-out infinite;
       border-radius: 2px;
     }
-    
+
+    /* Texto */
     .services-text {
-      width: 100%;
+      flex: 1 1 clamp(300px, 50%, 600px);
+      max-width: 650px;
     }
-    
+
     .services-text p {
-      font-size: 1rem;
+      font-size: clamp(0.95rem, 1.1vw, 1.2rem);
       line-height: 1.8;
       color: #969292;
       margin: 0;
+      position: relative;
     }
-    
+
+    /* Botón principal */
     .services-button {
-      width: 100%;
-      margin-top: 10px;
+      flex: 0 0 auto;
     }
-    
+
     .btn-servicio {
       display: inline-block;
-      padding: 12px 25px;
+      padding: 1rem 2rem;
       font-weight: 700;
       font-size: 0.95rem;
       text-transform: uppercase;
@@ -341,8 +351,9 @@
       border: 1px solid #8659db;
       text-decoration: none;
       transition: all 0.4s ease;
+      position: relative;
     }
-    
+
     .btn-servicio:hover {
       background-color: #e0aa33;
       color: #111;
@@ -533,28 +544,6 @@
         flex-direction: row;
       }
       
-      .conteneur.servicios {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
-      }
-      
-      .services-title {
-        flex: 1 1 30%;
-      }
-      
-      .services-text {
-        flex: 1 1 50%;
-      }
-      
-      .services-button {
-        flex: 0 0 auto;
-      }
-      
-      .galeria-principal {
-        height: 450px;
-      }
-      
       /* Mostrar flechas en desktop */
       .flechas-container {
         display: flex;
@@ -597,25 +586,65 @@
       .boton-menu {
         display: none;
       }
+      
+      .galeria-principal {
+        height: 450px;
+      }
     }
     
-    @media (min-width: 992px) {
+    @media (max-width: 992px) {
       .conteneur.servicios {
-        justify-content: space-between;
+        justify-content: center;
+        text-align: center;
       }
-      
+
+      .etiqueta {
+        margin-top: 30px;
+      }
+
       .services-title,
       .services-text,
       .services-button {
-        flex: 0 0 auto;
+        flex: 1 1 100%;
       }
-      
-      .services-title {
-        flex-basis: 25%;
+
+      .services-button {
+        margin-top: 0.5rem;
       }
-      
-      .services-text {
-        flex-basis: 50%;
+
+      .btn-servicio {
+        margin: 0 auto;
+      }
+
+      .titulo-seccion::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (max-width: 1006px) {
+      .boton-menu { display: block !important; }
+
+      /* Ocultar menú horizontal en móvil */
+      .navegacion-principal ul {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .titulo-seccion {
+        font-size: 1.6rem;
+      }
+
+      .services-text p {
+        font-size: 0.9rem;
+      }
+
+      .boton-menu { display: block !important; }
+
+      /* Ocultar menú horizontal en móvil */
+      .navegacion-principal ul {
+        display: none;
       }
     }
     
@@ -645,11 +674,6 @@
       
       .hero-buttons {
         justify-content: center;
-      }
-      
-      .titulo-seccion::after {
-        left: 50%;
-        transform: translateX(-50%);
       }
     }
   </style>
@@ -708,30 +732,32 @@
   </div>    
 </section>
 
-<!-- ventas -->
-<section class="limitar-ancho servicios-populares">
+<!-- SECCIÓN SERVICIOS (ORIGINAL) -->
+<section class="servicios-populares">
   <div class="overlay-negro"></div>
 
-  <div class="conteneur servicios">
-    
-    <!-- Columna izquierda: Título -->
-    <div class="columna services-title">
-      <p class="etiqueta">Services</p>
-      <h2 class="titulo-seccion">Skip the Weekend Rush</h2>
-    </div>
+  <div class="limitar-ancho">
+    <div class="conteneur servicios">
+      
+      <!-- Columna izquierda: Título -->
+      <div class="services-title">
+        <p class="etiqueta">Services</p>
+        <h2 class="titulo-seccion">Skip the Weekend Rush</h2>
+      </div>
 
-    <!-- Texto descriptivo -->
-    <div class="columna services-text">
-      <p>
-        Why wait for weekend crowds when you can look flawless all week? Turn your gloomy Monday into a self-care goal and avoid the long Saturday lines. <strong>Weekly Discount Schedule:</strong> <span style="color:#b0b0b0;">Monday & Tuesday:</span> 30-40% OFF <span style="color:#888888;">Wednesday & Thursday:</span> 15-20% OFF <span style="color:#555555;">Friday to Sunday:</span> Regular Prices. "Start your week looking fresh, not stressed!
-      </p>
-    </div>
-    
-    <!-- Botón -->
-    <div class="columna services-button">
-      <a href="services.html#servicios" class="btn-servicio">All services</a>
-    </div>
+      <!-- Texto descriptivo -->
+      <div class="services-text">
+        <p>
+          Why wait for weekend crowds when you can look flawless all week? Turn your gloomy Monday into a self-care goal and avoid the long Saturday lines. <strong>Weekly Discount Schedule:</strong> <span style="color:#b0b0b0;">Monday & Tuesday:</span> 30-40% OFF <span style="color:#888888;">Wednesday & Thursday:</span> 15-20% OFF <span style="color:#555555;">Friday to Sunday:</span> Regular Prices. "Start your week looking fresh, not stressed!
+        </p>
+      </div>
+      
+      <!-- Botón -->
+      <div class="services-button">
+        <a href="services.html#servicios" class="btn-servicio">All services</a>
+      </div>
 
+    </div>
   </div>
 </section>
 
