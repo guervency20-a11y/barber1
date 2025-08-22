@@ -842,12 +842,6 @@ h2,h3,.services-title,.step-title {
     left: 50%;
     transform: translateX(-50%);
   }
-
-    .stat-item:nth-child(3) {
-    flex-basis: 100%;
-    display: flex;
-    justify-content: center;
-  }
   
   .barber-stats {
     justify-content: space-around;
@@ -858,7 +852,6 @@ h2,h3,.services-title,.step-title {
   .intro-section {
     padding: 40px 15px;
   }
-
   
   .service-card { 
     height: 380px; 
@@ -887,12 +880,6 @@ h2,h3,.services-title,.step-title {
     flex-wrap: nowrap;
     gap: 20px;
   }
-
-    .stat-item:nth-child(3) {
-    flex-basis: 100%;
-    display: flex;
-    justify-content: center;
-  }
 }
 
 /* Animaciones */
@@ -904,6 +891,19 @@ h2,h3,.services-title,.step-title {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+@media (max-width: 600px) {
+  .barber-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    justify-items: center;
+  }
+  .stat-item:nth-child(3) {
+    grid-column: 1 / -1; /* baja y queda centrado entre los dos */
+  }
+}
+
 
 /* =========================================================
    SERVICES — Consolidado: layout, tamaño, aparición, hover
