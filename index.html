@@ -171,7 +171,7 @@
     .hero .overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.4);
     }
     
     .hero-content {
@@ -193,13 +193,14 @@
       text-align: left;
       text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
       margin-bottom: 1.2rem;
+      max-width: 500px;
     }
     
     .hero-content p {
       font-family: 'Rubik', sans-serif;
       font-weight: 300;
       font-size: 1rem;
-      max-width: 100%;
+      max-width: 500px;
       color: rgba(255, 255, 255, 0.85);
       line-height: 1.5;
       text-align: left;
@@ -256,11 +257,11 @@
       overflow: hidden;
     }
 
-    /* Overlay con degradado más sutil */
+    /* Overlay con degradado más claro (reducida opacidad) */
     .overlay-negro {
       position: absolute;
       inset: 0;
-      background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.6));
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)); /* Reducida opacidad */
       z-index: 0;
     }
 
@@ -321,10 +322,10 @@
       border-radius: 2px;
     }
 
-    /* Texto */
+    /* Texto - AUMENTADO EL ANCHO */
     .services-text {
-      flex: 1 1 clamp(300px, 50%, 600px);
-      max-width: 650px;
+      flex: 1 1 clamp(350px, 60%, 700px); /* Aumentado el ancho mínimo y porcentaje */
+      max-width: 700px; /* Aumentado el máximo */
     }
 
     .services-text p {
@@ -674,6 +675,10 @@
       
       .hero-buttons {
         justify-content: center;
+      }
+      
+      .services-text {
+        flex: 1 1 100%; /* Asegura que ocupe todo el ancho en móvil */
       }
     }
   </style>
