@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Prata&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="styles.css">
 <style>
 :root {
   --black: #0a0a0a;
@@ -47,6 +46,8 @@ body {
   );
   color: var(--white);
   font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 body::before{
   content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
@@ -59,58 +60,106 @@ body::before{
 
 /* === ENCABEZADO === */
 .encabezado {
-  position: fixed; /* Fijo */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 100;
   padding: 8px 0;
-  background-color: rgba(0, 0, 0, 0.9); /* Transparente al inicio */
+  background-color: transparent;
   transition: background-color 0.3s ease;
 }
 
+.contenedor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.logo img {
+  height: 40px;
+}
+
+/* Ocultar logo en móvil y tablet */
+@media (max-width: 1024px) {
+  .logo {
+    display: none;
+  }
+}
+
+.navegacion-principal ul {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+}
+
+.navegacion-principal a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navegacion-principal a:hover {
+  color: var(--gold);
+}
+
 .boton-menu {
-      display: none;
-      font-size: 2rem;
-      color: white;
-      cursor: pointer;
-    }
-    
-    .menu-lateral {
-      position: fixed;
-      top: 0;
-      right: -300px;
-      width: 300px;
-      height: 100vh;
-      background-color: rgb(26, 14, 24);
-      z-index: 1000;
-      padding: 80px 20px 20px;
-      transition: right 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    
-    .menu-lateral.active {
-      right: 0;
-    }
-    
-    .menu-lateral a {
-      color: white;
-      text-decoration: none;
-      font-size: 1.2rem;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
+  display: none;
+  font-size: 2rem;
+  color: var(--gold);
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* Mostrar botón de menú en móvil y tablet */
+@media (max-width: 1024px) {
+  .navegacion-principal {
+    display: none;
+  }
+  
+  .boton-menu {
+    display: block;
+  }
+}
+  
+.menu-lateral {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100vh;
+  background-color: rgb(26, 14, 24);
+  z-index: 1000;
+  padding: 80px 20px 20px;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+  
+.menu-lateral.active {
+  right: 0;
+}
+  
+.menu-lateral a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
 
 /* Sección de presentación del barbero */
-/* Animaciones de entrada para la sección del barbero */
-/* Animaciones de entrada para la sección del barbero */
 .barber-presentation {
   position: relative !important;
-  background: url('aver3.png') center/cover no-repeat !important;
   background-color: transparent !important;
-  padding: 4rem 2rem;
+  padding: 6rem 2rem 4rem;
   color: white;
   overflow: hidden;
   opacity: 0;
@@ -668,53 +717,72 @@ h2,h3,.services-title,.step-title {
 }
 
 /* Footer */
-.footer {
-  background: var(--black);
-  padding: 40px 20px;
-  text-align: center;
-  border-top: 1px solid rgba(255,255,255,.1);
-}
+    footer {
+      background: linear-gradient(to right, #0d0d0d, #1a1a1a);
+      color: #fff;
+      padding: 15px 10px 8px;
+      font-size: 0.75rem;
+    }
 
-.footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-}
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
 
-.footer-text {
-  color: var(--light-gray);
-  margin-bottom: 20px;
-  font-size: 14px;
-}
+    .footer-section h3 {
+      color: #d4af37;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      padding-bottom: 3px;
+    }
 
-.social-links {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
+    .footer-section p {
+      margin: 3px 0;
+      color: #e0e0e0;
+      line-height: 1.3;
+      font-size: 0.72rem;
+    }
 
-.social-link {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gold);
-  text-decoration: none;
-  transition: var(--transition);
-}
+    .footer-section i {
+      margin-right: 6px;
+      font-size: 0.8rem;
+      color: #d4af37;
+    }
 
-.social-link:hover {
-  background: var(--gold);
-  color: #111;
-  transform: translateY(-3px);
-}
+    .social-links a {
+      margin-right: 8px;
+      font-size: 0.9rem;
+      color: #fff;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .social-links a:hover {
+      color: #d4af37;
+      transform: scale(1.05);
+    }
+
+    footer .copyright {
+      text-align: center;
+      margin-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 6px;
+      font-size: 0.65rem;
+      color: #b3b3b3;
+    }
 
 /* Responsive */
 @media (max-width: 1024px) {
   .service-card { 
     height: 420px; 
+  }
+
+  .desktop-only {
+    display: none !important;
   }
   
   .barber-container {
@@ -737,6 +805,10 @@ h2,h3,.services-title,.step-title {
 }
 
 @media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+
   .services-grid {
     grid-template-columns: 1fr;
     max-width: 500px;
@@ -1152,43 +1224,6 @@ h2,h3,.services-title,.step-title {
   .close-btn { width: 28px; height: 28px; font-size: 14px; top: 10px; right: 10px; }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Contenedor y wrapper de servicios */
 .services-container {
   padding: 40px 0 80px;
@@ -1552,10 +1587,6 @@ h2,h3,.services-title,.step-title {
   box-shadow: 0 6px 15px rgba(0,0,0,0.6);
 }
 
-.boton-menu {
-  color: blue;
-}
-
 /* Animaciones */
 .fade-in {
   animation: fadeIn 0.8s ease forwards;
@@ -1580,10 +1611,6 @@ h2,h3,.services-title,.step-title {
   .service-desc { display: block; font-size: 13px; }
   .service-name { font-size: 20px; }
   .info-panel { padding: 20px; }
-}
-
-.boton-menu {
-  color: blue;
 }
 
 /* Desktop (>= 1024px) */
@@ -1627,10 +1654,6 @@ h2,h3,.services-title,.step-title {
     margin: 40px auto;
   }
   
-
-  .boton-menu {
-  color: blue;
-}
   .service-card { 
     height: 400px; 
   }
@@ -1662,10 +1685,6 @@ h2,h3,.services-title,.step-title {
     max-width: 100%;
   }
   
-
-  .boton-menu {
-  color: blue;
-}
   .service-card {
     height: 460px;
     border-radius: 16px;
@@ -1700,73 +1719,136 @@ h2,h3,.services-title,.step-title {
     gap: 20px;
   }
 }
+
+/* Estilos para el menú móvil */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--gold);
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  height: 100vh;
+  background-color: rgba(26, 14, 24, 0.98);
+  z-index: 1000;
+  padding: 80px 20px 20px;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mobile-menu.active {
+  right: 0;
+}
+
+.mobile-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.close-menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .mobile-menu-btn {
+    display: block;
+  }
+  
+  .desktop-nav {
+    display: none;
+  }
+}
+
+.footer-section h3 {
+  color: var(--gold);
+}
 </style>
 </head>
 <body>
 
-<header class="encabezado" id="encabezado">
-  <div class="contenedor">
-    <div class="logo">
-      <a href="/">
-        <img src="https://cutstyle.true-emotions.studio/dark-beard/wp-content/uploads/sites/4/2018/08/logo-db2.svg" alt="Logo Dark Beard">
-      </a>
+  <!-- Encabezado -->
+  <header class="encabezado">
+    <div class="contenedor">
+      <div class="logo">
+        <img src="logo.png" alt="Logo Barber Club">
+      </div>
+      <nav class="navegacion-principal desktop-nav">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="galeria.html">Galería</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="ubicacion.html">Ubicación</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
+  </header>
 
-    <nav class="navegacion-principal">
-      <ul>
-        <li><a href="#inicio">Inicio</a></li>
-        <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#maestros">Maestros</a></li>
-        <li><a href="#precios">Precios</a></li>
-        <li><a href="#contactos">Contactos</a></li>
-      </ul>
-    </nav>
-
-  <i class='bx nbx-meu boton-menu' id="boton-menu"></i>
+  <!-- Menú móvil -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenu">
+      <i class="fas fa-times"></i>
+    </button>
+    <a href="index.html">Inicio</a>
+    <a href="servicios.html">Servicios</a>
+    <a href="galeria.html">Galería</a>
+    <a href="nosotros.html">Nosotros</a>
+    <a href="ubicacion.html">Ubicación</a>
   </div>
-</header>
 
-<!-- Menú lateral para móvil -->
-<div class="menu-lateral" id="menuLateral">
-  <a href="#inicio">Inicio</a>
-  <a href="#nosotros">Nosotros</a>
-  <a href="#servicios">Servicios</a>
-  <a href="#maestros">Maestros</a>
-  <a href="#precios">Precios</a>
-  <a href="#contactos">Contactos</a>
-</div>
-
-<!-- Sección de presentación del barbero -->
-<section class="barber-presentation fade-in" id="barber">
-<div class="barber-container">
-<div class="barber-image-container">
-<img src="lucson.png" alt="Maestro Barbero" class="barber-image">
-</div>
-<div class="barber-info">
-<span class="barber-tag">Master Barber & Artist</span>
-<h2 class="barber-name">Lucson Guerrier</h2>
-<p class="barber-description">
-At 50, Lucson brings three decades of mastery to every chair. He started cutting hair at 16, dedicated himself fully to the craft at 22, and has been perfecting his art ever since. As a self-taught painter who's held brushes since childhood, Lucson sees every head as a canvas, every cut as a masterpiece. His artistic vision transforms ordinary haircuts into signature styles that reflect who you truly are.
-</p>
-<div class="barber-stats">
-<div class="stat-item">
-<span class="stat-number">30+</span>
-<span class="stat-label">Years Mastering</span>
-</div>
-       <div class="stat-item">
-         <span class="stat-number">8000+</span>
-         <span class="stat-label">Transformations</span>
-       </div>
-       <div class="stat-item">
-         <span class="stat-number">50</span>
-         <span class="stat-label">Years of Wisdom</span>
-       </div>
-     </div>
-     <a href="#servicios" class="barber-cta">Experience the Difference</a>
-   </div>
- </div>
-</section>
+  <!-- Sección de presentación del barbero -->
+  <section class="barber-presentation " id="barber">
+    <div class="barber-container">
+      <div class="barber-image-container">
+        <img src="lucson.png" alt="Master Barber & Artist Lucson Guerrier" class="barber-image">
+      </div>
+      <div class="barber-info">
+        <span class="barber-tag">Master Barber & Artist</span>
+        <h2 class="barber-name">Lucson Guerrier</h2>
+        <p class="barber-description">
+          At 50, Lucson brings three decades of mastery to every chair. He started cutting hair at 16, dedicated himself fully to the craft at 22, and has been perfecting his art ever since. As a self-taught painter who's held brushes since childhood, Lucson sees every head as a canvas, every cut as a masterpiece. His artistic vision transforms ordinary haircuts into signature styles that reflect who you truly are.
+        </p>
+        <div class="barber-stats">
+          <div class="stat-item">
+            <span class="stat-number">30+</span>
+            <span class="stat-label">Years Mastering</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">8000+</span>
+            <span class="stat-label">Transformations</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">50</span>
+            <span class="stat-label">Years of Wisdom</span>
+          </div>
+        </div>
+        <a href="ubicacion.html" class="barber-cta">Reseñas</a>
+      </div>
+    </div>
+  </section>
 
 <section class="intro-section fade-in" id="servicios">
   <div class="services-wrapper">
@@ -1804,7 +1886,7 @@ At 50, Lucson brings three decades of mastery to every chair. He started cutting
           </div>
 
           <p class="info-text" style="margin-top:6px;">Promo: 5º corte gratis</p>
-          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</button></a>
+          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</a>
         </div>
       </div>
 
@@ -1838,7 +1920,7 @@ At 50, Lucson brings three decades of mastery to every chair. He started cutting
 
           <p class="info-text" style="margin-top:6px;">Incluye vapor y aceites</p>
 
-          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</button></a>
+          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</a>
         </div>
       </div>
 
@@ -1871,7 +1953,7 @@ At 50, Lucson brings three decades of mastery to every chair. He started cutting
 
           <p class="info-text" style="margin-top:6px;">Incluye mascarilla y aceite</p>
 
-          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</button></a>
+          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</a>
         </div>
       </div>
 
@@ -1903,7 +1985,7 @@ At 50, Lucson brings three decades of mastery to every chair. He started cutting
 
           <p class="info-text" style="margin-top:6px;">Efectos inmediatos</p>
 
-          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</button></a>
+          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</a>
         </div>
       </div>
     </div>
@@ -1922,13 +2004,13 @@ At 50, Lucson brings three decades of mastery to every chair. He started cutting
     </div>
     
     <div class="info-button">
-      <a href="#" class="btn-info">Todos los servicios</a>
+      <a href="#barber" class="btn-info">Experience & Barber</a>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
-<footer>
+  <!-- Footer -->
+  <footer>
     <div class="footer-content">
         <div class="footer-section">
             <h3>Majestic Cuts Salon</h3>
@@ -1962,59 +2044,87 @@ At 50, Lucson brings three decades of mastery to every chair. He started cutting
     <div class="copyright">
         <p>&copy; 2023 Majestic Cuts Salon. All rights reserved.</p>
     </div>
-</footer>
+  </footer>
 
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  const cards = document.querySelectorAll('.service-card');
-  
-  // Función para cerrar todos los paneles
-  function closeAllPanels() {
-    cards.forEach(card => {
-      card.classList.remove('active');
-    });
-  }
-  
-  // Configurar cada tarjeta
-  cards.forEach(card => {
-    const toggle = card.querySelector('.toggle-btn');
-    const closeBtn = card.querySelector('.close-btn');
-    
-    // Abrir panel al hacer clic en "Ver detalle"
-    toggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      closeAllPanels();
-      card.classList.add('active');
-    });
-    
-    // Cerrar panel al hacer clic en "X"
-    closeBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      card.classList.remove('active');
-    });
-    
-    // Cerrar panel al hacer clic fuera del contenido
-    card.addEventListener('click', (e) => {
-      if (e.target === card && card.classList.contains('active')) {
-        card.classList.remove('active');
+ <script>
+    // JavaScript para el menú móvil
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const closeMenuBtn = document.getElementById('closeMenu');
+      const mobileMenu = document.getElementById('mobileMenu');
+      
+      mobileMenuBtn.addEventListener('click', function() {
+        mobileMenu.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+      
+      closeMenuBtn.addEventListener('click', function() {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      });
+      
+      // Cerrar menú al hacer clic en un enlace
+      const menuLinks = mobileMenu.querySelectorAll('a');
+      menuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        });
+      });
+      
+      // Header con fondo al hacer scroll
+      const header = document.querySelector('.encabezado');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          header.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+        } else {
+          header.style.backgroundColor = 'transparent';
+        }
+      });
+      
+      // Funcionalidad para las tarjetas de servicio
+      const serviceCards = document.querySelectorAll('.service-card');
+      
+      serviceCards.forEach(card => {
+        const toggleBtn = card.querySelector('.toggle-btn');
+        const closeBtn = card.querySelector('.close-btn');
+        
+        toggleBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          closeAllCards();
+          card.classList.add('active');
+        });
+        
+        closeBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          card.classList.remove('active');
+        });
+        
+        card.addEventListener('click', function(e) {
+          if (!e.target.closest('.toggle-btn') && !e.target.closest('.close-btn') && !e.target.closest('.info-panel')) {
+            if (card.classList.contains('active')) {
+              card.classList.remove('active');
+            } else {
+              closeAllCards();
+              card.classList.add('active');
+            }
+          }
+        });
+      });
+      
+      function closeAllCards() {
+        serviceCards.forEach(card => {
+          card.classList.remove('active');
+        });
       }
+      
+      // Cerrar tarjetas al hacer clic fuera de ellas
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.service-card')) {
+          closeAllCards();
+        }
+      });
     });
-  });
-  
-  // Cerrar con tecla ESC
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeAllPanels();
-  });
-  
-  // Cerrar al hacer clic fuera de las tarjetas
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.service-card')) {
-      closeAllPanels();
-    }
-  });
-});
-</script>
-
-<script src="scripts.js"></script>
+  </script>
 </body>
 </html>
