@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Salón Majestic Cuts</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* Reset y básicos */
@@ -86,117 +85,61 @@
       color: white;
     }
 
-    /* Ubicación y contacto */
-    .location-contact {
+    /* NUEVA SECCIÓN: Ubicación y contacto compacta */
+    .location-contact-compact {
       display: flex;
       flex-wrap: wrap;
-      padding: 30px;
-      gap: 30px;
-      align-items: flex-start;
+      padding: 20px;
+      gap: 20px;
       background-color: #1a1a1a;
       border-radius: 12px;
       margin: 20px;
-      transition: all 0.3s ease;
     }
-
-    .location-contact:hover {
-      transform: translateY(-2px);
-    }
-
-    .location-contact .map {
+    
+    .map-compact {
       flex: 1;
       min-width: 280px;
       min-height: 250px;
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      transition: all 0.3s ease;
-      position: relative;
     }
-
-    .location-contact .map:hover {
-      transform: scale(1.02);
-    }
-
-    .location-contact .map iframe {
-      width: 100%;
-      height: 100%;
-      min-height: 250px;
-      border: 0;
-    }
-
-    .location-contact .details {
+    
+    .contact-details-compact {
       flex: 1;
+      min-width: 280px;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
       gap: 15px;
-      min-width: 280px;
     }
-
-    .details .address, .details .phone-container, .details {
+    
+    .contact-item {
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      padding: 10px;
-      border-radius: 10px;
-      transition: all 0.3s ease;
     }
-
-    .parking {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 0.85rem;
-      margin-top: 15px;
-      width: 100%;
+    
+    .contact-icon {
+      font-size: 1.2rem;
+      color: #FFD700;
+      min-width: 24px;
     }
-
-    .details .address:hover, .details .phone-container:hover, .details .parking:hover {
-      transform: translateX(5px);
-    }
-
-    .details .address p, .details .phone-container p, .details .parking p {
+    
+    .contact-text {
       font-size: 0.95rem;
       color: #fff;
       line-height: 1.4;
     }
-
-    .details .note {
+    
+    .note {
       font-size: 0.85rem;
       color: #ccc;
-      margin-top: 8px;
-    }
-
-    .phone-container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
       margin-top: 5px;
     }
-
-    .phone-icon {
-      font-size: 1.2rem;
-      color: #FFD700;
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-3px); }
-      60% { transform: translateY(-1px); }
-    }
-
-    .phone-number {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #FFD700;
-    }
-
+    
     .divider {
       height: 1px;
       background-color: #333;
-      margin: 15px 0;
       width: 100%;
     }
 
@@ -527,40 +470,37 @@
       color: #b3b3b3;
     }
 
-    /* Responsivo */
+    /* Responsivo - Ajustes específicos para la nueva sección */
     @media (max-width: 768px) {
       .hero .info-box {
         width: 80%;
       }
       
-      .location-contact {
+      .location-contact-compact {
         flex-direction: row;
-        padding: 20px;
         margin: 15px;
-        gap: 20px;
+        padding: 15px;
+        gap: 15px;
       }
       
-      .location-contact .map {
+      .map-compact {
         flex: 0 0 45%;
         min-width: 45%;
         height: 200px;
       }
 
-      .location-contact .details {
+      .contact-details-compact {
         flex: 1;
         min-width: 45%;
+        gap: 10px;
       }
 
-      .details .address p, .details .phone-container p, .details .parking p {
-        font-size: 0.8rem;
+      .contact-text {
+        font-size: 0.85rem;
       }
 
-      .details .note {
-        font-size: 0.7rem;
-      }
-
-      .phone-number {
-        font-size: 0.9rem;
+      .note {
+        font-size: 0.75rem;
       }
       
       .hours {
@@ -583,26 +523,17 @@
       }
 
       .review-card.expanded {
-        max-width: 30x;
-      }
-      
-      /* Ocultar scrollbar en móviles */
-      .reviews {
-        scrollbar-width: none;
-      }
-      
-      .reviews::-webkit-scrollbar {
-        display: none;
+        max-width: 300px;
       }
     }
 
     @media (max-width: 576px) {
-      .location-contact {
+      .location-contact-compact {
         flex-direction: row;
         flex-wrap: wrap;
       }
       
-      .location-contact .map {
+      .map-compact {
         flex: 0 0 100%;
         width: 100%;
         min-width: 100%;
@@ -610,22 +541,13 @@
         margin-bottom: 0;
       }
       
-      .parking {
-        order: 3;
-        width: 100%;
-        margin-top: 15px;
-        padding: 10px;
-        background: rgba(0,0,0,0.2);
-        border-radius: 8px;
-      }
-
-      .location-contact .details {
+      .contact-details-compact {
         flex: 1;
         min-width: 100%;
-        order: 2;
+        gap: 12px;
       }
 
-      .details .address p, .details .phone-container p, .details .parking p {
+      .contact-text {
         font-size: 0.85rem;
       }
 
@@ -637,61 +559,49 @@
       .review-card.expanded {
         max-width: 250px;
       }
-      
-      /* Ajuste para el botón de más información */
-      .read-more {
-        display: inline;
-        background: transparent;
-        color: #3498db;
-        padding: 0;
-        margin-left: 5px;
-      }
     }
 
+    @media (max-width: 576px) {
+  .location-contact-compact{
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .map-compact{
+    flex: 0 0 38% !important;   /* mapa más pequeño */
+    max-width: 38% !important;
+    min-width: 0 !important;
+    height: 220px !important;    /* baja la altura */
+    min-height: 0 !important;
+  }
+  .map-compact iframe{
+    width: 100% !important;
+    height: 100% !important;
+    border: 0;
+    display: block;
+  }
+
+  .contact-details-compact{
+    flex: 1 1 62% !important;   /* texto al lado del mapa */
+    min-width: 0 !important;
+    gap: 8px;
+  }
+}
   </style>
 </head>
 <body>
 
   <!-- Hero -->
   <section class="hero">
-    <a href="index.html">
-  <div class="back-arrow"><i class="fa-solid fa-arrow-left"></i></div>
-</a>
+    <a href="javascript:void(0);" onclick="window.history.back();">
+      <div class="back-arrow"><i class="fa-solid fa-arrow-left"></i></div>
+    </a>
     <div class="info-box">
       <h2>Salon Majestic Cuts</h2>
       <div class="rating">4.4 (★★★★★)</div>
       <div class="reviews-count">(32)</div>
-    </div>
-  </section>
-
-  <!-- Ubicación y contacto -->
-  <section class="location-contact">
-    <div class="map">
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2963.024638600622!2d-71.077029!3d42.042652!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e48f5ce497668b%3A0x78031f408260b95f!2sFresh%20Auto%20Wash!5e0!3m2!1ses-419!2sus!4v1755866846271!5m2!1ses-419!2sus" 
-        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-    </div>
-    <div class="details">
-      <div class="address">
-        <span>📍</span>
-        <div>
-          <p>105 Depot Street</p>
-          <p>South Easton 02375</p>
-          <p>United States of America</p>
-          <p class="note">We are located in the same plaza as the Fresh Auto Wash.<br>We are on the left side of the building.</p>
-        </div>
-      </div>
-      <div class="divider"></div>
-      <div class="phone-container">
-        <span class="phone-icon">📱</span>
-        <div class="phone-number">+1 617-501-1114</div>
-      </div>
-      <div class="divider"></div>
-    </div>
-    <div class="parking">
-      <span>🅿️</span>
-      <p>Parking is located at the rear of the building.</p>
     </div>
   </section>
 
@@ -731,18 +641,57 @@
     </div>
   </section>
 
+    <!-- NUEVA SECCIÓN: Ubicación y contacto compacta -->
+  <section class="location-contact-compact">
+    <div class="map-compact">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2963.024638600622!2d-71.077029!3d42.042652!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e48f5ce497668b%3A0x78031f408260b95f!2sFresh%20Auto%20Wash!5e0!3m2!1ses-419!2sus!4v1755866846271!5m2!1ses-419!2sus" 
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+    
+    <div class="contact-details-compact">
+      <div class="contact-item">
+        <span class="contact-icon">📍</span>
+        <div class="contact-text">
+          <p>105 Depot Street</p>
+          <p>South Easton 02375</p>
+          <p>United States of America</p>
+          <p class="note">We are located in the same plaza as the Fresh Auto Wash. We are on the left side of the building.</p>
+        </div>
+      </div>
+      
+      <div class="divider"></div>
+      
+      <div class="contact-item">
+        <span class="contact-icon">📱</span>
+        <div class="contact-text">
+          <p class="phone-number">+1 617-501-1114</p>
+        </div>
+      </div>
+      
+      <div class="divider"></div>
+      
+      <div class="contact-item">
+        <span class="contact-icon">🅿️</span>
+        <div class="contact-text">
+          <p>Parking is located at the rear of the building.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Tags -->
   <section class="tags">
     <span>Walk-Ins Welcome</span>
     <span>Child Friendly</span>
-    <span>Parking Available</span>
     <span>Free Wi-Fi</span>
+    <span>Parking Available</span>
     <span>Waiting Area</span>
-    <span>Wheelchair Accessible</span>
     <span>Senior Discount</span>
+    <span>Wheelchair Accessible</span>
     <span>Multilingual Staff</span>
   </section>
-
 
   <!-- Horarios y CTA -->
   <section class="hours-cta">
@@ -757,7 +706,7 @@
       <p>Saturday</p><p>09:30 AM – 08:30 PM</p>
     </div>
     <a href="agenda.html">
-    <button class="cta-button">BOOK APPOINTMENT</button>
+      <button class="cta-button">BOOK APPOINTMENT</button>
     </a>
   </section>
 
@@ -799,45 +748,45 @@
   </footer>
 
   <!-- Script para expandir reseñas al pulsar la carta -->
-<script>
-document.querySelectorAll('.review-card').forEach(card => {
-  const more = card.querySelector('.read-more');
-  const text = card.querySelector('p');
-  const originalText = text.textContent;
+  <script>
+    document.querySelectorAll('.review-card').forEach(card => {
+      const more = card.querySelector('.read-more');
+      const text = card.querySelector('p');
+      const originalText = text.textContent;
 
-  // Solo si el texto es largo
-  if (originalText.length > 120) {
-    // Mostrar solo un fragmento al inicio
-    text.textContent = originalText.substring(0, 120) + '...';
-    more.textContent = 'more';
-
-    // Función para alternar expansión
-    const toggleText = () => {
-      card.classList.toggle('expanded');
-      if (card.classList.contains('expanded')) {
-        text.textContent = originalText;
-        more.textContent = 'less';
-      } else {
+      // Solo si el texto es largo
+      if (originalText.length > 120) {
+        // Mostrar solo un fragmento al inicio
         text.textContent = originalText.substring(0, 120) + '...';
         more.textContent = 'more';
+
+        // Función para alternar expansión
+        const toggleText = () => {
+          card.classList.toggle('expanded');
+          if (card.classList.contains('expanded')) {
+            text.textContent = originalText;
+            more.textContent = 'less';
+          } else {
+            text.textContent = originalText.substring(0, 120) + '...';
+            more.textContent = 'more';
+          }
+        };
+
+        // Activar al pulsar toda la carta
+        card.addEventListener('click', toggleText);
+
+        // Evitar propagación al hacer clic en el botón
+        more.addEventListener('click', e => {
+          e.stopPropagation();
+          toggleText();
+        });
+
+      } else {
+        // Ocultar el botón si el texto es corto
+        more.style.display = 'none';
       }
-    };
-
-    // Activar al pulsar toda la carta
-    card.addEventListener('click', toggleText);
-
-    // Evitar propagación al hacer clic en el botón
-    more.addEventListener('click', e => {
-      e.stopPropagation();
-      toggleText();
     });
-
-  } else {
-    // Ocultar el botón si el texto es corto
-    more.style.display = 'none';
-  }
-});
-</script>
+  </script>
 
 </body>
 </html>
