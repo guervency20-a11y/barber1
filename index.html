@@ -7,25 +7,659 @@
   <meta name="description" content="Barbería moderna para hombres - cortes, estilo y comunidad." />
   <meta name="keywords" content="barbería, cortes de cabello, estilo masculino, barber shop" />
   <meta name="author" content="Tu Nombre o Marca" />
-  <link rel="stylesheet" href="styles.css" />
   <title>Dark Beard - Barbería Masculina</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=fire">
   <link rel='dns-prefetch' href='//maps.googleapis.com' />
-<link rel='dns-prefetch' href='//fonts.googleapis.com' />
-<link rel='dns-prefetch' href='//use.fontawesome.com' />
-<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel='dns-prefetch' href='//fonts.googleapis.com' />
+  <link rel='dns-prefetch' href='//use.fontawesome.com' />
+  <link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <!-- CSS de Splide (versión exacta) -->
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css" />
   <!-- Boxicons para flechas personalizadas -->
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <style>
+    /* ESTILOS GENERALES */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background-image: url('papeln.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      color: white;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    
+    /* HEADER */
+    .encabezado {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 8px 0;
+      background-color: rgba(17, 17, 17, 0.4);
+      transition: background-color 0.3s ease;
+    }
+    
+    .encabezado.sticky {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    
+    .contenedor {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+    }
+    
+    .logo img {
+      height: 50px;
+      margin-left: 15px;
+    }
+    
+    .navegacion-principal ul {
+      list-style: none;
+      display: flex;
+      gap: 1.2rem;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .navegacion-principal a {
+      color: #fff;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    
+    .navegacion-principal a:hover {
+      color: rgba(236, 163, 4, 0.8);
+    }
+    
+    .boton-menu {
+      display: none;
+      font-size: 32px;
+      color: #FFD700; 
+      cursor: pointer;
+      background: none;
+      border: none;
+      margin-right: 15px;
+    }
+    
+    /* Menú lateral móvil */
+    .menu-lateral {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 280px;
+      background: rgba(17, 17, 17, 0.95);
+      transform: translateX(-100%);
+      opacity: 0;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+      padding-top: 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      z-index: 200;
+    }
+    
+    .menu-lateral a {
+      color: #fff;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 12px 24px;
+      font-weight: 700;
+      border-left: 4px solid transparent;
+      transition: border-color 0.3s, background-color 0.3s;
+    }
+    
+    .menu-lateral a:hover {
+      background-color: rgba(236, 163, 4, 0.2);
+      border-left-color: rgba(236, 163, 4, 0.8);
+    }
+    
+    .menu-lateral.activo {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .fondo-oscuro {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(3px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      z-index: 150;
+    }
+    
+    .fondo-oscuro.activo {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    /* HERO SECTION - CORREGIDO PARA MÓVIL */
+    .hero {
+      position: relative;
+      background-image: url('https://cutstyle.true-emotions.studio/dark-beard/wp-content/uploads/sites/4/2019/03/beard4.jpg');
+      background-size: cover;
+      background-position: 70% center; /* Ajustado para mostrar el rostro en móvil */
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 20px;
+      margin-top: 70px;
+    }
+    
+    .hero .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+    
+    .hero-content {
+      position: relative;
+      max-width: 100%;
+      padding: 0 15px;
+      color: white;
+      line-height: 1.6;
+      text-align: left;
+      z-index: 2;
+    }
+    
+    .hero-content h1 {
+      font-family: 'Prata', serif;
+      font-size: 2.2rem;
+      font-weight: normal;
+      color: #ffffff;
+      line-height: 1.2;
+      text-align: left;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+      margin-bottom: 1.2rem;
+    }
+    
+    .hero-content p {
+      font-family: 'Rubik', sans-serif;
+      font-weight: 300;
+      font-size: 1rem;
+      max-width: 100%;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.5;
+      text-align: left;
+      margin-bottom: 1.5rem;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+    }
+    
+    .hero-buttons {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    
+    .btn {
+      padding: 12px 25px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      border: 1px solid white;
+      display: inline-block;
+      transition: background 0.4s ease, color 0.4s ease;
+      text-align: center;
+      font-size: 14px;
+    }
+    
+    .btn-primary {
+      background: #e4c686;
+      color: #000000;
+    }
+    
+    .btn-primary:hover {
+      background: #000000;
+      color: #e4c686;
+      border: 1px solid #e4c686;
+    }
+    
+    .btn-secondary {
+      background: rgb(68, 67, 67);
+      color: #ffffff;
+    }
+    
+    .btn-secondary:hover {
+      background: rgb(0, 0, 0);
+      color: #ffffff;
+    }
+    
+    /* SECCIÓN SERVICIOS */
+    .servicios-populares {
+      position: relative;
+      background: url('fondo.png') center/cover no-repeat;
+      padding: 3rem 1rem;
+      color: white;
+      overflow: hidden;
+    }
+    
+    .overlay-negro {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.6));
+      z-index: 0;
+    }
+    
+    .limitar-ancho {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 15px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .conteneur.servicios {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+    
+    .services-title {
+      width: 100%;
+    }
+    
+    .etiqueta {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: #dbb859;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .titulo-seccion {
+      font-size: 1.8rem;
+      margin: 0;
+      font-family: 'Prata', serif;
+      color: white;
+      text-transform: uppercase;
+      line-height: 1.2;
+      position: relative;
+      text-shadow: 0 0 8px rgba(255,255,255,0.25);
+    }
+    
+    .titulo-seccion::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 0;
+      width: 120px;
+      height: 4px;
+      background: linear-gradient(90deg, #ffffff, #ffd700, #ffffff);
+      background-size: 300% 300%;
+      animation: shine 3s ease-in-out infinite;
+      border-radius: 2px;
+    }
+    
+    .services-text {
+      width: 100%;
+    }
+    
+    .services-text p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #969292;
+      margin: 0;
+    }
+    
+    .services-button {
+      width: 100%;
+      margin-top: 10px;
+    }
+    
+    .btn-servicio {
+      display: inline-block;
+      padding: 12px 25px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      background: rgba(0,0,0,0.8);
+      color: #dbb859;
+      border: 1px solid #8659db;
+      text-decoration: none;
+      transition: all 0.4s ease;
+    }
+    
+    .btn-servicio:hover {
+      background-color: #e0aa33;
+      color: #111;
+      border-color: #fff;
+    }
+    
+    /* GALERÍA - CORREGIDA PARA MÓVIL */
+    .galeria-fondo {
+      position: relative;
+      background: url('aver2.png') center/cover no-repeat;
+      padding: 2rem 1rem;
+      color: white;
+      overflow: hidden;
+    }
+    
+    .overlayg-negro {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.8));
+      z-index: 0;
+    }
+    
+    .contenedor-servicios {
+      position: relative;
+      z-index: 1;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+    
+    .titulo-galeria {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      text-align: center;
+      font-family: 'Prata', serif;
+      color: white;
+      text-transform: uppercase;
+      line-height: 1.2;
+      position: relative;
+      text-shadow: 0 0 8px rgba(255,255,255,0.25);
+    }
+    
+    .titulo-galeria::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 4px;
+      background: linear-gradient(90deg, #ffffff, #ffd700, #ffffff);
+      background-size: 300% 300%;
+      animation: shine 3s ease-in-out infinite;
+      border-radius: 2px;
+    }
+    
+    .contenedor-galeria {
+      max-width: 100%;
+      margin: 30px auto 0;
+      padding: 0;
+    }
+    
+    .galeria-principal {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+    
+    #carrusel-principal .splide__slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    
+    /* Miniaturas */
+    #carrusel-miniaturas {
+      margin-top: 10px;
+      max-width: 100%;
+    }
+    
+    #carrusel-miniaturas .splide__slide {
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+    }
+    
+    #carrusel-miniaturas .splide__slide.is-active {
+      opacity: 1;
+    }
+    
+    #carrusel-miniaturas .splide__slide img {
+      width: 100%;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+    
+    #carrusel-miniaturas .splide__slide.is-active img {
+      border-color: #FFB612;
+    }
+    
+    /* Ocultar flechas en móvil */
+    .flechas-container {
+      display: none;
+    }
+    
+    /* FOOTER */
+    footer {
+      background: linear-gradient(to right, #0d0d0d, #1a1a1a);
+      color: #fff;
+      padding: 15px 10px 8px;
+      font-size: 0.75rem;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .footer-section h3 {
+      color: #d4af37;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      padding-bottom: 3px;
+    }
+    
+    .footer-section p {
+      margin: 3px 0;
+      color: #e0e0e0;
+      line-height: 1.3;
+      font-size: 0.72rem;
+    }
+    
+    .footer-section i {
+      margin-right: 6px;
+      font-size: 0.8rem;
+      color: #d4af37;
+    }
+    
+    .social-links a {
+      margin-right: 8px;
+      font-size: 0.9rem;
+      color: #fff;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+    
+    .social-links a:hover {
+      color: #d4af37;
+      transform: scale(1.05);
+    }
+    
+    footer .copyright {
+      text-align: center;
+      margin-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 6px;
+      font-size: 0.65rem;
+      color: #b3b3b3;
+    }
+    
+    /* ANIMACIONES */
+    @keyframes shine {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+    
+    /* MEDIA QUERIES */
+    @media (min-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.8rem;
+      }
+      
+      .hero-content {
+        max-width: 500px;
+        margin-left: 2rem;
+      }
+      
+      .hero-buttons {
+        flex-direction: row;
+      }
+      
+      .conteneur.servicios {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      
+      .services-title {
+        flex: 1 1 30%;
+      }
+      
+      .services-text {
+        flex: 1 1 50%;
+      }
+      
+      .services-button {
+        flex: 0 0 auto;
+      }
+      
+      .galeria-principal {
+        height: 450px;
+      }
+      
+      /* Mostrar flechas en desktop */
+      .flechas-container {
+        display: flex;
+        position: absolute;
+        width: calc(100% - 40px);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        justify-content: space-between;
+        z-index: 10;
+        pointer-events: none;
+      }
+      
+      .flecha {
+        pointer-events: all;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5));
+        border: 2px solid #FFB612;
+        color: #FFB612;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 20px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      }
+      
+      .flecha:hover {
+        background: #FFB612;
+        color: #000;
+      }
+      
+      .navegacion-principal ul {
+        display: flex;
+      }
+      
+      .boton-menu {
+        display: none;
+      }
+    }
+    
+    @media (min-width: 992px) {
+      .conteneur.servicios {
+        justify-content: space-between;
+      }
+      
+      .services-title,
+      .services-text,
+      .services-button {
+        flex: 0 0 auto;
+      }
+      
+      .services-title {
+        flex-basis: 25%;
+      }
+      
+      .services-text {
+        flex-basis: 50%;
+      }
+    }
+    
+    @media (max-width: 767px) {
+      .navegacion-principal ul {
+        display: none;
+      }
+      
+      .boton-menu {
+        display: block;
+      }
+      
+      .hero {
+        background-position: 75% center;
+        min-height: 80vh;
+      }
+      
+      .hero-content {
+        text-align: center;
+        padding: 0 10px;
+      }
+      
+      .hero-content h1,
+      .hero-content p {
+        text-align: center;
+      }
+      
+      .hero-buttons {
+        justify-content: center;
+      }
+      
+      .titulo-seccion::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  </style>
 </head>
 <body>
 
 <header class="encabezado" id="encabezado">
   <div class="contenedor">
     <div class="logo">
-      <a href="/">
+      <a href="index.html">
         <img src="https://cutstyle.true-emotions.studio/dark-beard/wp-content/uploads/sites/4/2018/08/logo-db2.svg" alt="Logo Dark Beard">
       </a>
     </div>
@@ -34,14 +668,16 @@
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="#services.html">Servicios</a></li>
+        <li><a href="services.html">Servicios</a></li>
         <li><a href="services.html#Barber">Barber</a></li>
         <li><a href="services.html#promos">Promos</a></li>
         <li><a href="#contactos">Contactos</a></li>
       </ul>
     </nav>
 
-    <i class='bx bx-menu boton-menu' id="boton-menu"></i>
+    <button class="boton-menu" id="boton-menu">
+      <i class='bx bx-menu'></i>
+    </button>
   </div>
 </header>
 
@@ -58,42 +694,39 @@
 <!-- Fondo oscuro -->
 <div class="fondo-oscuro" id="fondoOscuro"></div>
 
-
 <section id="home" class="hero">
- <div class="overlay"></div>
- <div class="hero-content">
-   <h1>Men's Haircuts and Hairstyles</h1>
-   <p class="hero-subtitle">
-     Premium cuts, professional service, right around the corner. Located at 1847 Commonwealth Avenue, Brighton – because looking sharp shouldn't require a road trip.
-   </p>
-   <div class="hero-buttons">
-     <a href="services.html#barber" class="btn btn-primary">Barber</a>
-     <a href="#galeria-principal" class="btn btn-secondary">Pictures</a>
-   </div>
- </div>    
+  <div class="overlay"></div>
+  <div class="hero-content">
+    <h1>Men's Haircuts and Hairstyles</h1>
+    <p class="hero-subtitle">
+      Premium cuts, professional service, right around the corner. Located at 1847 Commonwealth Avenue, Brighton – because looking sharp shouldn't require a road trip.
+    </p>
+    <div class="hero-buttons">
+      <a href="services.html#barber" class="btn btn-primary">Barber</a>
+      <a href="#galeria-principal" class="btn btn-secondary">Pictures</a>
+    </div>
+  </div>    
 </section>
 
 <!-- ventas -->
-
 <section class="limitar-ancho servicios-populares">
   <div class="overlay-negro"></div>
 
   <div class="conteneur servicios">
     
     <!-- Columna izquierda: Título -->
-<div class="columna services-title">
-  <p class="etiqueta">Services</p>
-  <h2 class="titulo-seccion">Skip the Weekend Rush</h2>
-</div>
+    <div class="columna services-title">
+      <p class="etiqueta">Services</p>
+      <h2 class="titulo-seccion">Skip the Weekend Rush</h2>
+    </div>
 
-<!-- Texto descriptivo -->
-<div class="columna services-text">
-  <p>
-    Why wait for weekend crowds when you can look flawless all week? Turn your gloomy Monday into a self-care goal and avoid the long Saturday lines. <strong>Weekly Discount Schedule:</strong> <span style="color:#b0b0b0;">Monday & Tuesday:</span> 30-40% OFF <span style="color:#888888;">Wednesday & Thursday:</span> 15-20% OFF <span style="color:#555555;">Friday to Sunday:</span> Regular Prices. "Start your week looking fresh, not stressed!
-  </p>
-</div>
+    <!-- Texto descriptivo -->
+    <div class="columna services-text">
+      <p>
+        Why wait for weekend crowds when you can look flawless all week? Turn your gloomy Monday into a self-care goal and avoid the long Saturday lines. <strong>Weekly Discount Schedule:</strong> <span style="color:#b0b0b0;">Monday & Tuesday:</span> 30-40% OFF <span style="color:#888888;">Wednesday & Thursday:</span> 15-20% OFF <span style="color:#555555;">Friday to Sunday:</span> Regular Prices. "Start your week looking fresh, not stressed!
+      </p>
+    </div>
     
-
     <!-- Botón -->
     <div class="columna services-button">
       <a href="services.html#servicios" class="btn-servicio">All services</a>
@@ -101,7 +734,6 @@
 
   </div>
 </section>
-
 
 <section class="galeria-fondo" id="galeria-principal">
   <div class="overlayg-negro"></div>
@@ -124,7 +756,7 @@
           </div>
         </section>
 
-        <!-- Flechas -->
+        <!-- Flechas (solo visibles en desktop) -->
         <div class="flechas-container">
           <button class="flecha flecha-prev">
             <i class='bx bx-chevron-left'></i>
@@ -154,43 +786,127 @@
 
 <!-- Footer -->
 <footer>
-    <div class="footer-content">
-        <div class="footer-section">
-            <h3>Majestic Cuts Salon</h3>
-            <p>We provide high-quality beauty services with a team of professional stylists.</p>
-        </div>
-        
-        <div class="footer-section">
-            <h3>Business Hours</h3>
-            <p>Monday - Friday: 9:00 AM - 7:00 PM</p>
-            <p>Saturday: 9:00 AM - 5:00 PM</p>
-            <p>Sunday: Closed</p>
-        </div>
-        
-        <div class="footer-section">
-            <h3>Contact</h3>
-            <p><i class="fas fa-map-marker-alt"></i> 123 Beauty Street, City</p>
-            <p><i class="fas fa-phone"></i> (123) 456-7890</p>
-            <p><i class="fas fa-envelope"></i> info@majesticcutssalons.com</p>
-        </div>
-        
-        <div class="footer-section">
-            <h3>Follow Us</h3>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-            </div>
-        </div>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>Majestic Cuts Salon</h3>
+      <p>We provide high-quality beauty services with a team of professional stylists.</p>
     </div>
     
-    <div class="copyright">
-        <p>&copy; 2023 Majestic Cuts Salon. All rights reserved.</p>
+    <div class="footer-section">
+      <h3>Business Hours</h3>
+      <p>Monday - Friday: 9:00 AM - 7:00 PM</p>
+      <p>Saturday: 9:00 AM - 5:00 PM</p>
+      <p>Sunday: Closed</p>
     </div>
+    
+    <div class="footer-section">
+      <h3>Contact</h3>
+      <p><i class="fas fa-map-marker-alt"></i> 123 Beauty Street, City</p>
+      <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+      <p><i class="fas fa-envelope"></i> info@majesticcutssalons.com</p>
+    </div>
+    
+    <div class="footer-section">
+      <h3>Follow Us</h3>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="copyright">
+    <p>&copy; 2023 Majestic Cuts Salon. All rights reserved.</p>
+  </div>
 </footer>
 
-<script src="scripts.js"></script>
-    <!-- Script de Splide -->
+<script>
+// scroll:
+window.addEventListener('scroll', function () {
+  const header = document.querySelector('.encabezado');
+  const scrollY = window.scrollY;
+
+  if (scrollY > 300) {
+    header.classList.add('sticky');
+  } else {
+    header.classList.remove('sticky');
+  }
+});
+
+// menu:
+const botonMenu = document.getElementById('boton-menu');
+const menuLateral = document.getElementById('menuLateral');
+const fondoOscuro = document.getElementById('fondoOscuro');
+
+function alternarMenu() {
+  const activo = menuLateral.classList.toggle('activo');
+  fondoOscuro.classList.toggle('activo', activo);
+}
+
+botonMenu.addEventListener('click', alternarMenu);
+fondoOscuro.addEventListener('click', alternarMenu);
+
+menuLateral.querySelectorAll('a').forEach(enlace => {
+  enlace.addEventListener('click', () => {
+    menuLateral.classList.remove('activo');
+    fondoOscuro.classList.remove('activo');
+  });
+});
+
+// Galería (solo Splide)
+document.addEventListener('DOMContentLoaded', function() {
+  // Galería principal
+  var principal = new Splide('#carrusel-principal', {
+    type: 'loop',
+    pagination: false,
+    arrows: false,
+    cover: true,
+    lazyLoad: 'nearby',
+    autoplay: false,
+    heightRatio: 1,
+    interval: 4000,
+    breakpoints: {
+      768: { heightRatio: 0.8 }
+    }
+  });
+
+  // Miniaturas (también en loop)
+  var miniaturas = new Splide('#carrusel-miniaturas', {
+    type: 'loop',
+    fixedWidth: 100,
+    fixedHeight: 70,
+    gap: 10,
+    pagination: false,
+    isNavigation: true,
+    cover: true,
+    focus: 'center',
+    rewind: false,
+    breakpoints: {
+      768: { 
+        fixedWidth: 80, 
+        fixedHeight: 60,
+        gap: 8
+      },
+      480: {
+        fixedWidth: 70,
+        fixedHeight: 50,
+        gap: 6
+      }
+    }
+  });
+
+  principal.sync(miniaturas);
+  principal.mount();
+  miniaturas.mount();
+
+  // Flechas personalizadas (solo en desktop)
+  if (window.innerWidth >= 768) {
+    document.querySelector('.flecha-prev').addEventListener('click', () => principal.go('-1'));
+    document.querySelector('.flecha-next').addEventListener('click', () => principal.go('+1'));
+  }
+});
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
 </body>
 </html>
