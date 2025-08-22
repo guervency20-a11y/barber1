@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BARBER CLUB - Servicios Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Prata&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+:root {
+  --black: #0a0a0a;
+  --dark-gray: #1a1a1a;
+  --gold: #d4af37;
+  --gold-light: #e0c267;
+  --white: #fff;
+  --light-gray: #969292;
+  --shadow: 0 10px 20px rgba(0,0,0,.25);
+  --transition: all 0.3s ease;
+}
+:root {
+  --gold:#FFD700;
+  --amber:#FFA500;
+  --purple:#8A2BE2;
+  --bg:#0a0a0a;
+  --muted:rgba(255,255,255,.4);
+  --ok:#2ecc71;
+  --ok-dark:#27ae60;
+  --error:#ff5757;
+  --white:#fff;
+  --light-gray:#cfcfcf;
+  --shadow:0 25px 50px rgba(0,0,0,.7);
+  --transition:.3s ease;
+}
+
+/* Fondo general */
+body {
+  background: linear-gradient(
+    135deg,
+    var(--bg) 0%,
+    #1a0a1a 25%,
+    #2d1b4e 50%,
+    #1a0a1a 75%,
+    var(--bg) 100%
+  );
+  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(120,119,198,.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255,215,0,.05) 0%, transparent 50%);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+/* === ENCABEZADO === */
+.encabezado {
+  position: fixed; /* Fijo */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 8px 0;
+  background-color: rgba(0, 0, 0, 0.9); /* Transparente al inicio */
+  transition: background-color 0.3s ease;
+}
+
+.boton-menu {
+      display: none;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+    }
+    
+    .menu-lateral {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100vh;
+      background-color: rgb(26, 14, 24);
+      z-index: 1000;
+      padding: 80px 20px 20px;
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .menu-lateral.active {
+      right: 0;
+    }
+    
+    .menu-lateral a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+/* Sección de presentación del barbero */
+/* Animaciones de entrada para la sección del barbero */
+/* Animaciones de entrada para la sección del barbero */
+.barber-presentation {
+  position: relative !important;
+  background: url('aver3.png') center/cover no-repeat !important;
+  background-color: transparent !important;
+  padding: 4rem 2rem;
+  color: white;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.6s ease-out 0s forwards;
+}
+
+.barber-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  position: relative;
+}
+
+.barber-image-container {
+  margin-top: 40px;
+  position: relative;
+  flex: 0 0 300px;
+  opacity: 0;
+  transform: translateX(-80px) scale(0.9);
+  animation: slideInLeft 0.7s ease-out 0.2s forwards;
+}
+
+.barber-image {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--gold);
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 2;
+  transform: scale(0);
+  animation: zoomIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards;
+}
+
+.barber-image-container::before {
+  content: '';
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, transparent, var(--gold), transparent);
+  top: -10px;
+  left: -10px;
+  z-index: 1;
+  opacity: 0;
+  transform: scale(0);
+  animation: 
+    zoomIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.7s forwards,
+    pulse 3s infinite ease-in-out 1.3s;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 0.7; 
+    transform: scale(1); 
+  }
+  50% { 
+    opacity: 0.4; 
+    transform: scale(1.05); 
+  }
+}
+
+.barber-info {
+  flex: 1;
+  opacity: 0;
+  transform: translateX(80px);
+  animation: slideInRight 0.7s ease-out 0.3s forwards;
+}
+
+.barber-tag {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+  padding: 5px 15px;
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease-out 0.6s forwards;
+}
+
+.barber-name {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-family: 'Prata', serif;
+  margin: 0 0 20px;
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(135deg, var(--gold), var(--amber), var(--purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: 
+    fadeInUp 0.5s ease-out 0.8s forwards,
+    gradientShift 4s ease-in-out 1.3s infinite;
+}
+
+.barber-name::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: var(--gold);
+  animation: expandWidth 0.5s ease-out 1s forwards;
+}
+
+.barber-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--light-gray);
+  margin-bottom: 25px;
+  max-width: 600px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease-out 1s forwards;
+}
+
+.barber-stats {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease-out 1.2s forwards;
+}
+
+.stat-item {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+}
+
+.stat-item:nth-child(1) {
+  animation: bounceIn 0.4s ease-out 1.4s forwards;
+}
+
+.stat-item:nth-child(2) {
+  animation: bounceIn 0.4s ease-out 1.5s forwards;
+}
+
+.stat-item:nth-child(3) {
+  animation: bounceIn 0.4s ease-out 1.6s forwards;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--light-gray);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.barber-cta {
+  display: inline-block;
+  padding: 12px 28px;
+  background: var(--gold);
+  color: var(--black);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 30px;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateY(15px) scale(0.95);
+  animation: bounceIn 0.6s ease-out 1.7s forwards;
+}
+
+.barber-cta:hover {
+  background: var(--gold-light);
+  transform: translateY(-3px);
+}
+
+/* Keyframes para las animaciones */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoomIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes expandWidth {
+  to {
+    width: 80px;
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Animación flotante sutil para la imagen después de la entrada */
+@media (prefers-reduced-motion: no-preference) {
+  .barber-image-container {
+    animation: 
+      slideInLeft 1s ease-out 0.8s forwards,
+      floatAnimation 6s ease-in-out 2.5s infinite;
+  }
+}
+
+@keyframes floatAnimation {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(0) translateY(-8px);
+  }
+  50% {
+    transform: translateX(0) translateY(0);
+  }
+  75% {
+    transform: translateX(0) translateY(4px);
+  }
+}
+
+/* Respeta las preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .barber-presentation,
+  .barber-image-container,
+  .barber-info,
+  .barber-tag,
+  .barber-name,
+  .barber-description,
+  .barber-stats,
+  .barber-cta,
+  .stat-item {
+    animation: fadeInSimple 0.5s ease-out forwards !important;
+  }
+  
+  .barber-image-container::before {
+    animation: none !important;
+  }
+}
+
+@keyframes fadeInSimple {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* Sección de introducción */
+.intro-section {
+  padding: 60px 20px;
+  background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.6)), 
+              url('aver.png') 
+              center/cover no-repeat;
+  text-align: center;
+}
+
+/* Títulos y textos destacados */
+h2,h3,.services-title,.step-title {
+  background: linear-gradient(135deg, var(--gold), var(--amber), var(--purple));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow: 0 0 20px rgba(255,215,0,.25);
+}
+
+
+/* Botón Ver detalle */
+.toggle-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  padding: 12px 22px;
+  border: none;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #111;
+  font-weight: 700;
+  letter-spacing: .5px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: opacity .3s ease, transform .3s ease;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toggle-btn:hover { 
+  background: var(--gold-light);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+/* Estado activo de la tarjeta */
+.service-card.active { 
+  position: relative;
+  transform: scale(1.02); 
+  box-shadow: 0 20px 40px rgba(0,0,0,.7); 
+  z-index: 10;
+}
+
+.service-card.active .service-image {
+  transform: scale(1.08);
+  filter: brightness(.55) blur(2px);
+}
+
+.service-card.active .service-overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, transparent 100%);
+}
+
+.service-card.active .toggle-btn {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(8px) scale(.98);
+}
+
+/* Botón Cerrar (✕) */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  z-index: 4;
+  opacity: 0;
+  transform: scale(.9);
+  transition: opacity .3s ease, transform .3s ease, background .2s ease;
+  pointer-events: none;
+}
+
+.close-btn:hover { background: rgba(0,0,0,.7); }
+.service-card.active .close-btn {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* Panel de información (mini interfaz) */
+.info-panel {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateX(-50%) translateY(24px);
+  transition: opacity .45s ease, transform .45s ease;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.service-card.active .info-panel {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.info-title {
+  font-size: 16px;
+  letter-spacing: .6px;
+  color: var(--gold);
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.info-text {
+  margin: 0 0 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #eaeaea;
+}
+
+.price-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 10px;
+  align-items: baseline;
+  margin: 8px 0 12px;
+  font-size: 14px;
+}
+
+.price-row .label { color: #cfcfcf; }
+.price-row .value { 
+  font-weight: 700; 
+  color: var(--gold);
+}
+
+.cta-btn {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--gold), var(--gold-light));
+  color: #111;
+  font-weight: 700;
+  letter-spacing: .3px;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cta-btn:hover { 
+  transform: translateY(-1px); 
+  box-shadow: 0 8px 18px rgba(0,0,0,.35); 
+}
+
+/* Sección de información */
+.info-section {
+  padding: 80px 20px;
+  background: var(--dark-gray);
+}
+
+.info-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.info-title-block {
+  flex: 0 1 280px;
+}
+
+.info-tag {
+  font-size: 1rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.info-main-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-family: 'Prata', serif;
+  margin: 0;
+  color: white;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.info-text-block {
+  flex: 1 1 400px;
+  max-width: 600px;
+}
+
+.info-text-block p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--light-gray);
+  margin: 0;
+}
+
+.info-button {
+  flex: 0 0 auto;
+  align-self: flex-start;
+}
+
+.btn-info {
+  display: inline-block;
+  padding: 16px 32px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  color: #111;
+  border-radius: 8px;
+  border: none;
+  text-decoration: none;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.btn-info:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+}
+
+/* Footer */
+.footer {
+  background: var(--black);
+  padding: 40px 20px;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,.1);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-text {
+  color: var(--light-gray);
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.social-link:hover {
+  background: var(--gold);
+  color: #111;
+  transform: translateY(-3px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .service-card { 
+    height: 420px; 
+  }
+  
+  .barber-container {
+    gap: 40px;
+  }
+  
+  .barber-image-container {
+    flex: 0 0 250px;
+  }
+  
+  .barber-image {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .barber-image-container::before {
+    width: 270px;
+    height: 270px;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 40px auto;
+  }
+  
+  .service-card { 
+    height: 400px; 
+  }
+  
+  .info-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .info-text-block {
+  margin-top: -220px;
+  }
+
+  .info-button {
+    align-self: center;
+    margin-top: -180px;
+  }
+  
+  .barber-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .barber-name::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .barber-stats {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-section {
+    padding: 40px 15px;
+  }
+  
+  .service-card { 
+    height: 380px; 
+  }
+  
+  .toggle-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  .barber-image-container {
+    flex: 0 0 200px;
+  }
+  
+  .barber-image {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .barber-image-container::before {
+    width: 220px;
+    height: 220px;
+  }
+  
+  .barber-stats {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}
+
+/* Animaciones */
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   SERVICES — Consolidado: layout, tamaño, aparición, hover
+   - Mantén las variables: --black, --gold, --gold-light, --white, --light-gray, --shadow, --transition
+   - NOTA: No toqué el diseño original de "Ver detalle" (.toggle-btn) ni del mini panel (.info-panel)
+   ========================================================= */
+
+/* Contenedor y wrapper */
+.services-container {
+  padding: 40px 0 80px;
+  background: var(--black);
+  position: relative;
+}
+
+.services-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Título / subtítulo (conservados) */
+.services-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-family: 'Prata', serif;
+  color: var(--white);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+}
+.services-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--gold);
+}
+.services-subtitle {
+  color: var(--light-gray);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ---- GRID: siempre 2 columnas (2x2) ---- */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columnas siempre */
+  gap: 25px;
+  margin-top: 40px;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+/* ---- CARTA ---- */
+.service-card {
+  height: 380px;                     /* base desktop */
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  transition: var(--transition, 0.35s ease);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  isolation: isolate;
+  background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+  border: 1px solid rgba(255,255,255,0.05);
+  display: block;
+}
+
+/* Imagen/full cover */
+.service-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s ease, filter .45s ease;
+  will-change: transform, filter;
+}
+
+/* Overlay inicial (texto encima de la imagen) */
+.service-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: var(--transition, 0.35s ease);
+  z-index: 2;
+}
+
+/* Texto dentro de la carta */
+.service-name {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--gold);
+}
+
+.titulo-carta {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--gold);
+}
+
+
+.service-desc {
+  font-size: 14px;
+  color: var(--light-gray);
+  margin-bottom: 10px;
+  text-align: center;
+  display: none; /* se mostrará en pantallas más grandes (ver media queries) */
+}
+
+/* ---------------------------
+   VER DETALLE (NO TOCAR) - Copia literal / original
+   --------------------------- */
+
+
+/* Estado activo (cuando se abre la carta) */
+.service-card.active {
+  transform: scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,.7);
+  z-index: 10;
+}
+.service-card.active .service-image {
+  transform: scale(1.08);
+  filter: brightness(.55) blur(2px);
+}
+.service-card.active .service-overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, transparent 100%);
+}
+.service-card.active .toggle-btn {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(8px) scale(.98);
+}
+
+/* Botón cerrar (copiado tal cual del original) */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  z-index: 4;
+  opacity: 0;
+  transform: scale(.9);
+  transition: opacity .3s ease, transform .3s ease, background .2s ease;
+  pointer-events: none;
+}
+.close-btn:hover { background: rgba(0,0,0,.7); }
+.service-card.active .close-btn {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* ---- MINI PANEL (NO TOCAR) - info-panel original ---- */
+.info-panel {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateX(-50%) translateY(24px);
+  transition: opacity .45s ease, transform .45s ease;
+  z-index: 5;
+  pointer-events: none;
+}
+.service-card.active .info-panel {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+.info-title {
+  font-size: 16px;
+  letter-spacing: .6px;
+  color: var(--gold);
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+.info-text {
+  margin: 0 0 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #eaeaea;
+}
+.price-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 10px;
+  align-items: baseline;
+  margin: 8px 0 12px;
+  font-size: 14px;
+}
+.price-row .label { color: #cfcfcf; }
+.price-row .value {
+  font-weight: 700;
+  color: var(--gold);
+}
+.cta-btn {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--gold), var(--gold-light));
+  color: #111;
+  font-weight: 700;
+  letter-spacing: .3px;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.cta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0,0,0,.35);
+}
+
+/* ---- Hover / interacción (no rompe el estado 'active') ---- */
+.service-card:not(.active):hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+}
+.service-card:not(.active):hover .service-image {
+  transform: scale(1.04);
+  filter: brightness(.92);
+}
+
+/* Accesibilidad: foco */
+.service-card:focus-visible {
+  outline: 3px solid rgba(212,175,55,0.12);
+  outline-offset: 6px;
+}
+
+/* ---- Animaciones de aparición ---- */
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================
+   RESPONSIVE
+   - Mantengo 2 columnas en todos los puntos según lo pedido (2x2).
+   - En móviles: cartas MÁS ALTAS para que "se vean más grandes".
+   ========================= */
+
+/* Tabletas (>= 769px) */
+@media (min-width: 769px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+  .service-card { height: 320px; }
+  .service-desc { display: block; font-size: 13px; }
+  .service-name { font-size: 20px; }
+  .info-panel { padding: 20px; }
+}
+
+/* Desktop (>= 1024px) */
+@media (min-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr); /* seguir 2x2 */
+    gap: 30px;
+  }
+  .service-card { height: 380px; }
+  .service-name { font-size: 22px; }
+  .service-desc { font-size: 14px; display: block; }
+  .toggle-btn { padding: 12px 22px; font-size: 13px; }
+}
+
+/* MÓVIL (<= 480px) - AUMENTO de tamaño de cartas según tu pedido */
+@media (max-width: 480px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil (como pediste) */
+    gap: 18px;
+    max-width: 100%;
+  }
+  /* MÁS ALTAS para móviles: se verán grandes verticalmente */
+  .service-card {
+    height: 460px;  /* <--- aumentado en móvil */
+    border-radius: 16px;
+  }
+  .service-overlay { padding: 14px; }
+  .service-name { font-size: 17px; margin-bottom: 6px; }
+  .toggle-btn { padding: 10px 16px; font-size: 11px; bottom: 12px; }
+  .info-panel { padding: 16px; height: 55%; }
+  .info-title { font-size: 15px; margin-bottom: 8px; }
+  .info-text { font-size: 12px; margin-bottom: 8px; }
+  .price-row { font-size: 12px; margin: 6px 0 10px; }
+  .cta-btn { padding: 9px 12px; font-size: 11px; }
+  .close-btn { width: 28px; height: 28px; font-size: 14px; top: 10px; right: 10px; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Contenedor y wrapper de servicios */
+.services-container {
+  padding: 40px 0 80px;
+  background: var(--black);
+  position: relative;
+}
+
+.services-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Título / subtítulo */
+.services-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-family: 'Prata', serif;
+  color: var(--white);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+}
+
+.services-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--gold);
+}
+
+.services-subtitle {
+  color: var(--light-gray);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ---- GRID: siempre 2 columnas (2x2) ---- */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  margin-top: 40px;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+/* ---- CARTA ---- */
+.service-card {
+  height: 380px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  isolation: isolate;
+  background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+  border: 1px solid rgba(255,255,255,0.05);
+  display: block;
+}
+
+/* Imagen/full cover */
+.service-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s ease, filter .45s ease;
+  will-change: transform, filter;
+}
+
+/* Overlay inicial (texto encima de la imagen) */
+.service-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: var(--transition);
+  z-index: 2;
+}
+
+/* Texto dentro de la carta */
+.service-name {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 150px;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--gold);
+}
+
+.service-desc {
+  font-size: 14px;
+  color: var(--light-gray);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Botón Ver detalle */
+.toggle-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  padding: 12px 22px;
+  border: none;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #111;
+  font-weight: 700;
+  letter-spacing: .5px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: opacity .3s ease, transform .3s ease;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toggle-btn:hover { 
+  background: var(--gold-light);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+/* Estado activo de la tarjeta */
+.service-card.active { 
+  transform: scale(1.02); 
+  box-shadow: 0 20px 40px rgba(0,0,0,.7); 
+  z-index: 10;
+}
+
+.service-card.active .service-image {
+  transform: scale(1.08);
+  filter: brightness(.55) blur(2px);
+}
+
+.service-card.active .service-overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, transparent 100%);
+}
+
+.service-card.active .toggle-btn {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(8px) scale(.98);
+}
+
+/* Botón Cerrar (✕) */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  z-index: 4;
+  opacity: 0;
+  transform: scale(.9);
+  transition: opacity .3s ease, transform .3s ease, background .2s ease;
+  pointer-events: none;
+}
+
+.close-btn:hover { background: rgba(0,0,0,.7); }
+.service-card.active .close-btn {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* Panel de información (mini interfaz) */
+.info-panel {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateX(-50%) translateY(24px);
+  transition: opacity .45s ease, transform .45s ease;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.service-card.active .info-panel {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.info-title {
+  font-size: 16px;
+  letter-spacing: .6px;
+  color: var(--gold);
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.info-text {
+  margin: 0 0 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #eaeaea;
+}
+
+.price-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 10px;
+  align-items: baseline;
+  margin: 8px 0 12px;
+  font-size: 14px;
+}
+
+.price-row .label { color: #cfcfcf; }
+.price-row .value { 
+  font-weight: 700; 
+  color: var(--gold);
+}
+
+.cta-btn {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--gold), var(--gold-light));
+  color: #111;
+  font-weight: 700;
+  letter-spacing: .3px;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cta-btn:hover { 
+  transform: translateY(-1px); 
+  box-shadow: 0 8px 18px rgba(0,0,0,.35); 
+}
+
+/* ---- Hover / interacción (no rompe el estado 'active') ---- */
+.service-card:not(.active):hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+}
+.service-card:not(.active):hover .service-image {
+  transform: scale(1.04);
+  filter: brightness(.92);
+}
+
+/* Accesibilidad: foco */
+.service-card:focus-visible {
+  outline: 3px solid rgba(212,175,55,0.12);
+  outline-offset: 6px;
+}
+
+/* Sección de información */
+.info-section {
+  padding: 80px 20px;
+  background: var(--dark-gray);
+}
+
+.info-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.info-title-block {
+  flex: 0 1 280px;
+}
+
+.info-tag {
+  font-size: 1rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.info-main-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-family: 'Prata', serif;
+  margin: 0;
+  color: white;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.info-text-block {
+  flex: 1 1 400px;
+  max-width: 600px;
+}
+
+.info-text-block p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--light-gray);
+  margin: 0;
+}
+
+.info-button {
+  flex: 0 0 auto;
+  align-self: flex-start;
+}
+
+.btn-info {
+  display: inline-block;
+  padding: 16px 32px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  color: #111;
+  border-radius: 8px;
+  border: none;
+  text-decoration: none;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.btn-info:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+}
+
+.boton-menu {
+  color: blue;
+}
+
+/* Animaciones */
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+/* Tabletas (>= 769px) */
+@media (min-width: 769px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+  .service-card { height: 320px; }
+  .service-desc { display: block; font-size: 13px; }
+  .service-name { font-size: 20px; }
+  .info-panel { padding: 20px; }
+}
+
+.boton-menu {
+  color: blue;
+}
+
+/* Desktop (>= 1024px) */
+@media (min-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  .service-card { height: 380px; }
+  .service-name { font-size: 22px; }
+  .service-desc { font-size: 14px; display: block; }
+  .toggle-btn { padding: 12px 22px; font-size: 13px; }
+}
+
+/* Tabletas más pequeñas y móviles grandes */
+@media (max-width: 1024px) {
+  .barber-container {
+    gap: 40px;
+  }
+  
+  .barber-image-container {
+    flex: 0 0 250px;
+  }
+  
+  .barber-image {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .barber-image-container::before {
+    width: 270px;
+    height: 270px;
+  }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 40px auto;
+  }
+  
+
+  .boton-menu {
+  color: blue;
+}
+  .service-card { 
+    height: 400px; 
+  }
+  
+  .barber-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .barber-name::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .barber-stats {
+    justify-content: center;
+  }
+}
+
+/* MÓVIL (<= 480px) */
+@media (max-width: 480px) {
+  .intro-section {
+    padding: 40px 15px;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    max-width: 100%;
+  }
+  
+
+  .boton-menu {
+  color: blue;
+}
+  .service-card {
+    height: 460px;
+    border-radius: 16px;
+  }
+  
+  .service-overlay { padding: 14px; }
+  .service-name { font-size: 17px; margin-bottom: 6px; }
+  .toggle-btn { padding: 10px 16px; font-size: 11px; bottom: 12px; }
+  .info-panel { padding: 16px; }
+  .info-title { font-size: 15px; margin-bottom: 8px; }
+  .info-text { font-size: 12px; margin-bottom: 8px; }
+  .price-row { font-size: 12px; margin: 6px 0 10px; }
+  .cta-btn { padding: 9px 12px; font-size: 11px; }
+  .close-btn { width: 28px; height: 28px; font-size: 14px; top: 10px; right: 10px; }
+  
+  .barber-image-container {
+    flex: 0 0 200px;
+  }
+  
+  .barber-image {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .barber-image-container::before {
+    width: 220px;
+    height: 220px;
+  }
+  
+  .barber-stats {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="encabezado" id="encabezado">
+  <div class="contenedor">
+    <div class="logo">
+      <a href="/">
+        <img src="https://cutstyle.true-emotions.studio/dark-beard/wp-content/uploads/sites/4/2018/08/logo-db2.svg" alt="Logo Dark Beard">
+      </a>
+    </div>
+
+    <nav class="navegacion-principal">
+      <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#maestros">Maestros</a></li>
+        <li><a href="#precios">Precios</a></li>
+        <li><a href="#contactos">Contactos</a></li>
+      </ul>
+    </nav>
+
+  <i class='bx nbx-meu boton-menu' id="boton-menu"></i>
+  </div>
+</header>
+
+<!-- Menú lateral para móvil -->
+<div class="menu-lateral" id="menuLateral">
+  <a href="#inicio">Inicio</a>
+  <a href="#nosotros">Nosotros</a>
+  <a href="#servicios">Servicios</a>
+  <a href="#maestros">Maestros</a>
+  <a href="#precios">Precios</a>
+  <a href="#contactos">Contactos</a>
+</div>
+
+<!-- Sección de presentación del barbero -->
+<section class="barber-presentation fade-in" id="barber">
+<div class="barber-container">
+<div class="barber-image-container">
+<img src="lucson.png" alt="Maestro Barbero" class="barber-image">
+</div>
+<div class="barber-info">
+<span class="barber-tag">Master Barber & Artist</span>
+<h2 class="barber-name">Lucson Guerrier</h2>
+<p class="barber-description">
+At 50, Lucson brings three decades of mastery to every chair. He started cutting hair at 16, dedicated himself fully to the craft at 22, and has been perfecting his art ever since. As a self-taught painter who's held brushes since childhood, Lucson sees every head as a canvas, every cut as a masterpiece. His artistic vision transforms ordinary haircuts into signature styles that reflect who you truly are.
+</p>
+<div class="barber-stats">
+<div class="stat-item">
+<span class="stat-number">30+</span>
+<span class="stat-label">Years Mastering</span>
+</div>
+       <div class="stat-item">
+         <span class="stat-number">8000+</span>
+         <span class="stat-label">Transformations</span>
+       </div>
+       <div class="stat-item">
+         <span class="stat-number">50</span>
+         <span class="stat-label">Years of Wisdom</span>
+       </div>
+     </div>
+     <a href="#servicios" class="barber-cta">Experience the Difference</a>
+   </div>
+ </div>
+</section>
+
+<section class="intro-section fade-in" id="servicios">
+  <div class="services-wrapper">
+    <div class="services-header">
+      <h2 class="services-title">Nuestros Servicios</h2>
+    </div>
+    
+    <div class="services-grid">
+      <!-- Tarjeta 1 -->
+      <div class="service-card">
+        <!-- Imagen -->
+        <img src="pelo2.png" class="service-image">
+
+        <!-- Contenido overlay inicial -->
+        <div class="service-overlay">
+          <div class="service-name"><h3 class="titulo-carta">cabello</h3></div>
+        </div>
+
+        <!-- Botón Ver detalle -->
+        <button class="toggle-btn"><i class="fas fa-eye"></i> Ver detalle</button>
+
+        <!-- Botón cerrar ✕ -->
+        <button class="close-btn">✕</button>
+
+        <!-- Panel de información -->
+        <div class="info-panel">
+          <h4 class="info-title">Corte de Cabello</h4>
+          <p class="info-text">Diseño personalizado con técnicas modernas y acabado perfecto.</p>
+
+          <div class="price-row">
+            <span class="label">Lun–Mié</span>
+            <span class="value">$15 <small style="opacity:.65;text-decoration:line-through;margin-left:6px;">$20</small></span>
+            <span class="label">Jue–Dom</span>
+            <span class="value">$20</span>
+          </div>
+
+          <p class="info-text" style="margin-top:6px;">Promo: 5º corte gratis</p>
+          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</button></a>
+        </div>
+      </div>
+
+      <!-- Tarjeta 2 -->
+      <div class="service-card">
+        <!-- Imagen -->
+        <img src="barbacabello.png" class="service-image">
+
+        <!-- Contenido overlay inicial -->
+        <div class="service-overlay">
+          <div class="service-name"><h3 class="titulo-carta">Corte & Barba</h3></div>
+        </div>
+
+        <!-- Botón Ver detalle -->
+        <button class="toggle-btn"><i class="fas fa-eye"></i> Ver detalle</button>
+
+        <!-- Botón cerrar ✕ -->
+        <button class="close-btn">✕</button>
+
+        <!-- Panel de información -->
+        <div class="info-panel">
+          <h4 class="info-title">Corte & Barba</h4>
+          <p class="info-text">Servicio completo con tratamientos premium.</p>
+
+          <div class="price-row">
+            <span class="label">Lun–Mié</span>
+            <span class="value">$25 <small style="opacity:.65;text-decoration:line-through;margin-left:6px;">$30</small></span>
+            <span class="label">Jue–Dom</span>
+            <span class="value">$30</span>
+          </div>
+
+          <p class="info-text" style="margin-top:6px;">Incluye vapor y aceites</p>
+
+          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</button></a>
+        </div>
+      </div>
+
+      <!-- Tarjeta 3 -->
+      <div class="service-card">
+        <!-- Imagen -->
+        <img src="barba.png" class="service-image">
+        <!-- Contenido overlay inicial -->
+        <div class="service-overlay">
+          <div class="service-name"><h3 class="titulo-carta">Barba & bigote</h3></div>
+        </div>
+
+        <!-- Botón Ver detalle -->
+        <button class="toggle-btn"><i class="fas fa-eye"></i> Ver detalle</button>
+
+        <!-- Botón cerrar ✕ -->
+        <button class="close-btn">✕</button>
+
+        <!-- Panel de información -->
+        <div class="info-panel">
+          <h4 class="info-title">Arreglo de Barba</h4>
+          <p class="info-text">Diseño, perfilado y arreglo de alta calidad.</p>
+
+          <div class="price-row">
+            <span class="label">Lun–Mié</span>
+            <span class="value">$12 <small style="opacity:.65;text-decoration:line-through;margin-left:6px;">$15</small></span>
+            <span class="label">Jue–Dom</span>
+            <span class="value">$15</span>
+          </div>
+
+          <p class="info-text" style="margin-top:6px;">Incluye mascarilla y aceite</p>
+
+          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</button></a>
+        </div>
+      </div>
+
+      <!-- Tarjeta 4 -->
+      <div class="service-card">
+        <!-- Imagen -->
+        <img src="https://images.unsplash.com/photo-1622288432450-277d0fef5ed6?q=80&w=1470&auto=format&fit=crop" alt="Tratamiento Capilar" class="service-image">
+
+        <!-- Contenido overlay inicial -->
+        <div class="service-overlay">
+          <div class="service-name"><h3 class="titulo-carta">Limpiesa</h3></div>
+        </div>
+
+        <!-- Botón Ver detalle -->
+        <button class="toggle-btn"><i class="fas fa-eye"></i> Ver detalle</button>
+
+        <!-- Botón cerrar ✕ -->
+        <button class="close-btn">✕</button>
+
+        <!-- Panel de información -->
+        <div class="info-panel">
+          <h4 class="info-title">Tratamiento Capilar</h4>
+          <p class="info-text">Hidratación profunda y revitalización.</p>
+
+          <div class="price-row">
+            <span class="label">Precio Regular</span>
+            <span class="value">$18</span>
+          </div>
+
+          <p class="info-text" style="margin-top:6px;">Efectos inmediatos</p>
+
+          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="info-section" id="promos">
+  <div class="info-container">
+    <div class="info-title-block">
+      <span class="info-tag">Nuestro Compromiso</span>
+      <h2 class="info-main-title">Calidad & Experiencia</h2>
+    </div>
+    
+    <div class="info-text-block">
+      <p>En Barber Club nos especializamos en brindar servicios de barbería premium con atención personalizada. Utilizamos productos de primera calidad y técnicas modernas para garantizar tu satisfacción. Nuestro equipo de barberos certificados está siempre actualizado con las últimas tendencias.</p>
+    </div>
+    
+    <div class="info-button">
+      <a href="#" class="btn-info">Todos los servicios</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>Majestic Cuts Salon</h3>
+            <p>We provide high-quality beauty services with a team of professional stylists.</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Business Hours</h3>
+            <p>Monday - Friday: 9:00 AM - 7:00 PM</p>
+            <p>Saturday: 9:00 AM - 5:00 PM</p>
+            <p>Sunday: Closed</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Contact</h3>
+            <p><i class="fas fa-map-marker-alt"></i> 123 Beauty Street, City</p>
+            <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+            <p><i class="fas fa-envelope"></i> info@majesticcutssalons.com</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="copyright">
+        <p>&copy; 2023 Majestic Cuts Salon. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const cards = document.querySelectorAll('.service-card');
+  
+  // Función para cerrar todos los paneles
+  function closeAllPanels() {
+    cards.forEach(card => {
+      card.classList.remove('active');
+    });
+  }
+  
+  // Configurar cada tarjeta
+  cards.forEach(card => {
+    const toggle = card.querySelector('.toggle-btn');
+    const closeBtn = card.querySelector('.close-btn');
+    
+    // Abrir panel al hacer clic en "Ver detalle"
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeAllPanels();
+      card.classList.add('active');
+    });
+    
+    // Cerrar panel al hacer clic en "X"
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      card.classList.remove('active');
+    });
+    
+    // Cerrar panel al hacer clic fuera del contenido
+    card.addEventListener('click', (e) => {
+      if (e.target === card && card.classList.contains('active')) {
+        card.classList.remove('active');
+      }
+    });
+  });
+  
+  // Cerrar con tecla ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAllPanels();
+  });
+  
+  // Cerrar al hacer clic fuera de las tarjetas
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.service-card')) {
+      closeAllPanels();
+    }
+  });
+});
+</script>
+
+<script src="scripts.js"></script>
+</body>
+</html>

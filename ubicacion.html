@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salón Majestic Cuts</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Reset y básicos */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #0a0a0a;
+      color: white;
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('fondo.png') center/cover no-repeat;
+    }
+
+    .hero .back-arrow {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 3rem;
+      cursor: pointer;
+      color: #FFD700;
+      z-index: 10;
+      transition: all 0.3s ease;
+      padding: 2;
+      border-radius:50%;
+    }
+
+    .hero .back-arrow:hover {
+      transform: translateX(-5px) scale(1.1);
+    }
+
+    .hero .info-box {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background-color: rgba(0,0,0,0.7);
+      padding: 15px 20px;
+      border-left: 4px solid #FFD700;
+      border-radius: 5px;
+      width: 65%;
+      transition: all 0.3s ease;
+    }
+
+    .hero .info-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .hero .info-box h2 {
+      font-size: 1.8rem;
+      color: linear-gradient(135deg, #591797, #1f0e2b);
+      margin-bottom: 5px;
+    }
+
+    .hero .info-box .rating {
+      color: #FFD700;
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+
+    .hero .info-box .reviews-count {
+      font-size: 0.9rem;
+      color: white;
+    }
+
+    /* Ubicación y contacto */
+    .location-contact {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 30px;
+      gap: 30px;
+      align-items: flex-start;
+      background-color: #1a1a1a;
+      border-radius: 12px;
+      margin: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .location-contact:hover {
+      transform: translateY(-2px);
+    }
+
+    .location-contact .map {
+      flex: 1;
+      min-width: 280px;
+      min-height: 250px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .location-contact .map:hover {
+      transform: scale(1.02);
+    }
+
+    .location-contact .map iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 250px;
+      border: 0;
+    }
+
+    .location-contact .details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 15px;
+      min-width: 280px;
+    }
+
+    .details .address, .details .phone-container, .details {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .parking {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.85rem;
+      margin-top: 15px;
+      width: 100%;
+    }
+
+    .details .address:hover, .details .phone-container:hover, .details .parking:hover {
+      transform: translateX(5px);
+    }
+
+    .details .address p, .details .phone-container p, .details .parking p {
+      font-size: 0.95rem;
+      color: #fff;
+      line-height: 1.4;
+    }
+
+    .details .note {
+      font-size: 0.85rem;
+      color: #ccc;
+      margin-top: 8px;
+    }
+
+    .phone-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .phone-icon {
+      font-size: 1.2rem;
+      color: #FFD700;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-3px); }
+      60% { transform: translateY(-1px); }
+    }
+
+    .phone-number {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #FFD700;
+    }
+
+    .divider {
+      height: 1px;
+      background-color: #333;
+      margin: 15px 0;
+      width: 100%;
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 20px 20px 20px;
+      gap: 10px;
+      margin-top: 20px;
+      background-color: #0f070e;
+      padding: 20px;
+      align-items: center;
+    }
+
+    .tags span {
+      background: linear-gradient(135deg, #591797, #1f0e2b);
+      padding: 8px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tags span::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .tags span:hover {
+      transform: translateY(-3px) scale(1.05);
+    }
+
+    .tags span:hover::before {
+      left: 100%;
+    }
+
+    /* Animaciones adicionales para tags */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .tags span:nth-child(odd) {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .tags span:nth-child(even) {
+      animation: float 3s ease-in-out infinite 1.5s;
+    }
+
+    /* Reviews */
+    .reviews-section {
+      padding: 20px;
+      background-color: #1a1a1a;
+      border-radius: 12px;
+      margin: 20px;
+    }
+
+    .reviews-section h3 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: #FFD700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .reviews-section h3 i {
+      animation: sparkle 2s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .reviews {
+      overflow-x: auto;
+      display: flex;
+      gap: 20px;
+      scrollbar-width: none; /* Ocultar scrollbar en Firefox */
+      padding-bottom: 15px;
+    }
+
+    .reviews::-webkit-scrollbar {
+      display: none; /* Ocultar scrollbar en Chrome, Safari y Edge */
+    }
+
+    .review-card {
+      background: linear-gradient(145deg, #252525, #1e1e1e);
+      min-width: 280px;
+      max-width: 280px;
+      padding: 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      position: relative;
+      border: 1px solid #333;
+      overflow: hidden;
+    }
+
+    .review-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, rgba(255, 215, 0, 0.5), rgba(138, 43, 226, 0.5), rgba(255, 215, 0, 0.5));
+      z-index: -1;
+      border-radius: 12px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .review-card:hover::before {
+      opacity: 1;
+    }
+
+    .review-card:hover {
+      transform: translateY(-8px) scale(1.03);
+    }
+
+    .review-card.expanded {
+      max-width: 350px;
+      transform: scale(1.05);
+    }
+
+    .review-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #FFD700;
+    }
+
+    .review-card .stars {
+      color: #FFD700;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+    }
+
+    .review-card p {
+      font-size: 0.9rem;
+      color: #ddd;
+      line-height: 1.5;
+      margin-bottom: 5px;
+      max-height: 67.5px;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      display: inline;
+    }
+
+    .review-card.expanded p {
+      max-height: 500px;
+      display: inline;
+    }
+
+    .read-more {
+      display: inline;
+      font-size: 0.85rem;
+      color: #3498db;
+      font-weight: bold;
+      cursor: pointer;
+      background: transparent;
+      padding: 0;
+      margin-left: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .read-more:hover {
+      color: #5dade2;
+      text-decoration: underline;
+    }
+
+    /* Horarios y CTA */
+    .hours-cta {
+      padding: 20px;
+      background-color: #111;
+      border-radius: 10px;
+      margin: 20px;
+    }
+
+    .hours-cta h3 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      color: #FFD700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hours {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 20px;
+      margin-bottom: 25px;
+      padding: 20px;
+      background: rgba(138, 43, 226, 0.05);
+      border-radius: 10px;
+      border: 1px solid #333;
+    }
+
+    .hours p {
+      font-size: 0.95rem;
+      padding: 3px 0;
+      transition: all 0.3s ease;
+    }
+
+    .hours p:nth-child(odd) {
+      color: #ccc;
+    }
+
+    .hours p:nth-child(odd):hover {
+      color: #FFD700;
+      transform: translateX(5px);
+    }
+
+    .hours p:nth-child(even) {
+      color: #FFD700;
+      text-align: right;
+      font-weight: 600;
+    }
+
+    .cta-button {
+      display: block;
+      margin: 0 auto;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #591797, #1f0e2b);
+      color: white;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 4px 10px rgba(148, 12, 148, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-5px) scale(1.05);
+    }
+
+    .cta-button:hover::before {
+      left: 100%;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(to right, #0d0d0d, #1a1a1a);
+      color: #fff;
+      padding: 15px 10px 8px;
+      font-size: 0.75rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .footer-section h3 {
+      color: #d4af37;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      padding-bottom: 3px;
+    }
+
+    .footer-section p {
+      margin: 3px 0;
+      color: #e0e0e0;
+      line-height: 1.3;
+      font-size: 0.72rem;
+    }
+
+    .footer-section i {
+      margin-right: 6px;
+      font-size: 0.8rem;
+      color: #d4af37;
+    }
+
+    .social-links a {
+      margin-right: 8px;
+      font-size: 0.9rem;
+      color: #fff;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .social-links a:hover {
+      color: #d4af37;
+      transform: scale(1.05);
+    }
+
+    footer .copyright {
+      text-align: center;
+      margin-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 6px;
+      font-size: 0.65rem;
+      color: #b3b3b3;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      .hero .info-box {
+        width: 80%;
+      }
+      
+      .location-contact {
+        flex-direction: row;
+        padding: 20px;
+        margin: 15px;
+        gap: 20px;
+      }
+      
+      .location-contact .map {
+        flex: 0 0 45%;
+        min-width: 45%;
+        height: 200px;
+      }
+
+      .location-contact .details {
+        flex: 1;
+        min-width: 45%;
+      }
+
+      .details .address p, .details .phone-container p, .details .parking p {
+        font-size: 0.8rem;
+      }
+
+      .details .note {
+        font-size: 0.7rem;
+      }
+
+      .phone-number {
+        font-size: 0.9rem;
+      }
+      
+      .hours {
+        grid-template-columns: 1fr;
+      }
+      
+      .hours p:nth-child(even) {
+        text-align: left;
+        margin-bottom: 10px;
+      }
+
+      .reviews-section {
+        margin: 15px;
+        padding: 15px;
+      }
+
+      .review-card {
+        min-width: 250px;
+        max-width: 250px;
+      }
+
+      .review-card.expanded {
+        max-width: 30x;
+      }
+      
+      /* Ocultar scrollbar en móviles */
+      .reviews {
+        scrollbar-width: none;
+      }
+      
+      .reviews::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .location-contact {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      
+      .location-contact .map {
+        flex: 0 0 100%;
+        width: 100%;
+        min-width: 100%;
+        height: 200px;
+        margin-bottom: 0;
+      }
+      
+      .parking {
+        order: 3;
+        width: 100%;
+        margin-top: 15px;
+        padding: 10px;
+        background: rgba(0,0,0,0.2);
+        border-radius: 8px;
+      }
+
+      .location-contact .details {
+        flex: 1;
+        min-width: 100%;
+        order: 2;
+      }
+
+      .details .address p, .details .phone-container p, .details .parking p {
+        font-size: 0.85rem;
+      }
+
+      .review-card {
+        min-width: 220px;
+        max-width: 220px;
+      }
+
+      .review-card.expanded {
+        max-width: 250px;
+      }
+      
+      /* Ajuste para el botón de más información */
+      .read-more {
+        display: inline;
+        background: transparent;
+        color: #3498db;
+        padding: 0;
+        margin-left: 5px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <a href="index.html">
+  <div class="back-arrow"><i class="fa-solid fa-arrow-left"></i></div>
+</a>
+    <div class="info-box">
+      <h2>Salon Majestic Cuts</h2>
+      <div class="rating">4.4 (★★★★★)</div>
+      <div class="reviews-count">(32)</div>
+    </div>
+  </section>
+
+  <!-- Ubicación y contacto -->
+  <section class="location-contact">
+    <div class="map">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2963.024638600622!2d-71.077029!3d42.042652!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e48f5ce497668b%3A0x78031f408260b95f!2sFresh%20Auto%20Wash!5e0!3m2!1ses-419!2sus!4v1755866846271!5m2!1ses-419!2sus" 
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+    <div class="details">
+      <div class="address">
+        <span>📍</span>
+        <div>
+          <p>105 Depot Street</p>
+          <p>South Easton 02375</p>
+          <p>United States of America</p>
+          <p class="note">We are located in the same plaza as the Fresh Auto Wash.<br>We are on the left side of the building.</p>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="phone-container">
+        <span class="phone-icon">📱</span>
+        <div class="phone-number">+1 617-501-1114</div>
+      </div>
+      <div class="divider"></div>
+    </div>
+    <div class="parking">
+      <span>🅿️</span>
+      <p>Parking is located at the rear of the building.</p>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="reviews-section">
+    <h3><i class="fas fa-star"></i> Customer Reviews</h3>
+    <div class="reviews">
+      <div class="review-card">
+        <h4>Fadolo</h4>
+        <div class="stars">★★★★★</div>
+        <p>Seen Fadeologyst101 Cutting Hair on Facebook so I came in. Amazing service and great attention to detail. Will definitely come back again!</p><div class="read-more">...more</div>
+      </div>
+      <div class="review-card">
+        <h4>Jmf Paint</h4>
+        <div class="stars">★★★★★</div>
+        <p>Gabe is a great barber. He took his time and gave me exactly what I wanted. The atmosphere here is relaxing and professional.</p>
+        <div class="read-more">...more</div>
+      </div>
+      <div class="review-card">
+        <h4>Ghislene Alexis</h4>
+        <div class="stars">★★★★★</div>
+        <p>That was my best experience ever!!! The staff was friendly and the service was exceptional. I highly recommend this place.</p>
+        <div class="read-more">...more</div>
+      </div>
+      <div class="review-card">
+        <h4>Adrienne Roberts</h4>
+        <div class="stars">★★★★★</div>
+        <p>Took my son later in the evening. They accommodated us even though it was near closing time. Excellent service!</p>
+        <div class="read-more">...more</div>
+      </div>
+      <div class="review-card">
+        <h4>Jonathan Regis</h4>
+        <div class="stars">★★★★★</div>
+        <p>Lucson had been my barber for years. His skills are unmatched and he always makes sure his clients are satisfied.</p>
+        <div class="read-more">...more</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tags -->
+  <section class="tags">
+    <span>Walk-Ins Welcome</span>
+    <span>Child Friendly</span>
+    <span>Parking Available</span>
+    <span>Free Wi-Fi</span>
+    <span>Waiting Area</span>
+    <span>Wheelchair Accessible</span>
+    <span>Senior Discount</span>
+    <span>Multilingual Staff</span>
+  </section>
+
+
+  <!-- Horarios y CTA -->
+  <section class="hours-cta">
+    <h3><i class="fas fa-clock"></i> Business Hours</h3>
+    <div class="hours">
+      <p>Sunday</p><p>11:00 AM – 05:30 PM</p>
+      <p>Monday</p><p>Closed</p>
+      <p>Tuesday</p><p>10:00 AM – 07:30 PM</p>
+      <p>Wednesday</p><p>10:00 AM – 07:30 PM</p>
+      <p>Thursday</p><p>09:30 AM – 08:30 PM</p>
+      <p>Friday</p><p>09:30 AM – 08:30 PM</p>
+      <p>Saturday</p><p>09:30 AM – 08:30 PM</p>
+    </div>
+    <a href="agenda.html">
+    <button class="cta-button">BOOK APPOINTMENT</button>
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>Majestic Cuts Salon</h3>
+            <p>We provide high-quality beauty services with a team of professional stylists.</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Business Hours</h3>
+            <p>Monday - Friday: 9:00 AM - 7:00 PM</p>
+            <p>Saturday: 9:00 AM - 5:00 PM</p>
+            <p>Sunday: Closed</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Contact</h3>
+            <p><i class="fas fa-map-marker-alt"></i> 123 Beauty Street, City</p>
+            <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+            <p><i class="fas fa-envelope"></i> info@majesticcutssalons.com</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="copyright">
+        <p>&copy; 2023 Majestic Cuts Salon. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Script para expandir reseñas al pulsar la carta -->
+<script>
+document.querySelectorAll('.review-card').forEach(card => {
+  const more = card.querySelector('.read-more');
+  const text = card.querySelector('p');
+  const originalText = text.textContent;
+
+  // Solo si el texto es largo
+  if (originalText.length > 120) {
+    // Mostrar solo un fragmento al inicio
+    text.textContent = originalText.substring(0, 120) + '...';
+    more.textContent = 'more';
+
+    // Función para alternar expansión
+    const toggleText = () => {
+      card.classList.toggle('expanded');
+      if (card.classList.contains('expanded')) {
+        text.textContent = originalText;
+        more.textContent = 'less';
+      } else {
+        text.textContent = originalText.substring(0, 120) + '...';
+        more.textContent = 'more';
+      }
+    };
+
+    // Activar al pulsar toda la carta
+    card.addEventListener('click', toggleText);
+
+    // Evitar propagación al hacer clic en el botón
+    more.addEventListener('click', e => {
+      e.stopPropagation();
+      toggleText();
+    });
+
+  } else {
+    // Ocultar el botón si el texto es corto
+    more.style.display = 'none';
+  }
+});
+</script>
+
+</body>
+</html>

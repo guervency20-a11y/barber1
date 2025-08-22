@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Barbería moderna para hombres - cortes, estilo y comunidad." />
+  <meta name="keywords" content="barbería, cortes de cabello, estilo masculino, barber shop" />
+  <meta name="author" content="Tu Nombre o Marca" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Dark Beard - Barbería Masculina</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=fire">
+  <link rel='dns-prefetch' href='//maps.googleapis.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//use.fontawesome.com' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <!-- CSS de Splide (versión exacta) -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css" />
+  <!-- Boxicons para flechas personalizadas -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+</head>
+<body>
+
+<header class="encabezado" id="encabezado">
+  <div class="contenedor">
+    <div class="logo">
+      <a href="/">
+        <img src="https://cutstyle.true-emotions.studio/dark-beard/wp-content/uploads/sites/4/2018/08/logo-db2.svg" alt="Logo Dark Beard">
+      </a>
+    </div>
+
+    <nav class="navegacion-principal">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#services.html">Servicios</a></li>
+        <li><a href="services.html#Barber">Barber</a></li>
+        <li><a href="services.html#promos">Promos</a></li>
+        <li><a href="#contactos">Contactos</a></li>
+      </ul>
+    </nav>
+
+    <i class='bx bx-menu boton-menu' id="boton-menu"></i>
+  </div>
+</header>
+
+<!-- Menú lateral para móvil -->
+<div class="menu-lateral" id="menuLateral">
+  <a href="#home">Home</a>
+  <a href="agenda.html">Agendar cita</a>
+  <a href="services.html#servicios">Servicios</a>
+  <a href="services.html#Barber">Barber</a>
+  <a href="services.html#promos">Promos</a>
+  <a href="#contactos">Contactos</a>
+</div>
+
+<!-- Fondo oscuro -->
+<div class="fondo-oscuro" id="fondoOscuro"></div>
+
+
+<section id="home" class="hero">
+ <div class="overlay"></div>
+ <div class="hero-content">
+   <h1>Men's Haircuts and Hairstyles</h1>
+   <p class="hero-subtitle">
+     Premium cuts, professional service, right around the corner. Located at 1847 Commonwealth Avenue, Brighton – because looking sharp shouldn't require a road trip.
+   </p>
+   <div class="hero-buttons">
+     <a href="services.html#barber" class="btn btn-primary">Barber</a>
+     <a href="#galeria-principal" class="btn btn-secondary">Pictures</a>
+   </div>
+ </div>    
+</section>
+
+<!-- ventas -->
+
+<section class="limitar-ancho servicios-populares">
+  <div class="overlay-negro"></div>
+
+  <div class="conteneur servicios">
+    
+    <!-- Columna izquierda: Título -->
+<div class="columna services-title">
+  <p class="etiqueta">Services</p>
+  <h2 class="titulo-seccion">Skip the Weekend Rush</h2>
+</div>
+
+<!-- Texto descriptivo -->
+<div class="columna services-text">
+  <p>
+    Why wait for weekend crowds when you can look flawless all week? Turn your gloomy Monday into a self-care goal and avoid the long Saturday lines. <strong>Weekly Discount Schedule:</strong> <span style="color:#b0b0b0;">Monday & Tuesday:</span> 30-40% OFF <span style="color:#888888;">Wednesday & Thursday:</span> 15-20% OFF <span style="color:#555555;">Friday to Sunday:</span> Regular Prices. "Start your week looking fresh, not stressed!
+  </p>
+</div>
+    
+
+    <!-- Botón -->
+    <div class="columna services-button">
+      <a href="services.html#servicios" class="btn-servicio">All services</a>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="galeria-fondo" id="galeria-principal">
+  <div class="overlayg-negro"></div>
+  <div class="contenedor-servicios">
+    <h2 class="titulo-galeria">Pictures</h2>
+
+    <div class="contenedor-galeria">
+      <!-- Galería principal -->
+      <div class="galeria-principal">
+        <section id="carrusel-principal" class="splide">
+          <div class="splide__track">
+            <ul class="splide__list">
+              <li class="splide__slide"><img src="5.jpeg" alt="Corte clásico"></li>
+              <li class="splide__slide"><img src="2.jpeg" alt="Estilo moderno"></li>
+              <li class="splide__slide"><img src="pipi.png" alt="Estilo creativo"></li>
+              <li class="splide__slide"><img src="4.jpeg" alt="Barba perfilada"></li>
+              <li class="splide__slide"><img src="x.jpeg" alt="Fade limpio"></li>
+              <li class="splide__slide"><img src="1.jpeg" alt="Look elegante"></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Flechas -->
+        <div class="flechas-container">
+          <button class="flecha flecha-prev">
+            <i class='bx bx-chevron-left'></i>
+          </button>
+          <button class="flecha flecha-next">
+            <i class='bx bx-chevron-right'></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Miniaturas -->
+      <section id="carrusel-miniaturas" class="splide">
+        <div class="splide__track">
+          <ul class="splide__list">
+            <li class="splide__slide"><img src="5.jpeg" alt="Mini corte clásico"></li>
+            <li class="splide__slide"><img src="2.jpeg" alt="Mini estilo moderno"></li>
+            <li class="splide__slide"><img src="pipi.png" alt="Mini estilo creativo"></li>
+            <li class="splide__slide"><img src="4.jpeg" alt="Mini barba perfilada"></li>
+            <li class="splide__slide"><img src="x.jpeg" alt="Mini fade limpio"></li>
+            <li class="splide__slide"><img src="1.jpeg" alt="Mini look elegante"></li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>Majestic Cuts Salon</h3>
+            <p>We provide high-quality beauty services with a team of professional stylists.</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Business Hours</h3>
+            <p>Monday - Friday: 9:00 AM - 7:00 PM</p>
+            <p>Saturday: 9:00 AM - 5:00 PM</p>
+            <p>Sunday: Closed</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Contact</h3>
+            <p><i class="fas fa-map-marker-alt"></i> 123 Beauty Street, City</p>
+            <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+            <p><i class="fas fa-envelope"></i> info@majesticcutssalons.com</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="copyright">
+        <p>&copy; 2023 Majestic Cuts Salon. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="scripts.js"></script>
+    <!-- Script de Splide -->
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
+</body>
+</html>

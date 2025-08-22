@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark light" />
+  <title>Majestic Cuts & Salon</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root{
+      --gold:#FFD700; --amber:#FFA500; --purple:#8A2BE2; --bg:#0a0a0a; --muted:rgba(255,255,255,.4);
+      --ok:#2ecc71; --ok-dark:#27ae60; --error:#ff5757;
+    }
+
+    /* HEADER STYLES */
+    .encabezado {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 8px 0;
+      background-color: rgb(26, 14, 24);
+      transition: background-color 0.3s ease;
+    }
+    
+    .encabezado.sticky {
+      background-color: rgb(61, 6, 52);
+    }
+    
+    .contenedor {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo img {
+      height: 50px;
+      width: auto;
+    }
+    
+    .navegacion-principal ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+    
+    .navegacion-principal a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .navegacion-principal a:hover {
+      color: var(--gold);
+    }
+    
+    .boton-menu {
+      display: none;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+    }
+    
+    .menu-lateral {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100vh;
+      background-color: rgb(26, 14, 24);
+      z-index: 1000;
+      padding: 80px 20px 20px;
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .menu-lateral.active {
+      right: 0;
+    }
+    
+    .menu-lateral a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg) 0%, #1a0a1a 25%, #2d1b4e 50%, #1a0a1a 75%, var(--bg) 100%);
+      color:#fff; min-height:100vh; display:flex; align-items:center; justify-content:center; 
+      padding: 100px 20px 20px; /* Added top padding for fixed header */
+      position:relative;
+    }
+    body::before{
+      content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(120,119,198,.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,215,0,.05) 0%, transparent 50%);
+    }
+
+    .booking-container{
+      background: rgba(0,0,0,.85); -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px);
+      border-radius:25px; border:2px solid; border-image: linear-gradient(135deg, var(--gold), var(--amber), var(--purple)) 1;
+      padding:40px; width:100%; max-width: 880px; position:relative; overflow:hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.1);
+      margin-top: 20px; /* Space for fixed header */
+    }
+    .booking-container::before{
+      content:""; position:absolute; inset:0; border-radius:25px; pointer-events:none;
+      background: linear-gradient(135deg, rgba(255,215,0,.03) 0%, rgba(138,43,226,.05) 50%, rgba(255,215,0,.03) 100%);
+    }
+
+    .crown-icon {
+    font-size: 2.5rem; /* Tamaño de la corona */
+    background: linear-gradient(135deg, #FFD700, #FFA500); /* Gradiente dorado */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-top: 30px;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); /* Brillo */
+}
+
+    .title{
+      font-size: clamp(1.8rem, 2.5vw + 1rem, 2.6rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--amber) 50%, var(--purple) 100%);
+      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+      text-shadow: 0 0 20px rgba(255,215,0,.3); margin-bottom:8px;
+    }
+    .subtitle{
+      font-size:1.05rem; font-style:italic;
+      background: linear-gradient(135deg, var(--gold), var(--amber));
+      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    }
+
+    /* Progress */
+    .progress-container{ margin-top:18px; margin-bottom:30px; }
+    .progress-bar{ background: rgba(0,0,0,.4); height:8px; border-radius:4px; overflow:hidden; margin-bottom:12px; border:1px solid rgba(138,43,226,.3); }
+    .progress-fill{
+      background: linear-gradient(135deg, var(--gold), var(--amber), var(--purple)); height:100%; width:0%;
+      transition: width .45s ease; position:relative; overflow:hidden;
+    }
+    .progress-fill::after{
+      content:""; position:absolute; inset:0; left:-100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+    @keyframes shimmer{ from{ left:-100%; } to{ left:100%; } }
+
+    .step-indicators{ display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; }
+    .step-indicator{ display:flex; align-items:center; gap:8px; color:var(--muted); font-size:.9rem; }
+    .step-indicator .step-number{
+      width:28px; height:28px; border-radius:50%; display:grid; place-items:center; font-size:.8rem; font-weight:700;
+      background: rgba(0,0,0,.6); border:2px solid rgba(138,43,226,.4); transition: all .25s ease;
+    }
+    .step-indicator.active{ font-weight:700; background: linear-gradient(135deg, var(--gold), var(--amber)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+    .step-indicator.active .step-number{ background: linear-gradient(135deg, var(--gold), var(--amber)); color:#000; border-color: var(--gold); box-shadow:0 0 15px rgba(255,215,0,.5); }
+    .step-indicator.completed{ color: #b994f6; }
+    .step-indicator.completed .step-number{ background: linear-gradient(135deg, var(--purple), #9932CC); color:#fff; border-color: var(--purple); box-shadow:0 0 10px rgba(138,43,226,.4); }
+
+    /* Form */
+    .booking-form{ display:block; }
+    .form-step{ display:none; animation: fadeIn .45s ease both; }
+    .form-step.active{ display:grid; grid-template-columns: 1fr 1fr; gap:24px; }
+    @keyframes fadeIn{ from{ opacity:0; transform: translateY(8px);} to{ opacity:1; transform:none; } }
+
+    .step-title{
+      grid-column:1 / -1; text-align:center; font-weight:800; margin-bottom:10px; letter-spacing:.2px;
+      background: linear-gradient(135deg, var(--gold), var(--amber), var(--purple));
+      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+      font-size: clamp(1.2rem, .9rem + 1vw, 1.5rem);
+      position:relative;
+    }
+    .step-title::after{ content:""; position:absolute; bottom:-10px; left:50%; transform:translateX(-50%); width:64px; height:2px; background:linear-gradient(135deg,var(--gold),var(--purple)); }
+
+    .form-group{ display:flex; flex-direction:column; gap:8px; }
+    .form-group.full-width{ grid-column:1 / -1; }
+    label{ font-weight:700; font-size:.95rem; background: linear-gradient(135deg, var(--gold), var(--amber)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+    input, select, textarea{
+      background: rgba(0,0,0,.6); border:2px solid rgba(138,43,226,.3); border-radius:12px; padding:12px 14px; color:#fff; font-size:1rem; transition: all .2s ease;
+    }
+    input:focus, select:focus, textarea:focus{ outline:none; border-color: var(--gold); background: rgba(0,0,0,.82); box-shadow: 0 0 20px rgba(255,215,0,.25), inset 0 0 10px rgba(138,43,226,.12); transform: translateY(-1px); }
+    input::placeholder, textarea::placeholder{ color:var(--muted); }
+    select option{ background:#000; color:#fff; }
+
+    .error-text{ font-size:.85rem; color: var(--error); display:none; }
+    .invalid{ border-color: rgba(255,87,87,.9) !important; box-shadow: 0 0 0 2px rgba(255,87,87,.2) inset !important; }
+
+    .services-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; margin-top:4px; }
+    .service-option{
+      display:flex; align-items:center; gap:12px; padding:14px; border-radius:12px; cursor:pointer; position:relative; overflow:hidden;
+      background: rgba(0,0,0,.4); border:2px solid rgba(138,43,226,.2); transition: all .2s ease;
+    }
+    .service-option::before{ content:""; position:absolute; inset:0; left:-100%; background:linear-gradient(90deg, transparent, rgba(255,215,0,.12), transparent); transition:left .45s ease; }
+    .service-option:hover{ background: rgba(138,43,226,.12); border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(255,215,0,.18); }
+    .service-option:hover::before{ left:100%; }
+    .service-option.selected{ background: linear-gradient(135deg, rgba(255,215,0,.08), rgba(138,43,226,.12)); border-color: var(--gold); box-shadow: 0 5px 20px rgba(255,215,0,.28); }
+    .service-option input[type="checkbox"]{ width:20px; height:20px; accent-color: var(--gold); }
+    .service-name{ font-weight:800; }
+    .service-price{ font-size:.9rem; font-weight:800; background: linear-gradient(135deg, var(--gold), var(--amber)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+
+    .contact-info{ grid-column:1 / -1; background: rgba(212,175,55,.1); border-radius:12px; padding:18px; margin:26px 0; text-align:center; }
+    .contact-info h3{ color:#d4af37; margin-bottom:12px; }
+    .contact-details{ display:flex; justify-content:space-around; flex-wrap:wrap; gap:12px; }
+    .contact-item{ display:flex; align-items:center; gap:8px; }
+
+    .navigation-buttons{ grid-column:1 / -1; display:flex; justify-content:space-between; gap:14px; margin-top:4px; }
+    .nav-button{ padding:12px 22px; border:none; border-radius:10px; font-size:1rem; font-weight:900; cursor:pointer; transition:.2s ease; letter-spacing:.4px; text-transform:uppercase; }
+    .nav-button.prev{ background: rgba(255,255,255,.1); color:#fff; border:1px solid rgba(212,175,55,.3); }
+    .nav-button.prev:hover{ background: rgba(255,255,255,.2); border-color:#d4af37; }
+    .nav-button.next, .nav-button[type="submit"]{ background: linear-gradient(135deg, #d4af37, #f4e976); color:#1a1a1a; }
+    .nav-button.next:hover, .nav-button[type="submit"]:hover{ transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212,175,55,.4); background: linear-gradient(135deg, #f4e976, #d4af37); }
+    .nav-button[type="submit"]{ background: linear-gradient(135deg, var(--ok), var(--ok-dark)); color:#fff; }
+    .nav-button[type="submit"]:hover{ background: linear-gradient(135deg, var(--ok-dark), var(--ok)); }
+
+    /* Modal */
+    .modal-overlay{ position:fixed; inset:0; background: rgba(0,0,0,.82); display:flex; align-items:center; justify-content:center; z-index:1000; opacity:0; visibility:hidden; transition:.25s ease; }
+    .modal-overlay.active{ opacity:1; visibility:visible; }
+    .confirmation-modal{ background: rgba(0,0,0,.92); border-radius:20px; border:2px solid; border-image: linear-gradient(135deg, var(--gold), var(--amber), var(--purple)) 1; padding:36px; max-width:520px; width:92%; text-align:center; box-shadow:0 25px 50px rgba(0,0,0,.7); position:relative; transform: translateY(8px) scale(.98); transition: transform .25s ease; }
+    .modal-overlay.active .confirmation-modal{ transform:none; }
+    .modal-icon{ font-size:3rem; margin-bottom:14px; background: linear-gradient(135deg, var(--gold), var(--amber), var(--purple)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+    .modal-title{ font-size:1.8rem; margin-bottom:10px; background: linear-gradient(135deg, var(--gold), var(--amber)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+    .modal-message{ margin-bottom:22px; line-height:1.6; }
+    .modal-button{ padding:12px 26px; background: linear-gradient(135deg, var(--gold), var(--amber)); color:#000; border:none; border-radius:10px; font-weight:900; cursor:pointer; }
+    .modal-button:hover{ transform: translateY(-1px); box-shadow:0 8px 20px rgba(255,215,0,.35); }
+
+    /* A11y helpers */
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .form-step.active{ grid-template-columns:1fr; }
+      .services-grid{ grid-template-columns:1fr; }
+      .navigation-buttons{ flex-direction:column; }
+      .nav-button{ width:100%; }
+      .logo-section{ flex-direction:column; text-align:center; }
+      
+      .navegacion-principal {
+        display: none;
+      }
+      
+      .boton-menu {
+        display: block;
+      }
+    }
+    @media (max-width: 480px){
+      .confirmation-modal{ padding:26px; }
+      .modal-title{ font-size:1.5rem; }
+      
+      .contenedor {
+        padding: 0 15px;
+      }
+      
+      .logo img {
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="encabezado" id="encabezado">
+    <div class="contenedor">
+      <div class="logo">
+        <a href="/">
+          <img src="https://cutstyle.true-emotions.studio/dark-beard/wp-content/uploads/sites/4/2018/08/logo-db2.svg" alt="Logo Dark Beard">
+        </a>
+      </div>
+
+      <nav class="navegacion-principal">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#maestros">Maestros</a></li>
+          <li><a href="#precios">Precios</a></li>
+          <li><a href="#contactos">Contactos</a></li>
+        </ul>
+      </nav>
+
+      <i class='bx bx-menu boton-menu' id="boton-menu"></i>
+    </div>
+  </header>
+
+  <!-- Menú lateral para móvil -->
+  <div class="menu-lateral" id="menuLateral">
+    <a href="#inicio">Inicio</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#maestros">Maestros</a>
+    <a href="#precios">Precios</a>
+    <a href="#contactos">Contactos</a>
+  </div>
+
+  <div class="booking-container">
+    <div class="header">
+      <div class="logo-section">
+        <div class="crown-icon">👑</div>
+        <div>
+          <h2 class="title">Majestic Cuts & Salon</h2>
+          <p class="subtitle">"Elevating Your Crown to Royal Status"</p>
+        </div>
+      </div>
+
+      <!-- Progreso -->
+      <div class="progress-container" aria-label="Progreso de la reserva">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="step-indicators" id="stepIndicators">
+          <div class="step-indicator active" data-step="1"><div class="step-number">1</div><span>Info Personal</span></div>
+          <div class="step-indicator" data-step="2"><div class="step-number">2</div><span>Fecha & Hora</span></div>
+          <div class="step-indicator" data-step="3"><div class="step-number">3</div><span>Servicios</span></div>
+          <div class="step-indicator" data-step="4"><div class="step-number">4</div><span>Confirmación</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMPORTANTE: Reemplaza YOUR_EMAIL por tu correo si usarás FormSubmit -->
+    <form class="booking-form" id="bookingForm" action="https://formsubmit.co/YOUR_EMAIL" method="POST" onsubmit="handleBooking(event)">
+      <!-- Anti-spam / opciones FormSubmit -->
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="text" name="_honey" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <input type="hidden" name="_subject" value="Nueva reserva – Majestic Cuts" />
+      <input type="hidden" name="_template" value="table" />
+
+      <!-- Paso 1 -->
+      <div class="form-step active" id="step1" aria-labelledby="step1-title">
+        <h2 class="step-title" id="step1-title">Información Personal</h2>
+
+        <div class="form-group">
+          <label for="firstName">Nombre *</label>
+          <input type="text" id="firstName" name="firstName" placeholder="Tu nombre" required autocomplete="given-name" />
+          <small class="error-text" id="firstNameError">Ingresa tu nombre.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Apellido *</label>
+          <input type="text" id="lastName" name="lastName" placeholder="Tu apellido" required autocomplete="family-name" />
+          <small class="error-text" id="lastNameError">Ingresa tu apellido.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Teléfono *</label>
+          <input type="tel" id="phone" name="phone" placeholder="(617) 000-0000" required inputmode="tel" />
+          <small class="error-text" id="phoneError">Ingresa un teléfono válido (mín. 10 dígitos).</small>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" placeholder="tu@email.com" required autocomplete="email" />
+          <small class="error-text" id="emailError">Ingresa un email válido.</small>
+        </div>
+
+        <div class="navigation-buttons">
+          <div></div>
+          <button type="button" class="nav-button next" onclick="nextStep(1)">Siguiente</button>
+        </div>
+      </div>
+
+      <!-- Paso 2 -->
+      <div class="form-step" id="step2" aria-labelledby="step2-title">
+        <h2 class="step-title" id="step2-title">Fecha y Hora</h2>
+
+        <div class="form-group">
+          <label for="date">Fecha Preferida *</label>
+          <input type="date" id="date" name="date" required />
+          <small class="error-text" id="dateError">Selecciona una fecha válida.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="time">Hora Preferida *</label>
+          <select id="time" name="time" required>
+            <option value="">Seleccionar hora</option>
+          </select>
+          <small class="error-text" id="timeError">Selecciona una hora disponible.</small>
+        </div>
+
+        <div class="navigation-buttons">
+          <button type="button" class="nav-button prev" onclick="prevStep(2)">Anterior</button>
+          <button type="button" class="nav-button next" onclick="nextStep(2)">Siguiente</button>
+        </div>
+      </div>
+
+      <!-- Paso 3 -->
+      <div class="form-step" id="step3" aria-labelledby="step3-title">
+        <h2 class="step-title" id="step3-title">Selecciona tus Servicios</h2>
+
+        <div class="form-group full-width">
+          <label>Servicios Deseados *</label>
+          <div class="services-grid" id="servicesGrid">
+            <label class="service-option" tabindex="0">
+              <input type="checkbox" name="services" value="Corte de Cabello" />
+              <div class="service-info">
+                <div class="service-name">✂️ Corte de Cabello</div>
+                <div class="service-price">Desde $25</div>
+              </div>
+            </label>
+            <label class="service-option" tabindex="0">
+              <input type="checkbox" name="services" value="Arreglo de Barba" />
+              <div class="service-info">
+                <div class="service-name">🧔 Arreglo de Barba</div>
+                <div class="service-price">Desde $15</div>
+              </div>
+            </label>
+            <label class="service-option" tabindex="0">
+              <input type="checkbox" name="services" value="Peinado" />
+              <div class="service-info">
+                <div class="service-name">💫 Peinado</div>
+                <div class="service-price">Desde $20</div>
+              </div>
+            </label>
+            <label class="service-option" tabindex="0">
+              <input type="checkbox" name="services" value="Tintura/Color" />
+              <div class="service-info">
+                <div class="service-name">🎨 Tintura/Color</div>
+                <div class="service-price">Desde $45</div>
+              </div>
+            </label>
+            <label class="service-option" tabindex="0">
+              <input type="checkbox" name="services" value="Depilación" />
+              <div class="service-info">
+                <div class="service-name">✨ Depilación</div>
+                <div class="service-price">Desde $10</div>
+              </div>
+            </label>
+            <label class="service-option" tabindex="0">
+              <input type="checkbox" name="services" value="Lavado y Secado" />
+              <div class="service-info">
+                <div class="service-name">🧴 Lavado y Secado</div>
+                <div class="service-price">Desde $12</div>
+              </div>
+            </label>
+          </div>
+          <small class="error-text" id="servicesError">Selecciona al menos un servicio.</small>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="stylist">Estilista Preferido (Opcional)</label>
+          <select id="stylist" name="stylist">
+            <option value="">Sin preferencia</option>
+            <option value="María">María</option>
+            <option value="Carlos">Carlos</option>
+            <option value="Sofía">Sofía</option>
+            <option value="Diego">Diego</option>
+          </select>
+        </div>
+
+        <div class="navigation-buttons">
+          <button type="button" class="nav-button prev" onclick="prevStep(3)">Anterior</button>
+          <button type="button" class="nav-button next" onclick="nextStep(3)">Siguiente</button>
+        </div>
+      </div>
+
+      <!-- Paso 4 -->
+      <div class="form-step" id="step4" aria-labelledby="step4-title">
+        <h2 class="step-title" id="step4-title">Confirma tu Cita</h2>
+
+        <div class="form-group full-width">
+          <label for="notes">Notas Adicionales (Opcional)</label>
+          <textarea id="notes" name="notes" rows="3" placeholder="Cualquier solicitud especial o información adicional..."></textarea>
+        </div>
+
+        <div class="navigation-buttons">
+          <button type="button" class="nav-button prev" onclick="prevStep(4)">Anterior</button>
+          <button type="submit" class="nav-button">💈 Agendar Mi Cita 💈</button>
+        </div>
+      </div>
+
+      <div class="sr-only" aria-live="polite" id="liveRegion"></div>
+    </form>
+
+    <div class="contact-info">
+      <h3>Información de Contacto</h3>
+      <div class="contact-details">
+        <div class="contact-item"><span>📍</span><span>105 Depot Street, South Easton, MA 02375</span></div>
+        <div class="contact-item"><span>📞</span><span>(617) 501-1114</span></div>
+        <div class="contact-item"><span>📞</span><span>(508) 500-3043</span></div>
+        <div class="contact-item"><span>✉️</span><span>majesticcuts77@gmail.com</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de confirmación -->
+  <div class="modal-overlay" id="confirmationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalMessage">
+    <div class="confirmation-modal">
+      <div class="modal-icon">💈</div>
+      <h2 class="modal-title" id="modalTitle">¡Gracias por tu reserva!</h2>
+      <p class="modal-message" id="modalMessage">Tu cita fue agendada con éxito. Te enviamos un correo con los detalles. ¡Nos vemos pronto! ✨</p>
+      <button class="modal-button" id="goHomeBtn">Ir a Página Principal</button>
+    </div>
+  </div>
+
+  <script>
+    const totalSteps = 4;
+    let selectedDate = null;
+
+    // ---------- Navegación entre pasos con validación ----------
+    function nextStep(current){
+      // Validar el paso actual antes de avanzar
+      const canGo = validateStep(current);
+      if(!canGo) return;
+
+      document.getElementById(`step${current}`).classList.remove('active');
+      document.getElementById(`step${current+1}`).classList.add('active');
+      updateProgressBar(current+1);
+      announce(`Paso ${current+1} de ${totalSteps}`);
+
+      if(current+1 === 2){ setupDatePicker(); }
+      if(current+1 === 3){ enhanceServiceCards(); }
+      // Focus al primer input del paso siguiente
+      const firstInput = document.querySelector(`#step${current+1} input, #step${current+1} select, #step${current+1} textarea`);
+      if(firstInput) firstInput.focus({preventScroll:true});
+    }
+    function prevStep(current){
+      document.getElementById(`step${current}`).classList.remove('active');
+      document.getElementById(`step${current-1}`).classList.add('active');
+      updateProgressBar(current-1);
+      announce(`Volviste al paso ${current-1}`);
+      const firstInput = document.querySelector(`#step${current-1} input, #step${current-1} select, #step${current-1} textarea`);
+      if(firstInput) firstInput.focus({preventScroll:true});
+    }
+
+    function updateProgressBar(step){
+      const fill = document.getElementById('progressFill');
+      const pct = Math.max(0, Math.min(100, Math.round((step/totalSteps)*100)));
+      fill.style.width = pct + '%';
+      document.querySelectorAll('.step-indicator').forEach((el, idx)=>{
+        const s = idx+1;
+        el.classList.toggle('active', s===step);
+        el.classList.toggle('completed', s<step);
+      });
+    }
+
+    function announce(msg){
+      const lr = document.getElementById('liveRegion');
+      lr.textContent = msg;
+    }
+
+    // ---------- Validaciones ----------
+    function validateStep(step){
+      let ok = true;
+      clearErrors();
+      if(step===1){
+        const firstName = document.getElementById('firstName');
+        const lastName  = document.getElementById('lastName');
+        const phone     = document.getElementById('phone');
+        const email     = document.getElementById('email');
+        if(!firstName.value.trim()){ showError(firstName, 'firstNameError'); ok=false; }
+        if(!lastName.value.trim()){ showError(lastName, 'lastNameError'); ok=false; }
+        const phoneDigits = phone.value.replace(/\D/g,'');
+        if(phoneDigits.length < 10){ showError(phone, 'phoneError'); ok=false; }
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(email.value);
+        if(!emailOk){ showError(email, 'emailError'); ok=false; }
+      }
+      if(step===2){
+        const date = document.getElementById('date');
+        const time = document.getElementById('time');
+        if(!date.value){ showError(date, 'dateError'); ok=false; }
+        if(!time.value){ showError(time, 'timeError'); ok=false; }
+      }
+      if(step===3){
+        const checked = document.querySelectorAll('input[name="services"]:checked');
+        if(checked.length===0){
+          document.getElementById('servicesError').style.display='block';
+          ok=false;
+        }
+      }
+      return ok;
+    }
+    function showError(input, errorId){ input.classList.add('invalid'); const e = document.getElementById(errorId); if(e) e.style.display='block'; }
+    function clearErrors(){
+      document.querySelectorAll('.invalid').forEach(el=> el.classList.remove('invalid'));
+      document.querySelectorAll('.error-text').forEach(el=> el.style.display='none');
+    }
+
+    // ---------- Fecha & Hora ----------
+    function setupDatePicker(){
+      const dateInput = document.getElementById('date');
+      const today = new Date(); today.setHours(0,0,0,0);
+      dateInput.min = today.toISOString().split('T')[0];
+      const maxDate = new Date(today); maxDate.setMonth(today.getMonth()+3); dateInput.max = maxDate.toISOString().split('T')[0];
+      dateInput.removeEventListener('change', onDateChange); // evitar duplicados
+      dateInput.addEventListener('change', onDateChange);
+      if(dateInput.value){ onDateChange({ target: dateInput }); }
+    }
+    function onDateChange(e){ selectedDate = new Date(e.target.value); updateTimeSlots(selectedDate); }
+
+function updateTimeSlots(date){
+  const timeSelect = document.getElementById('time');
+  timeSelect.innerHTML = '<option value="">Seleccionar hora</option>';
+  if(!date || isNaN(date)) return;
+
+  const day = date.getDay(); // 0 dom, 1 lun, ..., 6 sab
+
+  // ---------- DESACTIVAR LUNES ----------
+  if(day === 1){
+    timeSelect.innerHTML = '<option value="" disabled>Cerrado los lunes</option>';
+    timeSelect.disabled = true;
+    return;
+  }
+  timeSelect.disabled = false;
+
+  // ---------- HORARIOS POR DÍA ----------
+  let startMins, endMins, interval = 30;
+  if(day === 0){ startMins=11*60; endMins=17*60+30; }        // domingo
+  else if(day === 2 || day === 3){ startMins=10*60; endMins=19*60+30; } // martes y miércoles
+  else{ startMins=9*60+30; endMins=20*60+30; }              // jueves, viernes, sábado
+
+  // ---------- SI ES HOY, QUITAR HORAS PASADAS ----------
+  const now = new Date();
+  if(sameYMD(now, date)){
+    const minsNow = now.getHours()*60 + now.getMinutes() + 10;
+    if(minsNow <= endMins){
+      startMins = Math.max(startMins, roundUp(minsNow, interval));
+    } else {
+      // Ya pasó el último horario
+      timeSelect.innerHTML = '<option value="" disabled>No quedan horarios hoy</option>';
+      return;
+    }
+  }
+
+  // ---------- LLENAR OPCIONES ----------
+  for(let m=startMins; m<=endMins; m+=interval){
+    const h = Math.floor(m/60), mi = m%60;
+    const value = `${String(h).padStart(2,'0')}:${String(mi).padStart(2,'0')}`;
+    const display = formatTime(h, mi);
+    const opt = document.createElement('option');
+    opt.value = value;
+    opt.textContent = display;
+    timeSelect.appendChild(opt);
+  }
+
+  if(timeSelect.options.length === 1){
+    const opt = document.createElement('option');
+    opt.disabled = true;
+    opt.textContent = 'No quedan horarios disponibles';
+    timeSelect.appendChild(opt);
+  }
+}
+    function roundUp(mins, step){ return Math.ceil(mins/step)*step; }
+    function sameYMD(a,b){ return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate(); }
+    function formatTime(h, m){ const p = h>=12? 'PM':'AM'; const hh = h%12 || 12; return `${hh}:${String(m).padStart(2,'0')} ${p}`; }
+
+    // ---------- Servicios: click en tarjeta marca checkbox ----------
+    function enhanceServiceCards(){
+      document.querySelectorAll('.service-option').forEach(card=>{
+        const cb = card.querySelector('input[type="checkbox"]');
+        if(!cb) return;
+        const sync = ()=> card.classList.toggle('selected', cb.checked);
+        card.addEventListener('click', (e)=>{
+          if(e.target.tagName.toLowerCase()!== 'input'){ cb.checked = !cb.checked; cb.dispatchEvent(new Event('change',{bubbles:true})); }
+        });
+        card.addEventListener('keypress', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); cb.checked=!cb.checked; cb.dispatchEvent(new Event('change',{bubbles:true})); }});
+        cb.addEventListener('change', ()=>{ sync(); document.getElementById('servicesError').style.display='none'; });
+        sync();
+      });
+    }
+
+    // ---------- Envío + Modal ----------
+    function handleBooking(e){
+      e.preventDefault();
+      if(!validateStep(4)) return; // por si quieres agregar checks extra
+
+      const form = e.target;
+      const overlay = document.getElementById('confirmationModal');
+
+      const action = (form.getAttribute('action')||'').toLowerCase();
+      const isFormSubmit = action.includes('formsubmit.co');
+
+      const showModal = ()=>{
+        overlay.classList.add('active');
+        document.getElementById('goHomeBtn').focus({preventScroll:true});
+        form.reset();
+        updateProgressBar(1); // reset UI
+        document.querySelectorAll('.form-step').forEach((s,i)=> s.classList.toggle('active', i===0));
+      };
+
+      if(isFormSubmit){
+        fetch(form.action, { method: form.method||'POST', body: new FormData(form) })
+          .then(r=>{ if(!r.ok) throw new Error('send-failed'); showModal(); })
+          .catch(()=>{ alert('No pudimos enviar la reserva. Revisa tu conexión e inténtalo de nuevo.'); });
+      } else {
+        showModal();
+      }
+    }
+
+    function goToHome(){ window.location.href = 'index.html'; }
+    document.getElementById('goHomeBtn').addEventListener('click', goToHome);
+
+    // Cerrar modal con Escape o click fuera
+    (function modalUX(){
+      const overlay = document.getElementById('confirmationModal');
+      overlay.addEventListener('click', (e)=>{ if(e.target===overlay){ overlay.classList.remove('active'); }});
+      window.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ overlay.classList.remove('active'); }});
+    })();
+
+    // Init
+    (function init(){ updateProgressBar(1); enhanceServiceCards(); })();
+    // Responsividad: microajuste de spacing en móvil
+    window.addEventListener('resize', ()=>{
+      if(window.innerWidth <= 768){ document.querySelectorAll('.form-group').forEach(g=> g.style.marginBottom='14px'); }
+    });
+  </script>
+  <script src="scripts.js"></script>
+</body>
+</html>
