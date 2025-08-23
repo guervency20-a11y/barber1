@@ -278,14 +278,19 @@ body::before{
 }
 
 .barber-description {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--light-gray);
   margin-bottom: 25px;
   max-width: 600px;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.5s ease-out 1s forwards;
+  flex: 1 1 400px;
+}
+
+.barber-description p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--light-gray);
+  margin: 0;
 }
 
 .barber-stats {
