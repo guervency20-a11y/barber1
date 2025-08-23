@@ -6,6 +6,10 @@
   <title>Salón Majestic Cuts</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+    --gold: #ffb700; /* define la variable */
+    }
+
     /* Reset y básicos */
     * {
       margin: 0;
@@ -15,7 +19,7 @@
 
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #0a0a0a;
+      background-color: #000000;
       color: white;
       line-height: 1.6;
       padding: 0;
@@ -31,8 +35,8 @@
     .hero {
       position: relative;
       width: 100%;
-      height: 80vh;
-      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('barberia.png') center/cover no-repeat;
+      height: 60vh;
+      background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('barberia.png') center/cover no-repeat;
     }
 
     .hero .back-arrow {
@@ -57,11 +61,17 @@
       bottom: -60px;
       left: 10px;
       background-color: rgba(0,0,0,0.9);
-      padding:8px 20px;
+      padding: 8px 20px;
       border-left: 4px solid #FFD700;
       border-radius: 5px;
       width: 65%;
       transition: all 0.3s ease;
+      z-index: 50; /* asegura que quede encima */
+      box-shadow: 0 4px 7px rgba(50,50,50,0.3);
+    }
+
+    .info-box {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.6); /* sombra debajo */
     }
 
     .hero .info-box:hover {
@@ -73,17 +83,12 @@
       color: linear-gradient(135deg, #591797, #1f0e2b);
       margin-bottom: 5px;
       font-family: 'Prata', serif;
-    }
+    }    
 
     .hero .info-box .rating {
       color: #FFD700;
       font-size: 1rem;
       margin-bottom: 2px;
-    }
-
-    .hero .info-box .reviews-count {
-      font-size: 0.9rem;
-      color: white;
     }
 
     /* NUEVA SECCIÓN: Ubicación y contacto compacta */
@@ -145,273 +150,88 @@
     }
 
     /* Tags */
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      padding: 0 20px 20px 20px;
-      gap: 10px;
-      margin-top: 20px;
-      background-color: #0f070e;
-      padding: 20px;
-      align-items: center;
-    }
+    .tags-container {
+            width: 100%;
+            max-width: 800px;
+            background: linear-gradient(145deg, #110014, #070006);
+            margin-bottom: 15px;
+            margin: auto;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .tags-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .tags-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 10px;
+        }
+        
+        .tag-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(145deg, #2a1b3a, #070006); /* púrpura oscuro → fondo */
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.08); /* sutil */
+    color: #ccc; /* texto gris claro para contraste */
+}
 
-    .tags span {
-      background: linear-gradient(135deg, #591797, #1f0e2b);
-      padding: 8px 12px;
-      border-radius: 20px;
-      display: inline-block;
-      font-size: 0.85rem;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
+.tag-item:hover {
+    background: linear-gradient(145deg, #3c2b5e, #1a0d25); /* cambio leve más claro */
+    transform: translateY(-1px); /* menos exagerado */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
 
-    .tags span::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    .tags span:hover {
-      transform: translateY(-3px) scale(1.05);
-    }
-
-    .tags span:hover::before {
-      left: 100%;
-    }
-
-    /* Animaciones adicionales para tags */
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-4px); }
-    }
-
-    .tags span:nth-child(odd) {
-      animation: float 3s ease-in-out infinite;
-    }
-
-    .tags span:nth-child(even) {
-      animation: float 3s ease-in-out infinite 1.5s;
-    }
-
-    /* Reviews */
-    .reviews-section {
-      padding: 20px;
-      background-color: #1a1a1a;
-      border-radius: 12px;
-      margin: 20px;
-      margin-top: 100px;
-    }
-
-    .reviews-section h3 {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-      color: #FFD700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .reviews-section h3 i {
-      animation: sparkle 2s ease-in-out infinite;
-    }
-
-    @keyframes sparkle {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-    }
-
-    .reviews {
-      overflow-x: auto;
-      display: flex;
-      gap: 20px;
-      scrollbar-width: none; /* Ocultar scrollbar en Firefox */
-      padding-bottom: 15px;
-    }
-
-    .reviews::-webkit-scrollbar {
-      display: none; /* Ocultar scrollbar en Chrome, Safari y Edge */
-    }
-
-    .review-card {
-      background: linear-gradient(145deg, #252525, #1e1e1e);
-      min-width: 280px;
-      max-width: 280px;
-      padding: 20px;
-      border-radius: 12px;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      position: relative;
-      border: 1px solid #333;
-      overflow: hidden;
-    }
-
-    .review-card::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, rgba(255, 215, 0, 0.5), rgba(138, 43, 226, 0.5), rgba(255, 215, 0, 0.5));
-      z-index: -1;
-      border-radius: 12px;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .review-card:hover::before {
-      opacity: 1;
-    }
-
-    .review-card:hover {
-      transform: translateY(-8px) scale(1.03);
-    }
-
-    .review-card.expanded {
-      max-width: 350px;
-      transform: scale(1.05);
-    }
-
-    .review-card h4 {
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-      color: #FFD700;
-    }
-
-    .review-card .stars {
-      color: #FFD700;
-      margin-bottom: 12px;
-      font-size: 0.9rem;
-    }
-
-    .review-card p {
-      font-size: 0.9rem;
-      color: #ddd;
-      line-height: 1.5;
-      margin-bottom: 5px;
-      max-height: 67.5px;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-      display: inline;
-    }
-
-    .review-card.expanded p {
-      max-height: 500px;
-      display: inline;
-    }
-
-    .read-more {
-      display: inline;
-      font-size: 0.85rem;
-      color: #3498db;
-      font-weight: bold;
-      cursor: pointer;
-      background: transparent;
-      padding: 0;
-      margin-left: 5px;
-      transition: all 0.3s ease;
-    }
-
-    .read-more:hover {
-      color: #5dade2;
-      text-decoration: underline;
-    }
-
-    /* Horarios y CTA */
-    .hours-cta {
-      padding: 20px;
-      background-color: #111;
-      border-radius: 10px;
-      margin: 20px;
-    }
-
-    .hours-cta h3 {
-      font-size: 1.3rem;
-      margin-bottom: 15px;
-      color: #FFD700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hours {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px 20px;
-      margin-bottom: 25px;
-      padding: 20px;
-      background: rgba(138, 43, 226, 0.05);
-      border-radius: 10px;
-      border: 1px solid #333;
-    }
-
-    .hours p {
-      font-size: 0.95rem;
-      padding: 3px 0;
-      transition: all 0.3s ease;
-    }
-
-    .hours p:nth-child(odd) {
-      color: #ccc;
-    }
-
-    .hours p:nth-child(odd):hover {
-      color: #FFD700;
-      transform: translateX(5px);
-    }
-
-    .hours p:nth-child(even) {
-      color: #FFD700;
-      text-align: right;
-      font-weight: 600;
-    }
-
-    .cta-button {
-      display: block;
-      margin: 0 auto;
-      padding: 15px 30px;
-      background: linear-gradient(135deg, #591797, #1f0e2b);
-      color: white;
-      text-transform: uppercase;
-      border: none;
-      border-radius: 30px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 4px 10px rgba(148, 12, 148, 0.3);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.6s;
-    }
-
-    .cta-button:hover {
-      transform: translateY(-5px) scale(1.05);
-    }
-
-    .cta-button:hover::before {
-      left: 100%;
-    }
+        
+        .tag-icon {
+            font-size: 0.9rem;
+            width: 16px;
+            text-align: center;
+        }
+        
+        /* Media Query para tablets */
+        @media (max-width: 768px) {
+            .tags-container {
+                max-width: 90%;
+                padding: 15px;
+            }
+            
+            .tags-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 8px;
+            }
+            
+            .tag-item {
+                padding: 7px 10px;
+                font-size: 0.75rem;
+            }
+        }
+        
+        /* Media Query para móviles pequeños */
+        @media (max-width: 480px) {
+            .tags-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .tag-item {
+                padding: 6px 8px;
+            }
+        }
 
     /* Footer */
     footer {
@@ -474,15 +294,40 @@
 
     /* Responsivo - Ajustes específicos para la nueva sección */
     @media (max-width: 768px) {
-      .hero .info-box {
-        width: 75%;
-      }
+
+       .hero .info-box {
+    left: 1%;               /* margen lateral pequeño */
+    width: 80% !important;             /* ocupa la mayoría del ancho */
+    max-width: 300px;       /* limita ancho para que sea un rectángulo */
+    padding: 10px 14px;     /* menos padding para compactarlo */
+    border-left: 3px solid #FFD700;
+    border-radius: 8px;
+    box-shadow: 0 4px 7px rgba(0,0,0,0.3); /* sombra ligera para móvil */
+  }
+
+  .hero .info-box h2 {
+    font-size: 1.2rem;      /* texto más pequeño */
+    margin-bottom: 4px;
+  }
+
+  .hero .info-box .rating {
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+  }
+}
+
+.contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
       
       .location-contact-compact {
         flex-direction: row;
         margin: 15px;
         padding: 15px;
         gap: 15px;
+        background: linear-gradient(145deg, #1b0220, #070006);
       }
       
       .map-compact {
@@ -504,31 +349,6 @@
       .note {
         font-size: 0.75rem;
       }
-      
-      .hours {
-        grid-template-columns: 1fr;
-      }
-      
-      .hours p:nth-child(even) {
-        text-align: left;
-        margin-bottom: 10px;
-      }
-
-      .reviews-section {
-        margin: 15px;
-        padding: 15px;
-        margin-top: 80px;
-      }
-
-      .review-card {
-        min-width: 250px;
-        max-width: 250px;
-      }
-
-      .review-card.expanded {
-        max-width: 300px;
-      }
-    }
 
     @media (max-width: 576px) {
       .location-contact-compact {
@@ -552,15 +372,6 @@
 
       .contact-text {
         font-size: 0.85rem;
-      }
-
-      .review-card {
-        min-width: 220px;
-        max-width: 220px;
-      }
-
-      .review-card.expanded {
-        max-width: 250px;
       }
     }
 
@@ -592,6 +403,400 @@
     gap: 8px;
   }
 }
+
+.hours-cta-compact {
+            width: 100%;
+            max-width: 500px;
+            background: linear-gradient(145deg, #2a1b3a, #070006); /* púrpura oscuro → fondo */
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            margin: auto;
+            margin-bottom: 22px;
+        }
+        
+        .hours-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .hours-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .hours-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .hours-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .hours-container {
+            max-height: 350px;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .hours-container.collapsed {
+            max-height: 0;
+        }
+        
+        .hours-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 8px 15px;
+            font-size: 0.9rem;
+        }
+        
+        .day {
+            font-weight: 500;
+            color: #e6e6e6;
+        }
+        
+        .time {
+            text-align: right;
+            color: #a0a0a0;
+        }
+        
+        .closed {
+            color: #ff4757;
+            font-weight: 500;
+        }
+        
+        .today {
+            color: #2ed573;
+            font-weight: 600;
+        }
+        
+        /* Botón transparente minimalista */
+.hours-cta-compact .cta-button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    border: 2px solid #e0d6ff; /* borde suave */
+    background: transparent; /* transparente */
+    color: #e0d6ff; /* texto claro */
+}
+        
+        /* Media Query para móviles */
+        @media (max-width: 768px) {
+            .hours-cta-compact {
+                max-width: 90%;
+                padding: 15px;
+            }
+            
+            .hours-title {
+                font-size: 1rem;
+            }
+            
+            .hours-grid {
+                font-size: 0.85rem;
+                gap: 6px 12px;
+            }
+            
+            .cta-button {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+           /* ===== REVIEWS SECTION ===== */
+    .reviews-section {
+      padding: 30px 20px;
+      background: linear-gradient(145deg, var(--dark-purple), #160320);
+      border-radius: 16px;
+      margin: 30px auto;
+      max-width: 1200px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .reviews-section h3 {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: left;
+      gap: 12px;
+      font-weight: 600;
+      padding-left: 10px;
+      margin-top: 50px;
+    }
+
+    .reviews-section h3 i {
+      color: var(--gold);
+      font-size: 1.5rem;
+    }
+
+    .reviews-container {
+      position: relative;
+      margin-top: -30px;
+    }
+
+    .reviews {
+      display: flex;
+      gap: 25px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent-purple) rgba(0, 0, 0, 0.2);
+      padding: 15px 10px 30px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .reviews::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .reviews::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+    }
+
+    .reviews::-webkit-scrollbar-thumb {
+      background: var(--accent-purple);
+      border-radius: 10px;
+    }
+
+    /* Review Card - Diseño Profesional */
+    .review-card {
+      background: linear-gradient(145deg, #1b0220, #070006);
+      min-width: 320px;
+      max-width: 320px;
+      padding: 25px;
+      border-radius: 16px;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      scroll-snap-align: start;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .review-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--accent-purple));
+      opacity: 0.8;
+    }
+
+    .review-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 215, 0, 0.2);
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    .reviewer-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .reviewer-info {
+      flex: 1;
+    }
+
+    .review-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+      color: var(--light-gold);
+      font-weight: 600;
+    }
+
+    .review-date {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 8px;
+    }
+
+    .stars {
+      color: var(--gold);
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      color: #FFD700;
+    }
+
+    .review-content {
+      position: relative;
+    }
+
+    .review-card p {
+      font-size: 0.95rem;
+      color: var(--light-gray);
+      line-height: 1.6;
+      margin-bottom: 15px;
+      max-height: 95px;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .review-card.expanded p {
+      max-height: 500px;
+    }
+
+    .read-more {
+      display: inline-block;
+      font-size: 0.85rem;
+      color: var(--accent-purple);
+      font-weight: 600;
+      cursor: pointer;
+      background: rgba(106, 44, 145, 0.1);
+      padding: 5px 12px;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(106, 44, 145, 0.3);
+    }
+
+    .read-more:hover {
+      background: rgba(106, 44, 145, 0.2);
+      color: var(--light-gold);
+    }
+
+    /* Navigation Arrows */
+    .reviews-nav {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--white);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent-purple);
+      transform: scale(1.1);
+    }
+
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 1024px) {
+      .review-card {
+        min-width: 300px;
+        max-width: 300px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .reviews-section {
+        margin: 20px 0;
+        border-radius: 0;
+        padding: 25px 15px;
+      }
+      
+      .reviews-section h3 {
+        font-size: 1.5rem;
+      }
+      
+      .review-card {
+        min-width: 280px;
+        max-width: 280px;
+        padding: 20px;
+      }
+      
+      .reviewer-avatar {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      body {
+        padding: 10px;
+      }
+      
+      .reviews-section {
+        padding: 20px 10px;
+      }
+      
+      .reviews-section h3 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+      }
+      
+      .review-card {
+        min-width: 260px;
+        max-width: 260px;
+        padding: 18px;
+      }
+      
+      .review-header {
+        gap: 12px;
+      }
+      
+      .reviewer-avatar {
+        width: 45px;
+        height: 45px;
+      }
+      
+      .review-card h4 {
+        font-size: 1rem;
+      }
+      
+      .review-card p {
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Ocultar scrollbar pero mantener funcionalidad */
+.reviews {
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
+}
+
+.reviews::-webkit-scrollbar {
+  display: none;
+}
   </style>
 </head>
 <body>
@@ -608,38 +813,91 @@
     </div>
   </section>
 
-  <!-- Reviews -->
+  <!-- Reviews Section Rediseñada -->
   <section class="reviews-section">
     <h3><i class="fas fa-star"></i> Customer Reviews</h3>
-    <div class="reviews">
-      <div class="review-card">
-        <h4>Fadolo</h4>
-        <div class="stars">★★★★★</div>
-        <p>Seen Fadeologyst101 Cutting Hair on Facebook so I came in. Amazing service and great attention to detail. Will definitely come back again!</p><div class="read-more">...more</div>
+    
+    <div class="reviews-container">
+      <div class="reviews">
+        <div class="review-card">
+          <div class="review-header">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Fadolo" class="reviewer-avatar">
+            <div class="reviewer-info">
+              <h4>Fadolo</h4>
+              <div class="review-date">2 weeks ago</div>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+          <div class="review-content">
+            <p>Seen Fadeologyst101 Cutting Hair on Facebook so I came in. Amazing service and great attention to detail. Will definitely come back again!</p>
+            <div class="read-more">Read more</div>
+          </div>
+        </div>
+        
+        <div class="review-card">
+          <div class="review-header">
+            <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Jmf Paint" class="reviewer-avatar">
+            <div class="reviewer-info">
+              <h4>Jmf Paint</h4>
+              <div class="review-date">3 weeks ago</div>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+          <div class="review-content">
+            <p>Gabe is a great barber. He took his time and gave me exactly what I wanted. The atmosphere here is relaxing and professional.</p>
+            <div class="read-more">Read more</div>
+          </div>
+        </div>
+        
+        <div class="review-card">
+          <div class="review-header">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Ghislene Alexis" class="reviewer-avatar">
+            <div class="reviewer-info">
+              <h4>Ghislene Alexis</h4>
+              <div class="review-date">1 month ago</div>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+          <div class="review-content">
+            <p>That was my best experience ever!!! The staff was friendly and the service was exceptional. I highly recommend this place.</p>
+            <div class="read-more">Read more</div>
+          </div>
+        </div>
+        
+        <div class="review-card">
+          <div class="review-header">
+            <img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Adrienne Roberts" class="reviewer-avatar">
+            <div class="reviewer-info">
+              <h4>Adrienne Roberts</h4>
+              <div class="review-date">2 months ago</div>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+          <div class="review-content">
+            <p>Took my son later in the evening. They accommodated us even though it was near closing time. Excellent service!</p>
+            <div class="read-more">Read more</div>
+          </div>
+        </div>
+        
+        <div class="review-card">
+          <div class="review-header">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Jonathan Regis" class="reviewer-avatar">
+            <div class="reviewer-info">
+              <h4>Jonathan Regis</h4>
+              <div class="review-date">3 months ago</div>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+          <div class="review-content">
+            <p>Lucson had been my barber for years. His skills are unmatched and he always makes sure his clients are satisfied.</p>
+            <div class="read-more">Read more</div>
+          </div>
+        </div>
       </div>
-      <div class="review-card">
-        <h4>Jmf Paint</h4>
-        <div class="stars">★★★★★</div>
-        <p>Gabe is a great barber. He took his time and gave me exactly what I wanted. The atmosphere here is relaxing and professional.</p>
-        <div class="read-more">...more</div>
-      </div>
-      <div class="review-card">
-        <h4>Ghislene Alexis</h4>
-        <div class="stars">★★★★★</div>
-        <p>That was my best experience ever!!! The staff was friendly and the service was exceptional. I highly recommend this place.</p>
-        <div class="read-more">...more</div>
-      </div>
-      <div class="review-card">
-        <h4>Adrienne Roberts</h4>
-        <div class="stars">★★★★★</div>
-        <p>Took my son later in the evening. They accommodated us even though it was near closing time. Excellent service!</p>
-        <div class="read-more">...more</div>
-      </div>
-      <div class="review-card">
-        <h4>Jonathan Regis</h4>
-        <div class="stars">★★★★★</div>
-        <p>Lucson had been my barber for years. His skills are unmatched and he always makes sure his clients are satisfied.</p>
-        <div class="read-more">...more</div>
+      
+      <div class="reviews-nav">
+        <button class="nav-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+        <button class="nav-btn next-btn"><i class="fas fa-chevron-right"></i></button>
       </div>
     </div>
   </section>
@@ -675,7 +933,7 @@
       
       <div class="divider"></div>
       
-      <div class="contact-item">
+      <div class="contact-item right">
         <span class="contact-icon">🅿️</span>
         <div class="contact-text">
           <p>Parking is located at the rear of the building.</p>
@@ -685,33 +943,101 @@
   </section>
 
   <!-- Tags -->
-  <section class="tags">
-    <span>Walk-Ins Welcome</span>
-    <span>Child Friendly</span>
-    <span>Free Wi-Fi</span>
-    <span>Parking Available</span>
-    <span>Waiting Area</span>
-    <span>Senior Discount</span>
-    <span>Wheelchair Accessible</span>
-    <span>Multilingual Staff</span>
-  </section>
+     <!-- Sección de Tags Rediseñada -->
+    <section class="tags-container">
+        <div class="tags-header">
+            <i class="fas fa-tags"></i>
+            <span>AMENITIES & SERVICES</span>
+        </div>
+        
+        <div class="tags-grid">
+            <div class="tag-item">
+                <span class="tag-icon">👣</span>
+                <span>Walk-Ins Welcome</span>
+            </div>
+            
+            <div class="tag-item">
+                <span class="tag-icon">👶</span>
+                <span>Child Friendly</span>
+            </div>
+            
+            <div class="tag-item">
+                <span class="tag-icon">📶</span>
+                <span>Free Wi-Fi</span>
+            </div>
+            
+            <div class="tag-item">
+                <span class="tag-icon">🅿️</span>
+                <span>Parking Available</span>
+            </div>
+            
+            <div class="tag-item">
+                <span class="tag-icon">🪑</span>
+                <span>Waiting Area</span>
+            </div>
+            
+            <div class="tag-item">
+                <span class="tag-icon">👵</span>
+                <span>Senior Discount</span>
+            </div>
+            
+            <div class="tag-item">
+                <span class="tag-icon">♿</span>
+                <span>Wheelchair Accessible</span>
+            </div>
+            
+            <div class="tag-item">
+                <span class="tag-icon">🌐</span>
+                <span>Multilingual Staff</span>
+            </div>
+        </div>
+    </section>
 
-  <!-- Horarios y CTA -->
-  <section class="hours-cta">
-    <h3><i class="fas fa-clock"></i> Business Hours</h3>
-    <div class="hours">
-      <p>Sunday</p><p>11:00 AM – 05:30 PM</p>
-      <p>Monday</p><p>Closed</p>
-      <p>Tuesday</p><p>10:00 AM – 07:30 PM</p>
-      <p>Wednesday</p><p>10:00 AM – 07:30 PM</p>
-      <p>Thursday</p><p>09:30 AM – 08:30 PM</p>
-      <p>Friday</p><p>09:30 AM – 08:30 PM</p>
-      <p>Saturday</p><p>09:30 AM – 08:30 PM</p>
-    </div>
-    <a href="agenda.html">
-      <button class="cta-button">BOOK APPOINTMENT</button>
-    </a>
-  </section>
+    <!-- Sección de Horarios y CTA Rediseñada -->
+    <section class="hours-cta-compact">
+        <div class="hours-header">
+            <div class="hours-title">
+                <i class="fas fa-clock"></i>
+                <span>Business Hours</span>
+            </div>
+            <button class="hours-toggle">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+        
+        <div class="hours-container">
+            <div class="hours-grid">
+                <span class="day">Sunday</span>
+                <span class="time">11:00 AM – 05:30 PM</span>
+                
+                <span class="day">Monday</span>
+                <span class="time closed">Closed</span>
+                
+                <span class="day">Tuesday</span>
+                <span class="time">10:00 AM – 07:30 PM</span>
+                
+                <span class="day">Wednesday</span>
+                <span class="time">10:00 AM – 07:30 PM</span>
+                
+                <span class="day today">Thursday</span>
+                <span class="time today">09:30 AM – 08:30 PM</span>
+                
+                <span class="day">Friday</span>
+                <span class="time">09:30 AM – 08:30 PM</span>
+                
+                <span class="day">Saturday</span>
+                <span class="time">09:30 AM – 08:30 PM</span>
+            </div>
+        </div>
+        
+        <a href="agenda.html" style="text-decoration: none; display: block;">
+            <button class="cta-button">
+                <i class="fas fa-calendar-check"></i>
+                BOOK APPOINTMENT
+            </button>
+        </a>
+    </section>
+
 
   <!-- Footer -->
   <footer>
@@ -750,44 +1076,96 @@
     </div>
   </footer>
 
-  <!-- Script para expandir reseñas al pulsar la carta -->
+    <!-- Font Awesome para el icono del header -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.querySelector('.hours-container');
+        const icon = document.querySelector('.hours-toggle i');
+        
+        // Que empiece colapsado
+        container.classList.add('collapsed');
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+        
+        // Funcionalidad de toggle
+        document.querySelector('.hours-toggle').addEventListener('click', function() {
+            container.classList.toggle('collapsed');
+            
+            if (container.classList.contains('collapsed')) {
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        });
+
+        // Resaltar el día actual
+        const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+        const today = new Date().getDay(); // 0 (Domingo) a 6 (Sábado)
+        const dayElements = document.querySelectorAll('.day');
+        
+        dayElements.forEach(day => day.classList.remove('today'));
+        
+        if (dayElements[today * 2]) {
+            dayElements[today * 2].classList.add('today');
+            const timeElement = dayElements[today * 2].nextElementSibling;
+            if (timeElement) timeElement.classList.add('today');
+        }
+    });
+</script>
+
+ <script>
+    // Funcionalidad para expandir/contraer reseñas
     document.querySelectorAll('.review-card').forEach(card => {
-      const more = card.querySelector('.read-more');
+      const moreBtn = card.querySelector('.read-more');
       const text = card.querySelector('p');
       const originalText = text.textContent;
 
-      // Solo si el texto es largo
       if (originalText.length > 120) {
-        // Mostrar solo un fragmento al inicio
         text.textContent = originalText.substring(0, 120) + '...';
-        more.textContent = 'more';
+        moreBtn.textContent = 'Read more';
 
-        // Función para alternar expansión
         const toggleText = () => {
           card.classList.toggle('expanded');
           if (card.classList.contains('expanded')) {
             text.textContent = originalText;
-            more.textContent = 'less';
+            moreBtn.textContent = 'Read less';
           } else {
             text.textContent = originalText.substring(0, 120) + '...';
-            more.textContent = 'more';
+            moreBtn.textContent = 'Read more';
           }
         };
 
-        // Activar al pulsar toda la carta
-        card.addEventListener('click', toggleText);
-
-        // Evitar propagación al hacer clic en el botón
-        more.addEventListener('click', e => {
+        moreBtn.addEventListener('click', (e) => {
           e.stopPropagation();
           toggleText();
         });
 
+        // También permitir expandir haciendo clic en la tarjeta
+        card.addEventListener('click', (e) => {
+          if (e.target !== moreBtn) {
+            toggleText();
+          }
+        });
       } else {
-        // Ocultar el botón si el texto es corto
-        more.style.display = 'none';
+        moreBtn.style.display = 'none';
       }
+    });
+
+    // Navegación entre reviews
+    const reviewsContainer = document.querySelector('.reviews');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+
+    nextBtn.addEventListener('click', () => {
+      reviewsContainer.scrollBy({ left: 350, behavior: 'smooth' });
+    });
+
+    prevBtn.addEventListener('click', () => {
+      reviewsContainer.scrollBy({ left: -350, behavior: 'smooth' });
     });
   </script>
 
