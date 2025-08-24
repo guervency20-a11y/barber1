@@ -171,7 +171,7 @@
     .hero .overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.4);
     }
     
     .hero-content {
@@ -248,7 +248,7 @@
       color: #ffffff;
     }
     
-    /* === SECCIÓN SERVICIOS POPULARES (ACTUALIZADA) === */
+    /* === SECCIÓN SERVICIOS POPULARES (ORIGINAL) === */
     .servicios-populares {
       position: relative;
       background: url('fondo.png') center/cover no-repeat;
@@ -329,8 +329,8 @@
     }
 
     .services-text p {
-      font-size: clamp(0.85rem, 1.1vw, 1rem); /* Reducido para móviles */
-      line-height: 1.6; /* Reducido para móviles */
+      font-size: clamp(0.95rem, 1.1vw, 1.2rem);
+      line-height: 1.8;
       color: #969292;
       margin: 0;
       position: relative;
@@ -524,100 +524,6 @@
       color: #b3b3b3;
     }
     
-    /* CONTROLES DE AUDIO PERSONALIZADOS */
-    .audio-controls {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(0, 0, 0, 0.8);
-      border: 1px solid #d4af37;
-      border-radius: 50px;
-      padding: 10px 15px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      z-index: 1000;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(5px);
-      transition: all 0.3s ease;
-    }
-    
-    .audio-btn {
-      background: transparent;
-      border: none;
-      color: #d4af37;
-      cursor: pointer;
-      font-size: 18px;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-    }
-    
-    .audio-btn:hover {
-      background: rgba(212, 175, 55, 0.2);
-    }
-    
-    .audio-selector {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid #d4af37;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .audio-selector:hover {
-      background: rgba(212, 175, 55, 0.2);
-    }
-    
-    .progress-container {
-      width: 120px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 2px;
-      overflow: hidden;
-      cursor: pointer;
-    }
-    
-    .progress-bar {
-      height: 100%;
-      background: #d4af37;
-      width: 0%;
-      transition: width 0.1s linear;
-    }
-    
-    .time-display {
-      font-size: 11px;
-      color: #d4af37;
-      min-width: 40px;
-      text-align: center;
-    }
-    
-    .next-audio-btn {
-      background: transparent;
-      border: none;
-      color: #d4af37;
-      cursor: pointer;
-      font-size: 18px;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-    }
-    
-    .next-audio-btn:hover {
-      background: rgba(212, 175, 55, 0.2);
-    }
-    
     /* ANIMACIONES */
     @keyframes shine {
       0% { background-position: 0% 50%; }
@@ -715,17 +621,6 @@
         left: 50%;
         transform: translateX(-50%);
       }
-      
-      /* Ajustes de audio para tablet */
-      .audio-controls {
-        bottom: 15px;
-        right: 15px;
-        padding: 8px 12px;
-      }
-      
-      .progress-container {
-        width: 80px;
-      }
     }
 
     @media (max-width: 1006px) {
@@ -743,8 +638,7 @@
       }
 
       .services-text p {
-        font-size: 0.8rem; /* Más pequeño para móviles */
-        line-height: 1.5; /* Más compacto para móviles */
+        font-size: 0.9rem;
       }
 
       .boton-menu { display: block !important; }
@@ -752,29 +646,6 @@
       /* Ocultar menú horizontal en móvil */
       .navegacion-principal ul {
         display: none;
-      }
-      
-      /* Ajustes de audio para móviles */
-      .audio-controls {
-        bottom: 10px;
-        right: 10px;
-        padding: 6px 10px;
-        gap: 8px;
-      }
-      
-      .audio-btn, .next-audio-btn {
-        width: 30px;
-        height: 30px;
-        font-size: 16px;
-      }
-      
-      .progress-container {
-        width: 60px;
-      }
-      
-      .time-display {
-        font-size: 10px;
-        min-width: 35px;
       }
     }
     
@@ -852,34 +723,6 @@
 <!-- Fondo oscuro -->
 <div class="fondo-oscuro" id="fondoOscuro"></div>
 
-<!-- Elementos de audio (ocultos) -->
-<audio id="mensAudio" preload="auto">
-  <source src="mens-audio.mp3" type="audio/mpeg">
-  Tu navegador no soporta el elemento de audio.
-</audio>
-
-<audio id="freshAudio" preload="auto">
-  <source src="fresh-audio.mp3" type="audio/mpeg">
-  Tu navegador no soporta el elemento de audio.
-</audio>
-
-<!-- Controles de audio personalizados -->
-<div class="audio-controls" id="audioControls">
-  <button class="audio-btn" id="playPauseBtn">
-    <i class='bx bx-play'></i>
-  </button>
-  <button class="audio-btn" id="rewindBtn">
-    <i class='bx bx-rewind'></i>
-  </button>
-  <div class="progress-container" id="progressContainer">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
-  <div class="time-display" id="timeDisplay">0:00</div>
-  <button class="next-audio-btn" id="nextAudioBtn">
-    <i class='bx bx-skip-next'></i>
-  </button>
-</div>
-
 <section id="home" class="hero">
   <div class="overlay"></div>
   <div class="hero-content">
@@ -894,7 +737,7 @@
   </div>    
 </section>
 
-<!-- SECCIÓN SERVICIOS (ACTUALIZADA) -->
+<!-- SECCIÓN SERVICIOS (ORIGINAL) -->
 <section class="servicios-populares">
   <div class="overlay-negro"></div>
 
@@ -907,15 +750,10 @@
         <h2 class="titulo-seccion">Skip the Weekend Rush</h2>
       </div>
 
-      <!-- Texto descriptivo actualizado -->
+      <!-- Texto descriptivo -->
       <div class="services-text">
         <p>
-          Why wait for weekend crowds when you can look flawless all week? Turn your Tuesday into a self-care goal and avoid the long Saturday lines.<br><br>
-          <strong>Weekly Discount Schedule:</strong><br>
-          Tuesday and Wednesday: Special discounts available.<br>
-          Friday to Sunday: Regular prices.<br><br>
-          <strong>Punctuality Bonus:</strong> Arrive on time or up to 2 minutes early, and get an additional 10% off your service.<br><br>
-          Start your week looking fresh, not stressed!
+          Why wait for weekend crowds when you can look flawless all week? Turn your gloomy Monday into a self-care goal and avoid the long Saturday lines. <strong>Weekly Discount Schedule:</strong> <span style="color:#b0b0b0;">Monday & Tuesday:</span> 30-40% OFF <span style="color:#888888;">Wednesday & Thursday:</span> 15-20% OFF <span style="color:#555555;">Friday to Sunday:</span> Regular Prices. "Start your week looking fresh, not stressed!
         </p>
       </div>
       
@@ -1014,7 +852,6 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
 <script>
 // scroll:
 window.addEventListener('scroll', function () {
@@ -1048,196 +885,60 @@ menuLateral.querySelectorAll('a').forEach(enlace => {
   });
 });
 
-// Variables globales para el control de audio
-let currentAudio = null;
-let mensAudioPlayed = false;
-let freshAudioPlayed = false;
-let isPlaying = false;
-let currentAudioType = 'mens'; // 'mens' o 'fresh'
-
-// Elementos de audio
-const mensAudio = document.getElementById('mensAudio');
-const freshAudio = document.getElementById('freshAudio');
-
-// Controles de audio
-const playPauseBtn = document.getElementById('playPauseBtn');
-const rewindBtn = document.getElementById('rewindBtn');
-const progressBar = document.getElementById('progressBar');
-const progressContainer = document.getElementById('progressContainer');
-const timeDisplay = document.getElementById('timeDisplay');
-const nextAudioBtn = document.getElementById('nextAudioBtn');
-const audioControls = document.getElementById('audioControls');
-
-// Inicializar el audio actual
-currentAudio = mensAudio;
-
-// Función para formatear el tiempo (mm:ss)
-function formatTime(seconds) {
-  const mins = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60);
-  return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-}
-
-// Actualizar la barra de progreso y el tiempo
-function updateProgress() {
-  if (currentAudio) {
-    const { currentTime, duration } = currentAudio;
-    const progressPercent = (currentTime / duration) * 100;
-    progressBar.style.width = `${progressPercent}%`;
-    timeDisplay.textContent = formatTime(currentTime);
-  }
-}
-
-// Reproducir audio
-function playAudio() {
-  if (currentAudio) {
-    // Omitir los primeros 1.5 segundos de silencio
-    currentAudio.currentTime = 1.5;
-    currentAudio.play()
-      .then(() => {
-        isPlaying = true;
-        playPauseBtn.innerHTML = '<i class="bx bx-pause"></i>';
-      })
-      .catch(error => {
-        console.error("Error al reproducir audio:", error);
-      });
-  }
-}
-
-// Pausar audio
-function pauseAudio() {
-  if (currentAudio) {
-    currentAudio.pause();
-    isPlaying = false;
-    playPauseBtn.innerHTML = '<i class="bx bx-play"></i>';
-  }
-}
-
-// Rebobinar audio
-function rewindAudio() {
-  if (currentAudio) {
-    // Rebobinar 10 segundos, pero no menos de 1.5 segundos
-    currentAudio.currentTime = Math.max(1.5, currentAudio.currentTime - 10);
-  }
-}
-
-// Cambiar al siguiente audio
-function nextAudio() {
-  // Pausar el audio actual
-  pauseAudio();
-  
-  // Cambiar al siguiente audio
-  if (currentAudioType === 'mens') {
-    currentAudio = freshAudio;
-    currentAudioType = 'fresh';
-    
-    // Desplazar a la sección de servicios
-    document.querySelector('.servicios-populares').scrollIntoView({ 
-      behavior: 'smooth' 
-    });
-    
-    // Reproducir automáticamente
-    setTimeout(() => {
-      playAudio();
-      freshAudioPlayed = true;
-    }, 1000);
-    
-  } else {
-    currentAudio = mensAudio;
-    currentAudioType = 'mens';
-    
-    // Desplazar a la sección de inicio
-    document.querySelector('.hero').scrollIntoView({ 
-      behavior: 'smooth' 
-    });
-    
-    // Reproducir automáticamente
-    setTimeout(() => {
-      playAudio();
-      mensAudioPlayed = true;
-    }, 1000);
-  }
-  
-  // Reiniciar la barra de progreso
-  progressBar.style.width = '0%';
-  timeDisplay.textContent = '0:00';
-}
-
-// Event listeners para los controles
-playPauseBtn.addEventListener('click', () => {
-  if (isPlaying) {
-    pauseAudio();
-  } else {
-    playAudio();
-  }
-});
-
-rewindBtn.addEventListener('click', rewindAudio);
-
-nextAudioBtn.addEventListener('click', nextAudio);
-
-progressContainer.addEventListener('click', (e) => {
-  if (currentAudio) {
-    const width = progressContainer.clientWidth;
-    const clickX = e.offsetX;
-    const duration = currentAudio.duration;
-    currentAudio.currentTime = (clickX / width) * duration;
-  }
-});
-
-// Actualizar el progreso regularmente
-setInterval(updateProgress, 100);
-
-// Reproducir mensAudio inmediatamente al cargar la página
+// Galería (solo Splide)
 document.addEventListener('DOMContentLoaded', function() {
-  // Reproducir mensAudio inmediatamente
-  setTimeout(() => {
-    if (!mensAudioPlayed) {
-      playAudio();
-      mensAudioPlayed = true;
-    }
-  }, 500);
-});
-
-// Inicialización del carrusel
-document.addEventListener('DOMContentLoaded', function() {
-  // Carrusel principal
-  const main = new Splide('#carrusel-principal', {
-    type: 'fade',
-    rewind: true,
+  // Galería principal
+  var principal = new Splide('#carrusel-principal', {
+    type: 'loop',
     pagination: false,
     arrows: false,
     cover: true,
-    heightRatio: 0.6,
+    lazyLoad: 'nearby',
+    autoplay: false,
+    heightRatio: 1,
+    interval: 4000,
+    breakpoints: {
+      768: { heightRatio: 0.8 }
+    }
   });
-  
-  // Carrusel de miniaturas
-  const thumbnails = new Splide('#carrusel-miniaturas', {
+
+  // Miniaturas (también en loop)
+  var miniaturas = new Splide('#carrusel-miniaturas', {
+    type: 'loop',
     fixedWidth: 100,
     fixedHeight: 70,
     gap: 10,
-    rewind: true,
     pagination: false,
     isNavigation: true,
-    arrows: false,
     cover: true,
     focus: 'center',
+    rewind: false,
+    breakpoints: {
+      768: { 
+        fixedWidth: 80, 
+        fixedHeight: 60,
+        gap: 8
+      },
+      480: {
+        fixedWidth: 70,
+        fixedHeight: 50,
+        gap: 6
+      }
+    }
   });
-  
-  // Sincronizar ambos carruseles
-  main.sync(thumbnails);
-  main.mount();
-  thumbnails.mount();
-  
-  // Navegación personalizada con flechas
-  document.querySelector('.flecha-prev').addEventListener('click', () => {
-    main.go('<');
-  });
-  
-  document.querySelector('.flecha-next').addEventListener('click', () => {
-    main.go('>');
-  });
+
+  principal.sync(miniaturas);
+  principal.mount();
+  miniaturas.mount();
+
+  // Flechas personalizadas (solo en desktop)
+  if (window.innerWidth >= 768) {
+    document.querySelector('.flecha-prev').addEventListener('click', () => principal.go('-1'));
+    document.querySelector('.flecha-next').addEventListener('click', () => principal.go('+1'));
+  }
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
 </body>
 </html>
+
