@@ -3,13 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BARBER CLUB - Servicios Premium</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Prata&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-:root {
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BARBER CLUB - Premium Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Prata&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+  /* (Estilos de services.html, puedes copiar y pegar los originales aquí) */
+  :root {
   --black: #0a0a0a;
   --dark-gray: #1a1a1a;
   --gold: #d4af37;
@@ -177,7 +184,6 @@ body::before{
 }
 
 .barber-image-container {
-  margin-top: 40px;
   position: relative;
   flex: 0 0 300px;
   opacity: 0;
@@ -279,45 +285,89 @@ body::before{
 
 .barber-description {
   margin-bottom: 25px;
-  max-width: 600px;
+  @media (max-width: 480px) {
+    .intro-section {
+      padding: 40px 15px;
+    }
+    .service-card { 
+      height: 460px;
+      border-radius: 16px;
+    }
+    .service-overlay { padding: 14px; }
+    .service-name { font-size: 17px; margin-bottom: 6px; }
+    .toggle-btn { padding: 10px 16px; font-size: 11px; bottom: 12px; }
+    .info-panel { padding: 16px; }
+    .info-title { font-size: 15px; margin-bottom: 8px; }
+    .info-text { font-size: 12px; margin-bottom: 8px; }
+    .price-row { font-size: 12px; margin: 6px 0 10px; }
+    .cta-btn { padding: 9px 12px; font-size: 11px; }
+    .close-btn { width: 28px; height: 28px; font-size: 14px; top: 10px; right: 10px; }
+    .barber-image-container {
+      flex: 0 0 200px;
+    }
+    .barber-image {
+      width: 200px;
+      height: 200px;
+    }
+    .barber-image-container::before {
+      width: 220px;
+      height: 220px;
+    }
+    .barber-stats {
+      flex-wrap: nowrap;
+      gap: 20px;
+    }
+    /* Mejoras para el footer en móvil */
+    footer {
+      padding: 10px 4px 4px;
+    }
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .footer-section {
+      min-width: 120px;
+      flex: 1 1 120px;
+      margin: 0 2px;
+      padding: 0 2px;
+    }
+    .footer-section h3 {
+      font-size: 0.7rem;
+      margin-bottom: 3px;
+      padding-bottom: 2px;
+    }
+    .footer-section p {
+      font-size: 0.6rem;
+      margin: 2px 0;
+    }
+    .footer-section i {
+      font-size: 0.7rem;
+      margin-right: 4px;
+    }
+    .social-links a {
+      font-size: 0.7rem;
+      margin-right: 4px;
+    }
+    .copyright {
+      font-size: 0.55rem;
+      margin-top: 6px;
+      padding-top: 2px;
+    }
+  }
+/* Animación para el footer */
+.footer-content, footer .copyright {
   opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.5s ease-out 1s forwards;
-  flex: 1 1 400px;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(.77,0,.18,1), transform 0.8s cubic-bezier(.77,0,.18,1);
 }
-
-.barber-description p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--light-gray);
-  margin: 0;
+footer.active-scroll .footer-content,
+footer.active-scroll .copyright {
+  opacity: 1;
+  transform: translateY(0);
 }
-
-.barber-stats {
-  display: flex;
-  gap: 30px;
-  margin-bottom: 30px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.5s ease-out 1.2s forwards;
-}
-
-.stat-item {
-  text-align: center;
-  opacity: 0;
-  transform: translateY(20px) scale(0.9);
-}
-
-.stat-item:nth-child(1) {
-  animation: bounceIn 0.4s ease-out 1.4s forwards;
-}
-
-.stat-item:nth-child(2) {
-  animation: bounceIn 0.4s ease-out 1.5s forwards;
-}
-
-.stat-item:nth-child(3) {
-  animation: bounceIn 0.4s ease-out 1.6s forwards;
 }
 
 .stat-number {
@@ -326,6 +376,8 @@ body::before{
   font-weight: 700;
   color: var(--gold);
   line-height: 1;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .stat-label {
@@ -333,6 +385,8 @@ body::before{
   color: var(--light-gray);
   text-transform: uppercase;
   letter-spacing: 1px;
+  text-align: center;
+  display: block;
 }
 
 .barber-cta {
@@ -1514,22 +1568,6 @@ h2,h3,.services-title,.step-title {
   box-shadow: 0 8px 18px rgba(0,0,0,.35); 
 }
 
-/* ---- Hover / interacción (no rompe el estado 'active') ---- */
-.service-card:not(.active):hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.6);
-}
-.service-card:not(.active):hover .service-image {
-  transform: scale(1.04);
-  filter: brightness(.92);
-}
-
-/* Accesibilidad: foco */
-.service-card:focus-visible {
-  outline: 3px solid rgba(212,175,55,0.12);
-  outline-offset: 6px;
-}
-
 /* Sección de información */
 .info-section {
   padding: 80px 20px;
@@ -1800,331 +1838,597 @@ h2,h3,.services-title,.step-title {
 .footer-section h3 {
   color: var(--gold);
 }
-</style>
-</head>
-<body>
 
-  <!-- Encabezado -->
-  <header class="encabezado">
-    <div class="contenedor">
-      <div class="logo">
-        <img src="logo.png" alt="Logo Barber Club">
-      </div>
-      <nav class="navegacion-principal desktop-nav">
-        <ul>
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="servicios.html">Servicios</a></li>
-          <li><a href="galeria.html">Galería</a></li>
-          <li><a href="nosotros.html">Nosotros</a></li>
-          <li><a href="ubicacion.html">Ubicación</a></li>
-        </ul>
-      </nav>
-      <button class="mobile-menu-btn" id="mobileMenuBtn">
-        <i class="fas fa-bars"></i>
-      </button>
-    </div>
-  </header>
+/* Hero Section Styles */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('barberia.png') center/cover no-repeat;
+}
 
-  <!-- Menú móvil -->
-  <div class="mobile-menu" id="mobileMenu">
-    <button class="close-menu" id="closeMenu">
-      <i class="fas fa-times"></i>
-    </button>
-    <a href="index.html">Inicio</a>
-    <a href="servicios.html">Servicios</a>
-    <a href="galeria.html">Galería</a>
-    <a href="nosotros.html">Nosotros</a>
-    <a href="ubicacion.html">Ubicación</a>
-  </div>
+.hero .info-box {
+  position: absolute;
+  bottom: -60px;
+  left: 10px;
+  background-color: rgba(0,0,0,0.9);
+  padding: 8px 20px;
+  border-left: 4px solid #FFD700;
+  border-radius: 5px;
+  width: 65%;
+  transition: all 0.3s ease;
+  z-index: 50;
+  box-shadow: 0 4px 7px rgba(50,50,50,0.3);
+}
 
-  <!-- Sección de presentación del barbero -->
-  <section class="barber-presentation " id="barber">
-    <div class="barber-container">
-      <div class="barber-image-container">
-        <img src="lucson.png" alt="Master Barber & Artist Lucson Guerrier" class="barber-image">
-      </div>
-      <div class="barber-info">
-        <span class="barber-tag">Master Barber & Artist</span>
-        <h2 class="barber-name">Lucson Guerrier</h2>
-        <p class="barber-description">
-          At 50, Lucson brings three decades of mastery to every chair. He started cutting hair at 16, dedicated himself fully to the craft at 22, and has been perfecting his art ever since. As a self-taught painter who's held brushes since childhood, Lucson sees every head as a canvas, every cut as a masterpiece. His artistic vision transforms ordinary haircuts into signature styles that reflect who you truly are.
-        </p>
-        <div class="barber-stats">
-          <div class="stat-item">
-            <span class="stat-number">30+</span>
-            <span class="stat-label">Years Mastering</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">8000+</span>
-            <span class="stat-label">Transformations</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">50</span>
-            <span class="stat-label">Years of Wisdom</span>
-          </div>
+.hero .info-box:hover {
+  transform: translateY(-5px);
+}
+
+.hero .info-box h2 {
+  font-size: 1.6rem;
+  color: linear-gradient(135deg, #591797, #1f0e2b);
+  margin-bottom: 5px;
+  font-family: 'Prata', serif;
+}
+
+.hero .info-box .rating {
+  color: #FFD700;
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+@media (max-width: 768px) {
+  .hero .info-box {
+    left: 1%;
+    width: 80% !important;
+    max-width: 300px;
+    padding: 10px 14px;
+    border-left: 3px solid #FFD700;
+    border-radius: 8px;
+    box-shadow: 0 4px 7px rgba(0,0,0,0.3);
+  }
+
+  .hero .info-box h2 {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+  }
+
+  .hero .info-box .rating {
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+  }
+}
+
+/* Disposición responsiva para las estadísticas del barbero */
+.barber-stats {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  margin-bottom: 30px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease-out 1.2s forwards;
+}
+@media (max-width: 480px) {
+  .barber-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    justify-items: center;
+  }
+  .stat-item:nth-child(3) {
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+}
+  </style>
+  </head>
+  <body>
+    <!-- Encabezado -->
+    <header class="encabezado scroll-animate">
+      <div class="contenedor">
+        <div class="logo">
+          <img src="logo.png" alt="Logo Barber Club">
         </div>
-        <a href="ubicacion.html" class="barber-cta">Reseñas</a>
+        <nav class="navegacion-principal desktop-nav">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="agenda.html">Book Now</a></li>
+            <li><a href="index.html#galeria-principal">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="ubicacion.html">Location</a></li>
+          </ul>
+        </nav>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
+    </header>
+    <!-- Hero -->
+  <section class="hero scroll-animate">
+    <!-- Flecha de retroceso eliminada -->
+    <div class="info-box">
+      <h2>Majestic Cuts Salons</h2>
+      <div class="rating">4.4 (★★★★★)</div>
+      <div class="reviews-count">(32)</div>
     </div>
   </section>
+    <!-- Menú móvil -->
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="close-menu" id="closeMenu">
+        <i class="fas fa-times"></i>
+      </button>
+      <a href="index.html">Home</a>
+      <a href="agenda.html">Book Now</a>
+      <a href="index.html#galeria-principal">Gallery</a>
+      <a href="about.html">About</a>
+      <a href="ubicacion.html">Location</a>
+    </div>
+    <!-- Sección de presentación del barbero -->
+    <section class="barber-presentation scroll-animate" id="barber">
+      <div class="barber-container section" id="section2">
+        <div class="barber-image-container scroll-animate scroll-animate-left" >
+          <img src="lucson.png" alt="Master Barber & Artist Lucson Guerrier" class="barber-image">
+        </div>
+        <div class="barber-info scroll-animate scroll-animate-right">
+          <span class="barber-tag scroll-animate content">Master Barber & Artist</span>
+          <h2 class="barber-name scroll-animate">Lucson Guerrier</h2>
+          <p class="barber-description scroll-animate">
+            At 50, Lucson brings three decades of mastery to every chair. He started cutting hair at 16, dedicated himself fully to the craft at 22, and has been perfecting his art ever since. As a self-taught painter who's held brushes since childhood, Lucson sees every head as a canvas, every cut as a masterpiece. His artistic vision transforms ordinary haircuts into signature styles that reflect who you truly are.
+          </p>
+          <div class="barber-stats">
+            <div class="stat-item scroll-animate"> <span class="stat-number">30+</span> <span class="stat-label">Years Mastering</span> </div>
+            <div class="stat-item scroll-animate"> <span class="stat-number">8000+</span> <span class="stat-label">Transformations</span> </div>
+            <div class="stat-item scroll-animate"> <span class="stat-number">50</span> <span class="stat-label">Years of Wisdom</span> </div>
+          </div>
+          <a href="ubicacion.html" class="barber-cta scroll-animate">Reviews</a>
+        </div>
+      </div>
+    </section>
 
-<section class="intro-section fade-in" id="servicios">
-  <div class="services-wrapper">
+<section class="intro-section scroll-animate section" id="servicios">
+  <div class="services-wrapper" id="section3">
     <div class="services-header">
-      <h2 class="services-title">Nuestros Servicios</h2>
+      <h2 class="services-title scroll-animate content">Our Services</h2>
     </div>
     
     <div class="services-grid">
       <!-- Tarjeta 1 -->
-      <div class="service-card">
+      <div class="service-card scroll-animate-scale scroll-stagger-1">
         <!-- Imagen -->
         <img src="pelo2.png" class="service-image">
 
         <!-- Contenido overlay inicial -->
         <div class="service-overlay">
-          <div class="service-name"><h3 class="titulo-carta">cabello</h3></div>
+          <div class="service-name"><h3 class="titulo-carta">Haircut</h3></div>
         </div>
 
         <!-- Botón Ver detalle -->
-        <button class="toggle-btn"><i class="fas fa-eye"></i> Ver detalle</button>
+        <button class="toggle-btn"><i class="fas fa-eye"></i> View Details</button>
 
         <!-- Botón cerrar ✕ -->
         <button class="close-btn">✕</button>
 
         <!-- Panel de información -->
         <div class="info-panel">
-          <h4 class="info-title">Corte de Cabello</h4>
-          <p class="info-text">Diseño personalizado con técnicas modernas y acabado perfecto.</p>
+          <h4 class="info-title">Haircut</h4>
+          <p class="info-text">Custom design with modern techniques and perfect finish.</p>
 
           <div class="price-row">
-            <span class="label">Lun–Mié</span>
+            <span class="label">Mon–Wed</span>
             <span class="value">$15 <small style="opacity:.65;text-decoration:line-through;margin-left:6px;">$20</small></span>
-            <span class="label">Jue–Dom</span>
+            <span class="label">Thu–Sun</span>
             <span class="value">$20</span>
           </div>
 
-          <p class="info-text" style="margin-top:6px;">Promo: 5º corte gratis</p>
-          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</a>
+          <p class="info-text" style="margin-top:6px;">Promo: 5th haircut free</p>
+          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Book Appointment</a>
         </div>
       </div>
 
       <!-- Tarjeta 2 -->
-      <div class="service-card">
+      <div class="service-card scroll-animate-scale scroll-stagger-2">
         <!-- Imagen -->
         <img src="barbacabello.png" class="service-image">
 
         <!-- Contenido overlay inicial -->
         <div class="service-overlay">
-          <div class="service-name"><h3 class="titulo-carta">Corte & Barba</h3></div>
+          <div class="service-name"><h3 class="titulo-carta">Hair & Beard</h3></div>
         </div>
 
         <!-- Botón Ver detalle -->
-        <button class="toggle-btn"><i class="fas fa-eye"></i> Ver detalle</button>
+        <button class="toggle-btn"><i class="fas fa-eye"></i> View Details</button>
 
         <!-- Botón cerrar ✕ -->
         <button class="close-btn">✕</button>
 
         <!-- Panel de información -->
         <div class="info-panel">
-          <h4 class="info-title">Corte & Barba</h4>
-          <p class="info-text">Servicio completo con tratamientos premium.</p>
+          <h4 class="info-title">Haircut & Beard</h4>
+          <p class="info-text">Complete service with premium treatments.</p>
 
           <div class="price-row">
-            <span class="label">Lun–Mié</span>
+            <span class="label">Mon–Wed</span>
             <span class="value">$25 <small style="opacity:.65;text-decoration:line-through;margin-left:6px;">$30</small></span>
-            <span class="label">Jue–Dom</span>
+            <span class="label">Thu–Sun</span>
             <span class="value">$30</span>
           </div>
 
-          <p class="info-text" style="margin-top:6px;">Incluye vapor y aceites</p>
+          <p class="info-text" style="margin-top:6px;">Includes steam and oils</p>
 
-          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</a>
+          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Book Appointment</a>
         </div>
       </div>
 
       <!-- Tarjeta 3 -->
-      <div class="service-card">
+      <div class="service-card scroll-animate-scale scroll-stagger-3">
         <!-- Imagen -->
         <img src="barba.png" class="service-image">
         <!-- Contenido overlay inicial -->
         <div class="service-overlay">
-          <div class="service-name"><h3 class="titulo-carta">Barba & bigote</h3></div>
+          <div class="service-name"><h3 class="titulo-carta">Beard & Mustache</h3></div>
         </div>
 
         <!-- Botón Ver detalle -->
-        <button class="toggle-btn"><i class="fas fa-eye"></i> Ver detalle</button>
+        <button class="toggle-btn"><i class="fas fa-eye"></i> View Details</button>
 
         <!-- Botón cerrar ✕ -->
         <button class="close-btn">✕</button>
 
         <!-- Panel de información -->
         <div class="info-panel">
-          <h4 class="info-title">Arreglo de Barba</h4>
-          <p class="info-text">Diseño, perfilado y arreglo de alta calidad.</p>
+          <h4 class="info-title">Beard Grooming</h4>
+          <p class="info-text">Design, shaping and high quality styling.</p>
 
           <div class="price-row">
-            <span class="label">Lun–Mié</span>
+            <span class="label">Mon–Wed</span>
             <span class="value">$12 <small style="opacity:.65;text-decoration:line-through;margin-left:6px;">$15</small></span>
-            <span class="label">Jue–Dom</span>
+            <span class="label">Thu–Sun</span>
             <span class="value">$15</span>
           </div>
 
-          <p class="info-text" style="margin-top:6px;">Incluye mascarilla y aceite</p>
+          <p class="info-text" style="margin-top:6px;">Includes mask and oil</p>
 
-          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</a>
+          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Book Appointment</a>
         </div>
       </div>
 
       <!-- Tarjeta 4 -->
-      <div class="service-card">
+      <div class="service-card scroll-animate-scale scroll-stagger-4">
         <!-- Imagen -->
-        <img src="https://images.unsplash.com/photo-1622288432450-277d0fef5ed6?q=80&w=1470&auto=format&fit=crop" alt="Tratamiento Capilar" class="service-image">
+        <img src="https://images.unsplash.com/photo-1622288432450-277d0fef5ed6?q=80&w=1470&auto=format&fit=crop" alt="Hair Treatment" class="service-image">
 
         <!-- Contenido overlay inicial -->
         <div class="service-overlay">
-          <div class="service-name"><h3 class="titulo-carta">Limpiesa</h3></div>
+          <div class="service-name"><h3 class="titulo-carta">Cleansing</h3></div>
         </div>
 
         <!-- Botón Ver detalle -->
-        <button class="toggle-btn"><i class="fas fa-eye"></i> Ver detalle</button>
+        <button class="toggle-btn"><i class="fas fa-eye"></i> View Details</button>
 
         <!-- Botón cerrar ✕ -->
         <button class="close-btn">✕</button>
 
         <!-- Panel de información -->
         <div class="info-panel">
-          <h4 class="info-title">Tratamiento Capilar</h4>
-          <p class="info-text">Hidratación profunda y revitalización.</p>
+          <h4 class="info-title">Hair Treatment</h4>
+          <p class="info-text">Deep hydration and revitalization.</p>
 
           <div class="price-row">
-            <span class="label">Precio Regular</span>
+            <span class="label">Regular Price</span>
             <span class="value">$18</span>
           </div>
 
-          <p class="info-text" style="margin-top:6px;">Efectos inmediatos</p>
+          <p class="info-text" style="margin-top:6px;">Immediate results</p>
 
-          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Reservar cita</a>
+          <a href="agenda.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Book Appointment</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="info-section" id="promos">
-  <div class="info-container">
-    <div class="info-title-block">
-      <span class="info-tag">Nuestro Compromiso</span>
-      <h2 class="info-main-title">Calidad & Experiencia</h2>
+<section class="info-section scroll-animate" id="promos">
+  <div class="info-container" id="section4">
+    <div class="info-title-block scroll-animate-left section">
+      <span class="info-tag content">Our Commitment</span>
+      <h2 class="info-main-title">Quality & Experience</h2>
     </div>
     
-    <div class="info-text-block">
-      <p>En Barber Club nos especializamos en brindar servicios de barbería premium con atención personalizada. Utilizamos productos de primera calidad y técnicas modernas para garantizar tu satisfacción. Nuestro equipo de barberos certificados está siempre actualizado con las últimas tendencias.</p>
+    <div class="info-text-block scroll-animate scroll-stagger-2">
+      <p>At Barber Club we specialize in providing premium barber services with personalized attention. We use first quality products and modern techniques to guarantee your satisfaction. Our team of certified barbers is always updated with the latest trends.</p>
     </div>
     
-    <div class="info-button">
+    <div class="info-button scroll-animate-right scroll-stagger-3">
       <a href="#barber" class="btn-info">Experience & Barber</a>
     </div>
   </div>
 </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-        <div class="footer-section">
-            <h3>Majestic Cuts Salon</h3>
-            <p>We provide high-quality beauty services with a team of professional stylists.</p>
+<!-- Audio Player -->
+    <div class="audio-player-container">
+        <!-- Botón de siguiente audio (aparece arriba) -->
+        <div class="next-audio-btn-container" id="next-audio-container">
+            <button class="next-audio-btn" id="next-audio-btn">Siguiente Audio →</button>
         </div>
         
-        <div class="footer-section">
-            <h3>Business Hours</h3>
-            <p>Monday - Friday: 9:00 AM - 7:00 PM</p>
-            <p>Saturday: 9:00 AM - 5:00 PM</p>
-            <p>Sunday: Closed</p>
-        </div>
-        
-        <div class="footer-section">
-            <h3>Contact</h3>
-            <p><i class="fas fa-map-marker-alt"></i> 123 Beauty Street, City</p>
-            <p><i class="fas fa-phone"></i> (123) 456-7890</p>
-            <p><i class="fas fa-envelope"></i> info@majesticcutssalons.com</p>
-        </div>
-        
-        <div class="footer-section">
-            <h3>Follow Us</h3>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+        <div class="audio-player">
+            <!-- Información de la pista -->
+            <div class="track-info">
+                <div class="track-title" id="track-title">Selecciona un audio</div>
             </div>
+
+            <!-- Barra de progreso -->
+            <div class="audio-progress-container">
+                <input type="range" class="audio-progress-bar" id="audio-progress" value="0" min="0" max="100">
+            </div>
+
+            <!-- Tiempos -->
+            <div class="audio-time">
+                <span id="audio-current">0:00</span> / <span id="audio-duration">0:00</span>
+            </div>
+
+            <!-- Controles principales -->
+            <div class="audio-controls">
+                <button class="audio-btn" id="audio-prev" title="Anterior">⏮</button>
+                <button class="audio-btn play-pause" id="audio-play" title="Reproducir">▶</button>
+                <button class="audio-btn play-pause" id="audio-pause" title="Pausar" style="display:none;">⏸</button>
+                <button class="audio-btn" id="audio-next" title="Siguiente">⏭</button>
+            </div>
+
+            <!-- Botón de salto de silencio -->
+            <button class="jump-silence-btn" id="jump-silence" title="Saltar silencio">Saltar intro</button>
+
+            <!-- Lista de audios (oculta) -->
+           <ul id="audio-list" class="audio-list">
+    <li>
+        <a href="index.html#home" data-src="mens.mp3" data-skip="2">1 - Men's Style</a>
+        <button class="jump-silence-btn" data-skip="2">skip intro</button>
+    </li>
+
+    <li>
+        <a href="index.html#seccion-servicios" data-src="Fresh-not-stress.mp3" data-skip="2">2 - Sale</a>
+        <button class="jump-silence-btn" data-skip="2">skip intro</button>
+    </li>
+
+    <li>
+        <a href="services.html#section2" data-src="masterbarber.mp3" data-skip="2">3 - Master Barber</a>
+        <button class="jump-silence-btn" data-skip="2">skip intro</button>
+    </li>
+
+    <li>
+        <a href="services.html#section4" data-src="experience.mp3" data-skip="0">4 - Barbería Experience</a>
+        <button class="jump-silence-btn" data-skip="0">skip intro</button>
+    </li>
+
+    <li>
+        <a href="services.html#section3" data-src="services.mp3" data-skip="3">5 - Services & Booking</a>
+        <button class="jump-silence-btn" data-skip="3">skip intro</button>
+    </li>
+
+    <li>
+        <a href="agenda.html#soundModal" data-src="thanks.mp3" data-skip="1">6 - Thanks for booking</a>
+        <button class="jump-silence-btn" data-skip="1">skip intro</button>
+    </li>
+
+</ul>
         </div>
     </div>
-    
-    <div class="copyright">
-        <p>&copy; 2023 Majestic Cuts Salon. All rights reserved.</p>
-    </div>
-  </footer>
 
+<!-- Footer -->
+<footer class="scroll-animate">
+  <div class="footer-content">
+      <div class="footer-section scroll-animate scroll-stagger-1">
+          <h3>Majestic Cuts Salon</h3>
+          <p>We provide high-quality beauty services with a team of professional stylists.</p>
+      </div>
+      
+      <div class="footer-section scroll-animate scroll-stagger-3">
+          <h3>Contact</h3>
+          <p><i class="fas fa-map-marker-alt"></i> 123 Beauty Street, City</p>
+          <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+          <p><i class="fas fa-envelope"></i> info@majesticcutssalons.com</p>
+      </div>
+      
+      <div class="footer-section scroll-animate scroll-stagger-4">
+          <h3>Follow Us</h3>
+          <div class="social-links">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+      </div>
+  </div>
+  
+  <div class="copyright scroll-animate scroll-stagger-5">
+      <p>&copy; 2023 Majestic Cuts Salon. All rights reserved.</p>
+  </div>
+</footer>
+
+
+<script src="scripts.js"></script>
  <script>
-    // JavaScript para el menú móvil
+    // SCROLL ANIMATIONS SYSTEM
+    class ScrollAnimations {
+      constructor() {
+        this.observers = new Map();
+        this.init();
+      }
+      
+      init() {
+        // Animar todos los elementos al cargar la página
+        document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale').forEach(el => {
+          el.classList.add('in-view');
+          if (el.classList.contains('barber-name')) {
+            setTimeout(() => {
+              el.classList.add('animate-underline');
+            }, 500);
+          }
+        });
+
+        // Configuración del Intersection Observer para scroll (por si hay elementos que aparecen después)
+        const observerConfig = {
+          root: null,
+          rootMargin: '-50px 0px -100px 0px',
+          threshold: 0.15
+        };
+        // Observer para animaciones básicas
+        const basicObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              if (entry.target.classList.contains('barber-name')) {
+                setTimeout(() => {
+                  entry.target.classList.add('animate-underline');
+                }, 500);
+              }
+            }
+          });
+        }, observerConfig);
+        // Observer para contadores/stats con animación de números
+        const statsObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              const statNumber = entry.target.querySelector('.stat-number');
+              if (statNumber) {
+                this.animateNumber(statNumber);
+              }
+            }
+          });
+        }, observerConfig);
+        // Aplicar observers
+        this.applyObservers(basicObserver, statsObserver);
+      }
+      
+      applyObservers(basicObserver, statsObserver) {
+        // Elementos básicos con scroll animation
+        const basicElements = document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale');
+        basicElements.forEach(el => {
+          basicObserver.observe(el);
+        });
+        
+        // Elementos con estadísticas
+        const statElements = document.querySelectorAll('.stat-item');
+        statElements.forEach(el => {
+          statsObserver.observe(el);
+        });
+      }
+      
+      animateNumber(element) {
+        const finalNumber = element.textContent;
+        const isPlus = finalNumber.includes('+');
+        const numericValue = parseInt(finalNumber.replace(/\D/g, ''));
+        if (isNaN(numericValue)) return;
+        const duration = 1500;
+        const steps = 60;
+        const stepValue = numericValue / steps;
+        let currentValue = 0;
+        let currentStep = 0;
+        const timer = setInterval(() => {
+          currentStep++;
+          currentValue += stepValue;
+          if (currentStep >= steps) {
+            element.textContent = numericValue + (isPlus ? '+' : '');
+            clearInterval(timer);
+          } else {
+            const displayValue = Math.floor(currentValue);
+            element.textContent = displayValue + (isPlus ? '+' : '');
+          }
+        }, duration / steps);
+      }
+    }
+    
+    // JavaScript para el menú móvil y funcionalidades existentes
     document.addEventListener('DOMContentLoaded', function() {
+      // Inicializar sistema de animaciones por scroll
+      new ScrollAnimations();
+      
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const closeMenuBtn = document.getElementById('closeMenu');
       const mobileMenu = document.getElementById('mobileMenu');
       
-      mobileMenuBtn.addEventListener('click', function() {
-        mobileMenu.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      });
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function() {
+          mobileMenu.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      }
       
-      closeMenuBtn.addEventListener('click', function() {
-        mobileMenu.classList.remove('active');
-        document.body.style.overflow = 'auto';
-      });
-      
-      // Cerrar menú al hacer clic en un enlace
-      const menuLinks = mobileMenu.querySelectorAll('a');
-      menuLinks.forEach(link => {
-        link.addEventListener('click', function() {
+      if (closeMenuBtn) {
+        closeMenuBtn.addEventListener('click', function() {
           mobileMenu.classList.remove('active');
           document.body.style.overflow = 'auto';
         });
-      });
+      }
+      
+      // Cerrar menú al hacer clic en un enlace
+      if (mobileMenu) {
+        const menuLinks = mobileMenu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+          });
+        });
+      }
       
       // Header con fondo al hacer scroll
       const header = document.querySelector('.encabezado');
-      window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-          header.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
-        } else {
-          header.style.backgroundColor = 'transparent';
-        }
-      });
+      let scrollTimeout;
       
-      // Funcionalidad para las tarjetas de servicio
+      window.addEventListener('scroll', function() {
+        clearTimeout(scrollTimeout);
+        
+        scrollTimeout = setTimeout(() => {
+          if (window.scrollY > 50) {
+            header.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+            header.style.backdropFilter = 'blur(10px)';
+          } else {
+            header.style.backgroundColor = 'transparent';
+            header.style.backdropFilter = 'none';
+          }
+        }, 10);
+      }, { passive: true });
+      
+      // Funcionalidad para las tarjetas de servicio (optimizada)
       const serviceCards = document.querySelectorAll('.service-card');
       
       serviceCards.forEach(card => {
         const toggleBtn = card.querySelector('.toggle-btn');
         const closeBtn = card.querySelector('.close-btn');
         
-        toggleBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          closeAllCards();
-          card.classList.add('active');
-        });
+        if (toggleBtn) {
+          toggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeAllCards();
+            card.classList.add('active');
+            document.body.style.overflow = 'hidden';
+          });
+        }
         
-        closeBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          card.classList.remove('active');
-        });
+        if (closeBtn) {
+          closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            card.classList.remove('active');
+            document.body.style.overflow = 'auto';
+          });
+        }
         
+        // Mejorar la interacción táctil
         card.addEventListener('click', function(e) {
-          if (!e.target.closest('.toggle-btn') && !e.target.closest('.close-btn') && !e.target.closest('.info-panel')) {
+          if (!e.target.closest('.toggle-btn') && 
+              !e.target.closest('.close-btn') && 
+              !e.target.closest('.info-panel')) {
+            
             if (card.classList.contains('active')) {
               card.classList.remove('active');
+              document.body.style.overflow = 'auto';
             } else {
               closeAllCards();
               card.classList.add('active');
+              document.body.style.overflow = 'hidden';
             }
           }
         });
@@ -2134,6 +2438,7 @@ h2,h3,.services-title,.step-title {
         serviceCards.forEach(card => {
           card.classList.remove('active');
         });
+        document.body.style.overflow = 'auto';
       }
       
       // Cerrar tarjetas al hacer clic fuera de ellas
@@ -2142,8 +2447,31 @@ h2,h3,.services-title,.step-title {
           closeAllCards();
         }
       });
+      
+      // Cerrar tarjetas con tecla Escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeAllCards();
+        }
+      });
+    });
+    
+    // Smooth scrolling para enlaces internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const headerHeight = document.querySelector('.encabezado').offsetHeight;
+          const targetPosition = target.offsetTop - headerHeight - 20;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
     });
   </script>
 </body>
 </html>
-

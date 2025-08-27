@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,8 +7,9 @@
   <title>Majestic Cuts & Salon</title>
   <link rel="stylesheet" href="styles.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="styles.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root{
       --gold:#FFD700; --amber:#FFA500; --purple:#8A2BE2; --bg:#0a0a0a; --muted:rgba(255,255,255,.4);
@@ -16,7 +17,7 @@
     }
 
     /* HEADER STYLES */
-    .encabezado {
+    .header {
       position: fixed;
       top: 0;
       left: 0;
@@ -27,11 +28,11 @@
       transition: background-color 0.3s ease;
     }
     
-    .encabezado.sticky {
+    .header.sticky {
       background-color: rgb(61, 6, 52);
     }
     
-    .contenedor {
+    .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 20px;
@@ -45,31 +46,31 @@
       width: auto;
     }
     
-    .navegacion-principal ul {
+    .main-navigation ul {
       display: flex;
       list-style: none;
       gap: 30px;
     }
     
-    .navegacion-principal a {
+    .main-navigation a {
       color: white;
       text-decoration: none;
       font-weight: 500;
       transition: color 0.3s;
     }
     
-    .navegacion-principal a:hover {
+    .main-navigation a:hover {
       color: var(--gold);
     }
     
-    .boton-menu {
+    .menu-button {
       display: none;
       font-size: 2rem;
       color: white;
       cursor: pointer;
     }
     
-    .menu-lateral {
+    .side-menu {
       position: fixed;
       top: 0;
       right: -300px;
@@ -84,11 +85,11 @@
       gap: 20px;
     }
     
-    .menu-lateral.active {
+    .side-menu.active {
       right: 0;
     }
     
-    .menu-lateral a {
+    .side-menu a {
       color: white;
       text-decoration: none;
       font-size: 1.2rem;
@@ -99,212 +100,593 @@
     body{
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background: linear-gradient(135deg, var(--bg) 0%, #1a0a1a 25%, #2d1b4e 50%, #1a0a1a 75%, var(--bg) 100%);
-      color:#fff; min-height:100vh; display:flex; align-items:center; justify-content:center; 
-      padding: 100px 20px 20px; /* Added top padding for fixed header */
+      color:#fff; 
+      min-height:100vh; 
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+      padding: 80px 15px 15px;
       position:relative;
     }
     body::before{
-      content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+      content:""; 
+      position:fixed; 
+      inset:0; 
+      pointer-events:none; 
+      z-index:-1;
       background:
-        radial-gradient(circle at 20% 80%, rgba(120,119,198,.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255,215,0,.05) 0%, transparent 50%);
+        radial-gradient(circle at 20% 80%, rgba(120,119,198,.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,215,0,.04) 0%, transparent 50%);
     }
 
     .booking-container{
-      background: rgba(0,0,0,.85); -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px);
-      border-radius:25px; border:2px solid; border-image: linear-gradient(135deg, var(--gold), var(--amber), var(--purple)) 1;
-      padding:40px; width:100%; max-width: 880px; position:relative; overflow:hidden;
-      box-shadow: 0 25px 50px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.1);
-      margin-top: 20px; /* Space for fixed header */
+      background: rgba(0,0,0,.9); 
+      backdrop-filter: blur(20px);
+      border-radius:16px; 
+      border:1px solid rgba(138,43,226,.2);
+      padding:20px; 
+      width:100%; 
+      max-width: 480px;
+      position:relative; 
+      overflow:hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,.3);
     }
-    .booking-container::before{
-      content:""; position:absolute; inset:0; border-radius:25px; pointer-events:none;
-      background: linear-gradient(135deg, rgba(255,215,0,.03) 0%, rgba(138,43,226,.05) 50%, rgba(255,215,0,.03) 100%);
+
+    .booking-header {
+      text-align: center;
+      margin-bottom: 16px;
     }
 
     .crown-icon {
-    font-size: 2.5rem; /* Tamaño de la corona */
-    background: linear-gradient(135deg, #FFD700, #FFA500); /* Gradiente dorado */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-top: 30px;
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); /* Brillo */
-}
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
 
     .title{
-      font-size: clamp(1.8rem, 2.5vw + 1rem, 2.6rem);
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--amber) 50%, var(--purple) 100%);
-      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-      text-shadow: 0 0 20px rgba(255,215,0,.3); margin-bottom:8px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%);
+      -webkit-background-clip:text; 
+      background-clip:text; 
+      -webkit-text-fill-color:transparent;
+      margin-bottom:4px;
     }
+    
     .subtitle{
-      font-size:1.05rem; font-style:italic;
-      background: linear-gradient(135deg, var(--gold), var(--amber));
-      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+      font-size:.8rem; 
+      font-style:italic;
+      color: var(--muted);
+      margin-bottom: 12px;
     }
 
     /* Progress */
-    .progress-container{ margin-top:18px; margin-bottom:30px; }
-    .progress-bar{ background: rgba(0,0,0,.4); height:8px; border-radius:4px; overflow:hidden; margin-bottom:12px; border:1px solid rgba(138,43,226,.3); }
+    .progress-container{ 
+      margin-bottom:16px; 
+    }
+    
+    .progress-bar{ 
+      background: rgba(0,0,0,.4); 
+      height:4px; 
+      border-radius:2px; 
+      overflow:hidden; 
+      margin-bottom:8px; 
+      border:1px solid rgba(138,43,226,.2); 
+    }
+    
     .progress-fill{
-      background: linear-gradient(135deg, var(--gold), var(--amber), var(--purple)); height:100%; width:0%;
-      transition: width .45s ease; position:relative; overflow:hidden;
-    }
-    .progress-fill::after{
-      content:""; position:absolute; inset:0; left:-100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
-      animation: shimmer 2s infinite;
-    }
-    @keyframes shimmer{ from{ left:-100%; } to{ left:100%; } }
-
-    .step-indicators{ display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; }
-    .step-indicator{ display:flex; align-items:center; gap:8px; color:var(--muted); font-size:.9rem; }
-    .step-indicator .step-number{
-      width:28px; height:28px; border-radius:50%; display:grid; place-items:center; font-size:.8rem; font-weight:700;
-      background: rgba(0,0,0,.6); border:2px solid rgba(138,43,226,.4); transition: all .25s ease;
-    }
-    .step-indicator.active{ font-weight:700; background: linear-gradient(135deg, var(--gold), var(--amber)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-    .step-indicator.active .step-number{ background: linear-gradient(135deg, var(--gold), var(--amber)); color:#000; border-color: var(--gold); box-shadow:0 0 15px rgba(255,215,0,.5); }
-    .step-indicator.completed{ color: #b994f6; }
-    .step-indicator.completed .step-number{ background: linear-gradient(135deg, var(--purple), #9932CC); color:#fff; border-color: var(--purple); box-shadow:0 0 10px rgba(138,43,226,.4); }
-
-    /* Form */
-    .booking-form{ display:block; }
-    .form-step{ display:none; animation: fadeIn .45s ease both; }
-    .form-step.active{ display:grid; grid-template-columns: 1fr 1fr; gap:24px; }
-    @keyframes fadeIn{ from{ opacity:0; transform: translateY(8px);} to{ opacity:1; transform:none; } }
-
-    .step-title{
-      grid-column:1 / -1; text-align:center; font-weight:800; margin-bottom:10px; letter-spacing:.2px;
-      background: linear-gradient(135deg, var(--gold), var(--amber), var(--purple));
-      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-      font-size: clamp(1.2rem, .9rem + 1vw, 1.5rem);
+      background: linear-gradient(135deg, var(--gold), var(--amber)); 
+      height:100%; 
+      width:0%;
+      transition: width .3s ease; 
       position:relative;
     }
-    .step-title::after{ content:""; position:absolute; bottom:-10px; left:50%; transform:translateX(-50%); width:64px; height:2px; background:linear-gradient(135deg,var(--gold),var(--purple)); }
 
-    .form-group{ display:flex; flex-direction:column; gap:8px; }
-    .form-group.full-width{ grid-column:1 / -1; }
-    label{ font-weight:700; font-size:.95rem; background: linear-gradient(135deg, var(--gold), var(--amber)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+    .step-indicators{ 
+      display:flex; 
+      justify-content:space-between; 
+      align-items:center; 
+      gap:4px; 
+    }
+    
+    .step-indicator{ 
+      display:flex; 
+      align-items:center; 
+      gap:4px; 
+      color:var(--muted); 
+      font-size:.7rem; 
+      flex: 1;
+      justify-content: center;
+    }
+    
+    .step-indicator .step-number{
+      width:18px; 
+      height:18px; 
+      border-radius:50%; 
+      display:grid; 
+      place-items:center; 
+      font-size:.65rem; 
+      font-weight:600;
+      background: rgba(0,0,0,.6); 
+      border:1px solid rgba(138,43,226,.3); 
+      transition: all .2s ease;
+    }
+    
+    .step-indicator.active{ 
+      color: var(--gold);
+      font-weight:600; 
+    }
+    
+    .step-indicator.active .step-number{ 
+      background: linear-gradient(135deg, var(--gold), var(--amber)); 
+      color:#000; 
+      border-color: var(--gold); 
+    }
+    
+    .step-indicator.completed{ 
+      color: #b994f6; 
+    }
+    
+    .step-indicator.completed .step-number{ 
+      background: var(--purple); 
+      color:#fff; 
+      border-color: var(--purple); 
+    }
+
+    /* Form */
+    .booking-form{ 
+      display:block; 
+    }
+    
+    .form-step{ 
+      display:none; 
+    }
+    
+    .form-step.active{ 
+      display:block;
+      animation: fadeIn .3s ease both;
+    }
+    
+    @keyframes fadeIn{ 
+      from{ opacity:0; transform: translateY(4px);} 
+      to{ opacity:1; transform:none; } 
+    }
+
+    .step-title{
+      text-align:center; 
+      font-weight:700; 
+      margin-bottom:12px; 
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    .form-group{ 
+      margin-bottom: 12px;
+    }
+    
+    .form-group.full-width{ 
+      width: 100%;
+    }
+    
+    label{ 
+      display: block;
+      font-weight:600; 
+      font-size:.85rem; 
+      color: var(--gold); 
+      margin-bottom: 5px;
+    }
+    
     input, select, textarea{
-      background: rgba(0,0,0,.6); border:2px solid rgba(138,43,226,.3); border-radius:12px; padding:12px 14px; color:#fff; font-size:1rem; transition: all .2s ease;
+      width: 100%;
+      background: rgba(0,0,0,.6); 
+      border:1px solid rgba(138,43,226,.3); 
+      border-radius:6px; 
+      padding:8px 10px; 
+      color:#fff; 
+      font-size:.85rem; 
+      transition: all .2s ease;
     }
-    input:focus, select:focus, textarea:focus{ outline:none; border-color: var(--gold); background: rgba(0,0,0,.82); box-shadow: 0 0 20px rgba(255,215,0,.25), inset 0 0 10px rgba(138,43,226,.12); transform: translateY(-1px); }
-    input::placeholder, textarea::placeholder{ color:var(--muted); }
-    select option{ background:#000; color:#fff; }
+    
+    input:focus, select:focus, textarea:focus{ 
+      outline:none; 
+      border-color: var(--gold); 
+      background: rgba(0,0,0,.8); 
+      box-shadow: 0 0 0 2px rgba(255,215,0,.1); 
+    }
+    
+    input::placeholder, textarea::placeholder{ 
+      color:var(--muted); 
+    }
+    
+    select option{ 
+      background:#000; 
+      color:#fff; 
+    }
 
-    .error-text{ font-size:.85rem; color: var(--error); display:none; }
-    .invalid{ border-color: rgba(255,87,87,.9) !important; box-shadow: 0 0 0 2px rgba(255,87,87,.2) inset !important; }
+    .error-text{ 
+      font-size:.75rem; 
+      color: var(--error); 
+      display:none; 
+      margin-top: 3px;
+    }
+    
+    .invalid{ 
+      border-color: var(--error) !important; 
+    }
 
-    .services-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; margin-top:4px; }
+    .services-grid{ 
+      display:grid; 
+      grid-template-columns: 1fr; 
+      gap:6px; 
+      margin-top:6px; 
+    }
+    
     .service-option{
-      display:flex; align-items:center; gap:12px; padding:14px; border-radius:12px; cursor:pointer; position:relative; overflow:hidden;
-      background: rgba(0,0,0,.4); border:2px solid rgba(138,43,226,.2); transition: all .2s ease;
+      display:flex; 
+      align-items:center; 
+      gap:8px; 
+      padding:8px 10px; 
+      border-radius:6px; 
+      cursor:pointer; 
+      background: rgba(0,0,0,.4); 
+      border:1px solid rgba(138,43,226,.2); 
+      transition: all .2s ease;
     }
-    .service-option::before{ content:""; position:absolute; inset:0; left:-100%; background:linear-gradient(90deg, transparent, rgba(255,215,0,.12), transparent); transition:left .45s ease; }
-    .service-option:hover{ background: rgba(138,43,226,.12); border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(255,215,0,.18); }
-    .service-option:hover::before{ left:100%; }
-    .service-option.selected{ background: linear-gradient(135deg, rgba(255,215,0,.08), rgba(138,43,226,.12)); border-color: var(--gold); box-shadow: 0 5px 20px rgba(255,215,0,.28); }
-    .service-option input[type="checkbox"]{ width:20px; height:20px; accent-color: var(--gold); }
-    .service-name{ font-weight:800; }
-    .service-price{ font-size:.9rem; font-weight:800; background: linear-gradient(135deg, var(--gold), var(--amber)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+    
+    .service-option:hover{ 
+      background: rgba(138,43,226,.1); 
+      border-color: var(--gold); 
+    }
+    
+    .service-option.selected{ 
+      background: rgba(255,215,0,.08); 
+      border-color: var(--gold); 
+    }
+    
+    .service-option input[type="checkbox"]{ 
+      width:14px; 
+      height:14px; 
+      accent-color: var(--gold); 
+    }
+    
+    .service-info {
+      flex: 1;
+    }
+    
+    .service-name{ 
+      font-weight:600; 
+      font-size: .85rem;
+    }
+    
+    .service-price{ 
+      font-size:.75rem; 
+      color: var(--gold);
+      font-weight:500;
+    }
 
-    .contact-info{ grid-column:1 / -1; background: rgba(212,175,55,.1); border-radius:12px; padding:18px; margin:26px 0; text-align:center; }
-    .contact-info h3{ color:#d4af37; margin-bottom:12px; }
-    .contact-details{ display:flex; justify-content:space-around; flex-wrap:wrap; gap:12px; }
-    .contact-item{ display:flex; align-items:center; gap:8px; }
+    .contact-info{ 
+      background: rgba(212,175,55,.08); 
+      border-radius:6px; 
+      padding:10px; 
+      margin:12px 0; 
+      text-align:center; 
+      margin-bottom: 40px;
+    }
+    
+    .contact-info h3{ 
+      color:#d4af37; 
+      margin-bottom:6px; 
+      font-size: .85rem;
+    }
+    
+    .contact-details{ 
+      font-size: .75rem;
+      line-height: 1.4;
+    }
+    
+    .contact-item{ 
+      margin-bottom: 3px;
+    }
 
-    .navigation-buttons{ grid-column:1 / -1; display:flex; justify-content:space-between; gap:14px; margin-top:4px; }
-    .nav-button{ padding:12px 22px; border:none; border-radius:10px; font-size:1rem; font-weight:900; cursor:pointer; transition:.2s ease; letter-spacing:.4px; text-transform:uppercase; }
-    .nav-button.prev{ background: rgba(255,255,255,.1); color:#fff; border:1px solid rgba(212,175,55,.3); }
-    .nav-button.prev:hover{ background: rgba(255,255,255,.2); border-color:#d4af37; }
-    .nav-button.next, .nav-button[type="submit"]{ background: linear-gradient(135deg, #d4af37, #f4e976); color:#1a1a1a; }
-    .nav-button.next:hover, .nav-button[type="submit"]:hover{ transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212,175,55,.4); background: linear-gradient(135deg, #f4e976, #d4af37); }
-    .nav-button[type="submit"]{ background: linear-gradient(135deg, var(--ok), var(--ok-dark)); color:#fff; }
-    .nav-button[type="submit"]:hover{ background: linear-gradient(135deg, var(--ok-dark), var(--ok)); }
+    .navigation-buttons{ 
+      display:flex; 
+      flex-direction: column;
+      gap:6px; 
+      margin-top:12px; 
+    }
+    
+    .nav-button{ 
+      padding:8px 12px; 
+      border:none; 
+      border-radius:6px; 
+      font-size:.85rem; 
+      font-weight:600; 
+      cursor:pointer; 
+      transition:.2s ease; 
+      text-transform:uppercase; 
+      letter-spacing:.5px;
+    }
+    
+    .nav-button.next, .nav-button[type="submit"]{ 
+      background: linear-gradient(135deg, #d4af37, #f4e976); 
+      color:#1a1a1a; 
+      order: -1; /* Always on top */
+    }
+    
+    .nav-button.next:hover, .nav-button[type="submit"]:hover{ 
+      transform: translateY(-1px); 
+      box-shadow: 0 4px 12px rgba(212,175,55,.3); 
+    }
+    
+    .nav-button.prev{ 
+      background: rgba(255,255,255,.1); 
+      color:#fff; 
+      border:1px solid rgba(212,175,55,.3); 
+    }
+    
+    .nav-button.prev:hover{ 
+      background: rgba(255,255,255,.2); 
+      border-color:#d4af37; 
+    }
+    
+    .nav-button[type="submit"]{ 
+      background: linear-gradient(135deg, var(--ok), var(--ok-dark)); 
+      color:#fff; 
+    }
+    
+    .nav-button[type="submit"]:hover{ 
+      background: linear-gradient(135deg, var(--ok-dark), var(--ok)); 
+    }
 
     /* Modal */
-    .modal-overlay{ position:fixed; inset:0; background: rgba(0,0,0,.82); display:flex; align-items:center; justify-content:center; z-index:1000; opacity:0; visibility:hidden; transition:.25s ease; }
-    .modal-overlay.active{ opacity:1; visibility:visible; }
-    .confirmation-modal{ background: rgba(0,0,0,.92); border-radius:20px; border:2px solid; border-image: linear-gradient(135deg, var(--gold), var(--amber), var(--purple)) 1; padding:36px; max-width:520px; width:92%; text-align:center; box-shadow:0 25px 50px rgba(0,0,0,.7); position:relative; transform: translateY(8px) scale(.98); transition: transform .25s ease; }
-    .modal-overlay.active .confirmation-modal{ transform:none; }
-    .modal-icon{ font-size:3rem; margin-bottom:14px; background: linear-gradient(135deg, var(--gold), var(--amber), var(--purple)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-    .modal-title{ font-size:1.8rem; margin-bottom:10px; background: linear-gradient(135deg, var(--gold), var(--amber)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-    .modal-message{ margin-bottom:22px; line-height:1.6; }
-    .modal-button{ padding:12px 26px; background: linear-gradient(135deg, var(--gold), var(--amber)); color:#000; border:none; border-radius:10px; font-weight:900; cursor:pointer; }
-    .modal-button:hover{ transform: translateY(-1px); box-shadow:0 8px 20px rgba(255,215,0,.35); }
+    .modal-overlay{ 
+      position:fixed; 
+      inset:0; 
+      background: rgba(0,0,0,.8); 
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+      z-index:1000; 
+      opacity:0; 
+      visibility:hidden; 
+      transition:.2s ease; 
+    }
+    
+    .modal-overlay.active{ 
+      opacity:1; 
+      visibility:visible; 
+    }
+    
+    .confirmation-modal{ 
+      background: rgba(0,0,0,.95); 
+      border-radius:14px; 
+      border:1px solid rgba(138,43,226,.3); 
+      padding:20px; 
+      max-width:380px; 
+      width:90%; 
+      text-align:center; 
+      box-shadow:0 8px 32px rgba(0,0,0,.5); 
+    }
+    
+    .modal-icon{ 
+      font-size:1.8rem; 
+      margin-bottom:10px; 
+      background: linear-gradient(135deg, var(--gold), var(--amber)); 
+      -webkit-background-clip:text; 
+      background-clip:text; 
+      -webkit-text-fill-color:transparent; 
+    }
+    
+    .modal-title{ 
+      font-size:1.1rem; 
+      margin-bottom:6px; 
+      color: var(--gold);
+    }
+    
+    .modal-message{ 
+      margin-bottom:14px; 
+      line-height:1.5; 
+      font-size: .85rem;
+    }
+    
+    .modal-button{ 
+      padding:8px 16px; 
+      background: linear-gradient(135deg, var(--gold), var(--amber)); 
+      color:#000; 
+      border:none; 
+      border-radius:6px; 
+      font-weight:600; 
+      cursor:pointer; 
+      font-size: .85rem;
+    }
+    
+    .modal-button:hover{ 
+      transform: translateY(-1px); 
+      box-shadow:0 4px 12px rgba(255,215,0,.3); 
+    }
 
     /* A11y helpers */
-    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    .sr-only{ 
+      position:absolute; 
+      width:1px; 
+      height:1px; 
+      padding:0; 
+      margin:-1px; 
+      overflow:hidden; 
+      clip:rect(0,0,0,0); 
+      white-space:nowrap; 
+      border:0; 
+    }
 
     /* Responsive */
     @media (max-width: 900px){
-      .form-step.active{ grid-template-columns:1fr; }
-      .services-grid{ grid-template-columns:1fr; }
-      .navigation-buttons{ flex-direction:column; }
-      .nav-button{ width:100%; }
-      .logo-section{ flex-direction:column; text-align:center; }
-      
-      .navegacion-principal {
+      .main-navigation {
         display: none;
       }
       
-      .boton-menu {
+      .menu-button {
         display: block;
       }
     }
-    @media (max-width: 480px){
-      .confirmation-modal{ padding:26px; }
-      .modal-title{ font-size:1.5rem; }
+    
+    @media (max-width: 768px){
+      .header {
+        background: transparent !important;
+      }
       
-      .contenedor {
+      .logo, .main-navigation {
+        display: none !important;
+      }
+      
+      .container {
+        justify-content: flex-end;
         padding: 0 15px;
       }
       
-      .logo img {
-        height: 40px;
+      body {
+        padding: 60px 10px 10px;
+      }
+      
+      .booking-container {
+        max-width: 100%;
+        padding: 16px;
+        width: 420px;
+      }
+      
+      .title {
+        font-size: 1.2rem;
+      }
+      
+      .step-indicator span {
+        display: none;
+      }
+      
+      .contact-details {
+        font-size: .7rem;
       }
     }
+    
+    @media (max-width: 480px){
+      .booking-container {
+        padding: 14px;
+        border-radius: 10px;
+      }
+      
+      .title {
+        font-size: 1.1rem;
+      }
+      
+      .step-indicators {
+        gap: 2px;
+      }
+      
+      .step-indicator .step-number {
+        width: 16px;
+        height: 16px;
+        font-size: .6rem;
+      }
+      
+      input, select, textarea {
+        padding: 7px 9px;
+        font-size: .8rem;
+      }
+      
+      .nav-button {
+        padding: 7px 11px;
+        font-size: .8rem;
+      }
+      
+      .service-option {
+        padding: 6px 8px;
+      }
+    }
+
+      /* Estilos para el modal de aviso de audio */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+  }
+  
+  .modal-content {
+      background: rgba(0,0,0,.95); 
+      border-radius:14px; 
+      border:1px solid rgba(138,43,226,.3); 
+      padding:20px; 
+      max-width:380px; 
+      width:90%; 
+      text-align:center; 
+      box-shadow:0 8px 32px rgba(0,0,0,.5); 
+  }
+  
+  .modal-content p {
+    margin-bottom:14px; 
+      line-height:1.5; 
+      font-size: .85rem;
+  }
+  
+  .modal-content button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  #btn-si {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  #btn-no {
+    background-color: #f44336;
+    color: white;
+  }
   </style>
 </head>
 <body>
-  <header class="encabezado" id="encabezado">
-    <div class="contenedor">
+  <header class="header" id="header">
+    <div class="container">
       <div class="logo">
         <a href="/">
-          <img src="https://cutstyle.true-emotions.studio/dark-beard/wp-content/uploads/sites/4/2018/08/logo-db2.svg" alt="Logo Dark Beard">
+          <img src="https://cutstyle.true-emotions.studio/dark-beard/wp-content/uploads/sites/4/2018/08/logo-db2.svg" alt="Dark Beard Logo">
         </a>
       </div>
 
-      <nav class="navegacion-principal">
+      <nav class="main-navigation">
         <ul>
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#nosotros">Nosotros</a></li>
-          <li><a href="#servicios">Servicios</a></li>
-          <li><a href="#maestros">Maestros</a></li>
-          <li><a href="#precios">Precios</a></li>
-          <li><a href="#contactos">Contactos</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="ubicacion.html">Contact</a></li>
         </ul>
       </nav>
 
-      <i class='bx bx-menu boton-menu' id="boton-menu"></i>
+      <i class='bx bx-menu menu-button' id="menu-button"></i>
     </div>
   </header>
 
-  <!-- Menú lateral para móvil -->
-  <div class="menu-lateral" id="menuLateral">
-    <a href="#inicio">Inicio</a>
-    <a href="#nosotros">Nosotros</a>
-    <a href="#servicios">Servicios</a>
-    <a href="#maestros">Maestros</a>
-    <a href="#precios">Precios</a>
-    <a href="#contactos">Contactos</a>
+  <!-- Mobile side menu -->
+  <div class="side-menu" id="side-menu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="ubicacion.html">Contact</a>
   </div>
 
   <div class="booking-container">
-    <div class="header">
+    <div class="booking-header">
       <div class="logo-section">
         <div class="crown-icon">👑</div>
         <div>
@@ -313,404 +695,706 @@
         </div>
       </div>
 
-      <!-- Progreso -->
-      <div class="progress-container" aria-label="Progreso de la reserva">
+      <!-- Progress -->
+      <div class="progress-container" aria-label="Booking progress">
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
         <div class="step-indicators" id="stepIndicators">
-          <div class="step-indicator active" data-step="1"><div class="step-number">1</div><span>Info Personal</span></div>
-          <div class="step-indicator" data-step="2"><div class="step-number">2</div><span>Fecha & Hora</span></div>
-          <div class="step-indicator" data-step="3"><div class="step-number">3</div><span>Servicios</span></div>
-          <div class="step-indicator" data-step="4"><div class="step-number">4</div><span>Confirmación</span></div>
+          <div class="step-indicator active" data-step="1"><div class="step-number">1</div><span>Personal Info</span></div>
+          <div class="step-indicator" data-step="2"><div class="step-number">2</div><span>Date & Time</span></div>
+          <div class="step-indicator" data-step="3"><div class="step-number">3</div><span>Services</span></div>
+          <div class="step-indicator" data-step="4"><div class="step-number">4</div><span>Confirmation</span></div>
         </div>
       </div>
     </div>
 
-    <!-- IMPORTANTE: Reemplaza YOUR_EMAIL por tu correo si usarás FormSubmit -->
+    <!-- IMPORTANT: Replace YOUR_EMAIL with your email if using FormSubmit -->
     <form class="booking-form" id="bookingForm" action="https://formsubmit.co/YOUR_EMAIL" method="POST" onsubmit="handleBooking(event)">
-      <!-- Anti-spam / opciones FormSubmit -->
+      <!-- Anti-spam / FormSubmit options -->
       <input type="hidden" name="_captcha" value="false" />
       <input type="text" name="_honey" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
-      <input type="hidden" name="_subject" value="Nueva reserva – Majestic Cuts" />
+      <input type="hidden" name="_subject" value="New Booking – Majestic Cuts" />
       <input type="hidden" name="_template" value="table" />
 
-      <!-- Paso 1 -->
+      <!-- Step 1 -->
       <div class="form-step active" id="step1" aria-labelledby="step1-title">
-        <h2 class="step-title" id="step1-title">Información Personal</h2>
+        <h2 class="step-title" id="step1-title">Personal Information</h2>
 
         <div class="form-group">
-          <label for="firstName">Nombre *</label>
-          <input type="text" id="firstName" name="firstName" placeholder="Tu nombre" required autocomplete="given-name" />
-          <small class="error-text" id="firstNameError">Ingresa tu nombre.</small>
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" placeholder="Your first name" required autocomplete="given-name" />
+          <small class="error-text" id="firstNameError">Please enter your first name.</small>
         </div>
 
         <div class="form-group">
-          <label for="lastName">Apellido *</label>
-          <input type="text" id="lastName" name="lastName" placeholder="Tu apellido" required autocomplete="family-name" />
-          <small class="error-text" id="lastNameError">Ingresa tu apellido.</small>
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName" placeholder="Your last name" required autocomplete="family-name" />
+          <small class="error-text" id="lastNameError">Please enter your last name.</small>
         </div>
 
         <div class="form-group">
-          <label for="phone">Teléfono *</label>
+          <label for="phone">Phone</label>
           <input type="tel" id="phone" name="phone" placeholder="(617) 000-0000" required inputmode="tel" />
-          <small class="error-text" id="phoneError">Ingresa un teléfono válido (mín. 10 dígitos).</small>
+          <small class="error-text" id="phoneError">Please enter a valid phone number (min. 10 digits).</small>
         </div>
 
         <div class="form-group">
-          <label for="email">Email *</label>
-          <input type="email" id="email" name="email" placeholder="tu@email.com" required autocomplete="email" />
-          <small class="error-text" id="emailError">Ingresa un email válido.</small>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email" />
+          <small class="error-text" id="emailError">Please enter a valid email address.</small>
         </div>
 
         <div class="navigation-buttons">
           <div></div>
-          <button type="button" class="nav-button next" onclick="nextStep(1)">Siguiente</button>
+          <button type="button" class="nav-button next" onclick="nextStep(1)">Next</button>
         </div>
       </div>
 
-      <!-- Paso 2 -->
+      <!-- Step 2 -->
       <div class="form-step" id="step2" aria-labelledby="step2-title">
-        <h2 class="step-title" id="step2-title">Fecha y Hora</h2>
+        <h2 class="step-title" id="step2-title">Date and Time</h2>
 
         <div class="form-group">
-          <label for="date">Fecha Preferida *</label>
+          <label for="date">Preferred Date *</label>
           <input type="date" id="date" name="date" required />
-          <small class="error-text" id="dateError">Selecciona una fecha válida.</small>
+          <small class="error-text" id="dateError">Please select a valid date.</small>
         </div>
 
         <div class="form-group">
-          <label for="time">Hora Preferida *</label>
+          <label for="time">Preferred Time *</label>
           <select id="time" name="time" required>
-            <option value="">Seleccionar hora</option>
+            <option value="">Select time</option>
           </select>
-          <small class="error-text" id="timeError">Selecciona una hora disponible.</small>
+          <small class="error-text" id="timeError">Please select an available time.</small>
         </div>
 
         <div class="navigation-buttons">
-          <button type="button" class="nav-button prev" onclick="prevStep(2)">Anterior</button>
-          <button type="button" class="nav-button next" onclick="nextStep(2)">Siguiente</button>
+          <button type="button" class="nav-button prev" onclick="prevStep(2)">Previous</button>
+          <button type="button" class="nav-button next" onclick="nextStep(2)">Next</button>
         </div>
       </div>
 
-      <!-- Paso 3 -->
+      <!-- Step 3 -->
       <div class="form-step" id="step3" aria-labelledby="step3-title">
-        <h2 class="step-title" id="step3-title">Selecciona tus Servicios</h2>
+        <h2 class="step-title" id="step3-title">Select Your Services</h2>
 
         <div class="form-group full-width">
-          <label>Servicios Deseados *</label>
+          <label>Desired Services *</label>
           <div class="services-grid" id="servicesGrid">
             <label class="service-option" tabindex="0">
-              <input type="checkbox" name="services" value="Corte de Cabello" />
+              <input type="checkbox" name="services" value="Beard" />
               <div class="service-info">
-                <div class="service-name">✂️ Corte de Cabello</div>
-                <div class="service-price">Desde $25</div>
+                <div class="service-name">🧔 Beard</div>
+                <div class="service-price">$25</div>
               </div>
             </label>
             <label class="service-option" tabindex="0">
-              <input type="checkbox" name="services" value="Arreglo de Barba" />
+              <input type="checkbox" name="services" value="Haircut" />
               <div class="service-info">
-                <div class="service-name">🧔 Arreglo de Barba</div>
-                <div class="service-price">Desde $15</div>
+                <div class="service-name">✂️ Haircut</div>
+                <div class="service-price">$40</div>
               </div>
             </label>
             <label class="service-option" tabindex="0">
-              <input type="checkbox" name="services" value="Peinado" />
+              <input type="checkbox" name="services" value="Kids' haircut" />
               <div class="service-info">
-                <div class="service-name">💫 Peinado</div>
-                <div class="service-price">Desde $20</div>
+                <div class="service-name">👦 Kids' haircut</div>
+                <div class="service-price">$30</div>
               </div>
             </label>
             <label class="service-option" tabindex="0">
-              <input type="checkbox" name="services" value="Tintura/Color" />
+              <input type="checkbox" name="services" value="Line-up (edge-up/shape-up)" />
               <div class="service-info">
-                <div class="service-name">🎨 Tintura/Color</div>
-                <div class="service-price">Desde $45</div>
+                <div class="service-name">🧔 Line-up (edge-up/shape-up)</div>
+                <div class="service-price">$25</div>
               </div>
             </label>
             <label class="service-option" tabindex="0">
-              <input type="checkbox" name="services" value="Depilación" />
+              <input type="checkbox" name="services" value="Simple beard trim" />
               <div class="service-info">
-                <div class="service-name">✨ Depilación</div>
-                <div class="service-price">Desde $10</div>
+                <div class="service-name">✂️ Simple beard trim</div>
+                <div class="service-price">$20</div>
               </div>
             </label>
             <label class="service-option" tabindex="0">
-              <input type="checkbox" name="services" value="Lavado y Secado" />
+              <input type="checkbox" name="services" value="Beard + line-up" />
               <div class="service-info">
-                <div class="service-name">🧴 Lavado y Secado</div>
-                <div class="service-price">Desde $12</div>
+                <div class="service-name">🧔✂️ Beard + line-up</div>
+                <div class="service-price">$30</div>
+              </div>
+            </label>
+            <label class="service-option" tabindex="0">
+              <input type="checkbox" name="services" value="Beard + haircut" />
+              <div class="service-info">
+                <div class="service-name">🧔✂️ Beard + haircut</div>
+                <div class="service-price">$45</div>
+              </div>
+            </label>
+            <label class="service-option" tabindex="0">
+              <input type="checkbox" name="services" value="Hair color + haircut" />
+              <div class="service-info">
+                <div class="service-name">🎨✂️ Hair color + haircut</div>
+                <div class="service-price">$50</div>
+              </div>
+            </label>
+            <label class="service-option" tabindex="0">
+              <input type="checkbox" name="services" value="Hair + beard color" />
+              <div class="service-info">
+                <div class="service-name">🎨🧔 Hair + beard color</div>
+                <div class="service-price">$60</div>
+              </div>
+            </label>
+            <label class="service-option" tabindex="0">
+              <input type="checkbox" name="services" value="Deep beard treatment" />
+              <div class="service-info">
+                <div class="service-name">🧴🧔 Deep beard treatment</div>
+                <div class="service-price">$70</div>
               </div>
             </label>
           </div>
-          <small class="error-text" id="servicesError">Selecciona al menos un servicio.</small>
+          <small class="error-text" id="servicesError">Please select at least one service.</small>
         </div>
 
         <div class="form-group full-width">
-          <label for="stylist">Estilista Preferido (Opcional)</label>
+          <label for="stylist">Preferred Stylist (Optional)</label>
           <select id="stylist" name="stylist">
-            <option value="">Sin preferencia</option>
-            <option value="María">María</option>
+            <option value="">No preference</option>
+            <option value="Maria">Maria</option>
             <option value="Carlos">Carlos</option>
-            <option value="Sofía">Sofía</option>
+            <option value="Sofia">Sofia</option>
             <option value="Diego">Diego</option>
           </select>
         </div>
 
         <div class="navigation-buttons">
-          <button type="button" class="nav-button prev" onclick="prevStep(3)">Anterior</button>
-          <button type="button" class="nav-button next" onclick="nextStep(3)">Siguiente</button>
+          <button type="button" class="nav-button prev" onclick="prevStep(3)">Previous</button>
+          <button type="button" class="nav-button next" onclick="nextStep(3)">Next</button>
         </div>
       </div>
 
-      <!-- Paso 4 -->
+      <!-- Step 4 -->
       <div class="form-step" id="step4" aria-labelledby="step4-title">
-        <h2 class="step-title" id="step4-title">Confirma tu Cita</h2>
+        <h2 class="step-title" id="step4-title">Confirm Your Appointment</h2>
 
         <div class="form-group full-width">
-          <label for="notes">Notas Adicionales (Opcional)</label>
-          <textarea id="notes" name="notes" rows="3" placeholder="Cualquier solicitud especial o información adicional..."></textarea>
+          <label for="notes">Additional Notes (Optional)</label>
+          <textarea id="notes" name="notes" rows="3" placeholder="Any special requests or additional information..."></textarea>
         </div>
 
         <div class="navigation-buttons">
-          <button type="button" class="nav-button prev" onclick="prevStep(4)">Anterior</button>
-          <button type="submit" class="nav-button">💈 Agendar Mi Cita 💈</button>
+          <button type="button" class="nav-button prev" onclick="prevStep(4)">Previous</button>
+          <button type="submit" class="nav-button">💈 Book My Appointment 💈</button>
         </div>
       </div>
 
       <div class="sr-only" aria-live="polite" id="liveRegion"></div>
     </form>
 
-    <div class="contact-info">
-      <h3>Información de Contacto</h3>
+<!-- Confirmation modal -->
+  <div class="modal-overlay" id="confirmationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalMessage">
+    <div class="confirmation-modal" id="soundModal">
+      <div class="modal-icon section">💈</div>
+      <h2 class="modal-title content" id="modalTitle">¡Thank You for Your Reservation!</h2>
+      <p class="modal-message" id="modalMessage">Your appointment has been successfully scheduled. We look forward to seeing you very soon.
+      Please note that arriving on time or with a maximum of 2 minutes delay gives you a special discount on your cut. If you arrive more than 4 minutes late, another client may take your spot out of respect for their waiting time. We look forward to seeing you soon at Majestic Cuts Salons. Have a wonderful day! ✨</p>
+      <button class="modal-button" id="goHomeBtn">Home</button>
+    </div>
+  </div>
+
+  <!-- Audio Player -->
+    <div class="audio-player-container">
+        <!-- Next audio button (appears on top) -->
+        <div class="next-audio-btn-container" id="next-audio-container">
+            <button class="next-audio-btn" id="next-audio-btn">Next Audio →</button>
+        </div>
+        
+        <div class="audio-player">
+            <!-- Track information -->
+            <div class="track-info">
+                <div class="track-title" id="track-title">Select an audio</div>
+            </div>
+
+            <!-- Progress bar -->
+            <div class="audio-progress-container">
+                <input type="range" class="audio-progress-bar" id="audio-progress" value="0" min="0" max="100">
+            </div>
+
+            <!-- Time display -->
+            <div class="audio-time">
+                <span id="audio-current">0:00</span> / <span id="audio-duration">0:00</span>
+            </div>
+
+            <!-- Main controls -->
+            <div class="audio-controls">
+                <button class="audio-btn" id="audio-prev" title="Previous">⏮</button>
+                <button class="audio-btn play-pause" id="audio-play" title="Play">▶</button>
+                <button class="audio-btn play-pause" id="audio-pause" title="Pause" style="display:none;">⏸</button>
+                <button class="audio-btn" id="audio-next" title="Next">⏭</button>
+            </div>
+
+            <!-- Silence skip button -->
+            <button class="jump-silence-btn" id="jump-silence" title="Skip silence">Skip intro</button>
+
+            <style>
+              #jump-silence {
+              display: none;
+            }
+            </style>
+
+            <!-- Audio list (hidden) -->
+            <ul id="audio-list" class="audio-list">
+    <li>
+        <a href="index.html#home" data-src="mens.mp3" data-skip="2">1 - Men's Style</a>
+        <button class="jump-silence-btn" data-skip="2">skip intro</button>
+    </li>
+
+    <li>
+        <a href="index.html#seccion-servicios" data-src="Fresh-not-stress.mp3" data-skip="2">2 - Sale</a>
+        <button class="jump-silence-btn" data-skip="2">skip intro</button>
+    </li>
+
+    <li>
+        <a href="services.html#section2" data-src="masterbarber.mp3" data-skip="2">3 - Master Barber</a>
+        <button class="jump-silence-btn" data-skip="2">skip intro</button>
+    </li>
+
+    <li>
+        <a href="services.html#section4" data-src="experience.mp3" data-skip="0">4 - Barbería Experience</a>
+        <button class="jump-silence-btn" data-skip="0">skip intro</button>
+    </li>
+
+    <li>
+        <a href="services.html#section3" data-src="services.mp3" data-skip="3">5 - Services & Booking</a>
+        <button class="jump-silence-btn" data-skip="3">skip intro</button>
+    </li>
+
+    <li>
+        <a href="agenda.html#soundModal" data-src="thanks.mp3" data-skip="1">6 - Thanks for booking</a>
+        <button class="jump-silence-btn" data-skip="1">skip intro</button>
+    </li>
+
+</ul>
+        </div>
+    </div>
+
+    <!-- Modal de aviso -->
+<div id="modal-aviso" class="modal" style="display:none;">
+  <div class="modal-content">
+    <p>🎧 This audio is a thank-you message for those who have completed scheduling an appointment.<br>
+    Do you want to listen to it even if you haven't scheduled?</p>
+    <button id="btn-si">Yes, listen</button>
+    <button id="btn-no">No</button>
+  </div>
+</div>
+
+    <footer class="contact-info">
+      <h3>Contact Information</h3>
       <div class="contact-details">
         <div class="contact-item"><span>📍</span><span>105 Depot Street, South Easton, MA 02375</span></div>
-        <div class="contact-item"><span>📞</span><span>(617) 501-1114</span></div>
-        <div class="contact-item"><span>📞</span><span>(508) 500-3043</span></div>
         <div class="contact-item"><span>✉️</span><span>majesticcuts77@gmail.com</span></div>
       </div>
     </div>
-  </div>
+  </footer>
+    
+<script>
+  const totalSteps = 4;
+  let selectedDate = null;
 
-  <!-- Modal de confirmación -->
-  <div class="modal-overlay" id="confirmationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalMessage">
-    <div class="confirmation-modal">
-      <div class="modal-icon">💈</div>
-      <h2 class="modal-title" id="modalTitle">¡Gracias por tu reserva!</h2>
-      <p class="modal-message" id="modalMessage">Tu cita fue agendada con éxito. Te enviamos un correo con los detalles. ¡Nos vemos pronto! ✨</p>
-      <button class="modal-button" id="goHomeBtn">Ir a Página Principal</button>
-    </div>
-  </div>
-
-  <script>
-    const totalSteps = 4;
-    let selectedDate = null;
-
-    // ---------- Navegación entre pasos con validación ----------
-    function nextStep(current){
-      // Validar el paso actual antes de avanzar
-      const canGo = validateStep(current);
-      if(!canGo) return;
-
-      document.getElementById(`step${current}`).classList.remove('active');
-      document.getElementById(`step${current+1}`).classList.add('active');
-      updateProgressBar(current+1);
-      announce(`Paso ${current+1} de ${totalSteps}`);
-
-      if(current+1 === 2){ setupDatePicker(); }
-      if(current+1 === 3){ enhanceServiceCards(); }
-      // Focus al primer input del paso siguiente
-      const firstInput = document.querySelector(`#step${current+1} input, #step${current+1} select, #step${current+1} textarea`);
-      if(firstInput) firstInput.focus({preventScroll:true});
-    }
-    function prevStep(current){
-      document.getElementById(`step${current}`).classList.remove('active');
-      document.getElementById(`step${current-1}`).classList.add('active');
-      updateProgressBar(current-1);
-      announce(`Volviste al paso ${current-1}`);
-      const firstInput = document.querySelector(`#step${current-1} input, #step${current-1} select, #step${current-1} textarea`);
-      if(firstInput) firstInput.focus({preventScroll:true});
-    }
-
-    function updateProgressBar(step){
-      const fill = document.getElementById('progressFill');
-      const pct = Math.max(0, Math.min(100, Math.round((step/totalSteps)*100)));
-      fill.style.width = pct + '%';
-      document.querySelectorAll('.step-indicator').forEach((el, idx)=>{
-        const s = idx+1;
-        el.classList.toggle('active', s===step);
-        el.classList.toggle('completed', s<step);
-      });
-    }
-
-    function announce(msg){
-      const lr = document.getElementById('liveRegion');
-      lr.textContent = msg;
-    }
-
-    // ---------- Validaciones ----------
-    function validateStep(step){
-      let ok = true;
-      clearErrors();
-      if(step===1){
-        const firstName = document.getElementById('firstName');
-        const lastName  = document.getElementById('lastName');
-        const phone     = document.getElementById('phone');
-        const email     = document.getElementById('email');
-        if(!firstName.value.trim()){ showError(firstName, 'firstNameError'); ok=false; }
-        if(!lastName.value.trim()){ showError(lastName, 'lastNameError'); ok=false; }
-        const phoneDigits = phone.value.replace(/\D/g,'');
-        if(phoneDigits.length < 10){ showError(phone, 'phoneError'); ok=false; }
-        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(email.value);
-        if(!emailOk){ showError(email, 'emailError'); ok=false; }
+  // Menu functionality
+  const menuButton = document.getElementById('menu-button');
+  const sideMenu = document.getElementById('side-menu');
+  
+  if (menuButton && sideMenu) {
+    menuButton.addEventListener('click', () => {
+      sideMenu.classList.toggle('active');
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (sideMenu.classList.contains('active') && 
+          !sideMenu.contains(e.target) && 
+          e.target !== menuButton) {
+        sideMenu.classList.remove('active');
       }
-      if(step===2){
-        const date = document.getElementById('date');
-        const time = document.getElementById('time');
-        if(!date.value){ showError(date, 'dateError'); ok=false; }
-        if(!time.value){ showError(time, 'timeError'); ok=false; }
-      }
-      if(step===3){
-        const checked = document.querySelectorAll('input[name="services"]:checked');
-        if(checked.length===0){
-          document.getElementById('servicesError').style.display='block';
-          ok=false;
-        }
-      }
-      return ok;
-    }
-    function showError(input, errorId){ input.classList.add('invalid'); const e = document.getElementById(errorId); if(e) e.style.display='block'; }
-    function clearErrors(){
-      document.querySelectorAll('.invalid').forEach(el=> el.classList.remove('invalid'));
-      document.querySelectorAll('.error-text').forEach(el=> el.style.display='none');
-    }
-
-    // ---------- Fecha & Hora ----------
-    function setupDatePicker(){
-      const dateInput = document.getElementById('date');
-      const today = new Date(); today.setHours(0,0,0,0);
-      dateInput.min = today.toISOString().split('T')[0];
-      const maxDate = new Date(today); maxDate.setMonth(today.getMonth()+3); dateInput.max = maxDate.toISOString().split('T')[0];
-      dateInput.removeEventListener('change', onDateChange); // evitar duplicados
-      dateInput.addEventListener('change', onDateChange);
-      if(dateInput.value){ onDateChange({ target: dateInput }); }
-    }
-    function onDateChange(e){ selectedDate = new Date(e.target.value); updateTimeSlots(selectedDate); }
-
-function updateTimeSlots(date){
-  const timeSelect = document.getElementById('time');
-  timeSelect.innerHTML = '<option value="">Seleccionar hora</option>';
-  if(!date || isNaN(date)) return;
-
-  const day = date.getDay(); // 0 dom, 1 lun, ..., 6 sab
-
-  // ---------- DESACTIVAR LUNES ----------
-  if(day === 1){
-    timeSelect.innerHTML = '<option value="" disabled>Cerrado los lunes</option>';
-    timeSelect.disabled = true;
-    return;
+    });
   }
-  timeSelect.disabled = false;
 
-  // ---------- HORARIOS POR DÍA ----------
-  let startMins, endMins, interval = 30;
-  if(day === 0){ startMins=11*60; endMins=17*60+30; }        // domingo
-  else if(day === 2 || day === 3){ startMins=10*60; endMins=19*60+30; } // martes y miércoles
-  else{ startMins=9*60+30; endMins=20*60+30; }              // jueves, viernes, sábado
+  // ---------- Navigation between steps with validation ----------
+  function nextStep(current){
+    const canGo = validateStep(current);
+    if(!canGo) return;
 
-  // ---------- SI ES HOY, QUITAR HORAS PASADAS ----------
-  const now = new Date();
-  if(sameYMD(now, date)){
-    const minsNow = now.getHours()*60 + now.getMinutes() + 10;
-    if(minsNow <= endMins){
-      startMins = Math.max(startMins, roundUp(minsNow, interval));
-    } else {
-      // Ya pasó el último horario
-      timeSelect.innerHTML = '<option value="" disabled>No quedan horarios hoy</option>';
+    document.getElementById(`step${current}`).classList.remove('active');
+    document.getElementById(`step${current+1}`).classList.add('active');
+    updateProgressBar(current+1);
+    announce(`Step ${current+1} of ${totalSteps}`);
+
+    if(current+1 === 2){ setupDatePicker(); }
+    if(current+1 === 3){ enhanceServiceCards(); }
+
+    const firstInput = document.querySelector(`#step${current+1} input, #step${current+1} select, #step${current+1} textarea`);
+    if(firstInput) firstInput.focus({preventScroll:true});
+  }
+  function prevStep(current){
+    document.getElementById(`step${current}`).classList.remove('active');
+    document.getElementById(`step${current-1}`).classList.add('active');
+    updateProgressBar(current-1);
+    announce(`Back to step ${current-1}`);
+    const firstInput = document.querySelector(`#step${current-1} input, #step${current-1} select, #step${current-1} textarea`);
+    if(firstInput) firstInput.focus({preventScroll:true});
+  }
+
+  function updateProgressBar(step){
+    const fill = document.getElementById('progressFill');
+    const pct = Math.max(0, Math.min(100, Math.round((step/totalSteps)*100)));
+    fill.style.width = pct + '%';
+    document.querySelectorAll('.step-indicator').forEach((el, idx)=>{
+      const s = idx+1;
+      el.classList.toggle('active', s===step);
+      el.classList.toggle('completed', s<step);
+    });
+  }
+
+  function announce(msg){
+    const lr = document.getElementById('liveRegion');
+    lr.textContent = msg;
+  }
+
+  // ---------- Validations ----------
+  function validateStep(step){
+    let ok = true;
+    clearErrors();
+    if(step===1){
+      const firstName = document.getElementById('firstName');
+      const lastName  = document.getElementById('lastName');
+      const phone     = document.getElementById('phone');
+      const email     = document.getElementById('email');
+      if(!firstName.value.trim()){ showError(firstName, 'firstNameError'); ok=false; }
+      if(!lastName.value.trim()){ showError(lastName, 'lastNameError'); ok=false; }
+      const phoneDigits = phone.value.replace(/\D/g,'');
+      if(phoneDigits.length < 10){ showError(phone, 'phoneError'); ok=false; }
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(email.value);
+      if(!emailOk){ showError(email, 'emailError'); ok=false; }
+    }
+    if(step===2){
+      const date = document.getElementById('date');
+      const time = document.getElementById('time');
+      if(!date.value){ showError(date, 'dateError'); ok=false; }
+      if(!time.value){ showError(time, 'timeError'); ok=false; }
+    }
+    if(step===3){
+      const checked = document.querySelectorAll('input[name="services"]:checked');
+      if(checked.length===0){
+        document.getElementById('servicesError').style.display='block';
+        ok=false;
+      }
+    }
+    return ok;
+  }
+  function showError(input, errorId){ input.classList.add('invalid'); const e = document.getElementById(errorId); if(e) e.style.display='block'; }
+  function clearErrors(){
+    document.querySelectorAll('.invalid').forEach(el=> el.classList.remove('invalid'));
+    document.querySelectorAll('.error-text').forEach(el=> el.style.display='none');
+  }
+
+  // ---------- Date & Time ----------
+  function setupDatePicker(){
+    const dateInput = document.getElementById('date');
+    const today = new Date(); today.setHours(0,0,0,0);
+    dateInput.min = today.toISOString().split('T')[0];
+    const maxDate = new Date(today); maxDate.setMonth(today.getMonth()+3); dateInput.max = maxDate.toISOString().split('T')[0];
+    dateInput.removeEventListener('change', onDateChange);
+    dateInput.addEventListener('change', onDateChange);
+    if(dateInput.value){ onDateChange({ target: dateInput }); }
+  }
+  function onDateChange(e){ selectedDate = new Date(e.target.value); updateTimeSlots(selectedDate); }
+
+  function updateTimeSlots(date){
+    const timeSelect = document.getElementById('time');
+    timeSelect.innerHTML = '<option value="">Select time</option>';
+    if(!date || isNaN(date)) return;
+
+    const day = date.getDay();
+
+    // Closed Mondays
+    if(day === 0){
+      timeSelect.innerHTML = '<option value="" disabled selected>Closed on Mondays</option>';
+      timeSelect.disabled = true;
       return;
     }
-  }
+    timeSelect.disabled = false;
 
-  // ---------- LLENAR OPCIONES ----------
-  for(let m=startMins; m<=endMins; m+=interval){
-    const h = Math.floor(m/60), mi = m%60;
-    const value = `${String(h).padStart(2,'0')}:${String(mi).padStart(2,'0')}`;
-    const display = formatTime(h, mi);
-    const opt = document.createElement('option');
-    opt.value = value;
-    opt.textContent = display;
-    timeSelect.appendChild(opt);
-  }
+    let startMins, endMins, interval = 30;
+    if(day === 0){ startMins=11*60; endMins=17*60+30; }
+    else if(day === 2 || day === 3){ startMins=10*60; endMins=19*60+30; }
+    else{ startMins=9*60+30; endMins=20*60+30; }
 
-  if(timeSelect.options.length === 1){
-    const opt = document.createElement('option');
-    opt.disabled = true;
-    opt.textContent = 'No quedan horarios disponibles';
-    timeSelect.appendChild(opt);
-  }
-}
-    function roundUp(mins, step){ return Math.ceil(mins/step)*step; }
-    function sameYMD(a,b){ return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate(); }
-    function formatTime(h, m){ const p = h>=12? 'PM':'AM'; const hh = h%12 || 12; return `${hh}:${String(m).padStart(2,'0')} ${p}`; }
-
-    // ---------- Servicios: click en tarjeta marca checkbox ----------
-    function enhanceServiceCards(){
-      document.querySelectorAll('.service-option').forEach(card=>{
-        const cb = card.querySelector('input[type="checkbox"]');
-        if(!cb) return;
-        const sync = ()=> card.classList.toggle('selected', cb.checked);
-        card.addEventListener('click', (e)=>{
-          if(e.target.tagName.toLowerCase()!== 'input'){ cb.checked = !cb.checked; cb.dispatchEvent(new Event('change',{bubbles:true})); }
-        });
-        card.addEventListener('keypress', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); cb.checked=!cb.checked; cb.dispatchEvent(new Event('change',{bubbles:true})); }});
-        cb.addEventListener('change', ()=>{ sync(); document.getElementById('servicesError').style.display='none'; });
-        sync();
-      });
-    }
-
-    // ---------- Envío + Modal ----------
-    function handleBooking(e){
-      e.preventDefault();
-      if(!validateStep(4)) return; // por si quieres agregar checks extra
-
-      const form = e.target;
-      const overlay = document.getElementById('confirmationModal');
-
-      const action = (form.getAttribute('action')||'').toLowerCase();
-      const isFormSubmit = action.includes('formsubmit.co');
-
-      const showModal = ()=>{
-        overlay.classList.add('active');
-        document.getElementById('goHomeBtn').focus({preventScroll:true});
-        form.reset();
-        updateProgressBar(1); // reset UI
-        document.querySelectorAll('.form-step').forEach((s,i)=> s.classList.toggle('active', i===0));
-      };
-
-      if(isFormSubmit){
-        fetch(form.action, { method: form.method||'POST', body: new FormData(form) })
-          .then(r=>{ if(!r.ok) throw new Error('send-failed'); showModal(); })
-          .catch(()=>{ alert('No pudimos enviar la reserva. Revisa tu conexión e inténtalo de nuevo.'); });
+    const now = new Date();
+    if(sameYMD(now, date)){
+      const minsNow = now.getHours()*60 + now.getMinutes() + 10;
+      if(minsNow <= endMins){
+        startMins = Math.max(startMins, roundUp(minsNow, interval));
       } else {
-        showModal();
+        timeSelect.innerHTML = '<option value="" disabled>No more time slots available today</option>';
+        return;
       }
     }
 
-    function goToHome(){ window.location.href = 'index.html'; }
-    document.getElementById('goHomeBtn').addEventListener('click', goToHome);
+    for(let m=startMins; m<=endMins; m+=interval){
+      const h = Math.floor(m/60), mi = m%60;
+      const value = `${String(h).padStart(2,'0')}:${String(mi).padStart(2,'0')}`;
+      const display = formatTime(h, mi);
+      const opt = document.createElement('option');
+      opt.value = value;
+      opt.textContent = display;
+      timeSelect.appendChild(opt);
+    }
 
-    // Cerrar modal con Escape o click fuera
-    (function modalUX(){
-      const overlay = document.getElementById('confirmationModal');
-      overlay.addEventListener('click', (e)=>{ if(e.target===overlay){ overlay.classList.remove('active'); }});
-      window.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ overlay.classList.remove('active'); }});
-    })();
+    if(timeSelect.options.length === 1){
+      const opt = document.createElement('option');
+      opt.disabled = true;
+      opt.textContent = 'No available time slots';
+      timeSelect.appendChild(opt);
+    }
+  }
+  function roundUp(mins, step){ return Math.ceil(mins/step)*step; }
+  function sameYMD(a,b){ return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate(); }
+  function formatTime(h, m){ const p = h>=12? 'PM':'AM'; const hh = h%12 || 12; return `${hh}:${String(m).padStart(2,'0')} ${p}`; }
 
-    // Init
-    (function init(){ updateProgressBar(1); enhanceServiceCards(); })();
-    // Responsividad: microajuste de spacing en móvil
-    window.addEventListener('resize', ()=>{
-      if(window.innerWidth <= 768){ document.querySelectorAll('.form-group').forEach(g=> g.style.marginBottom='14px'); }
+  // ---------- Services ----------
+  function enhanceServiceCards(){
+    document.querySelectorAll('.service-option').forEach(card=>{
+      const cb = card.querySelector('input[type="checkbox"]');
+      if(!cb) return;
+      const sync = ()=> card.classList.toggle('selected', cb.checked);
+      card.addEventListener('click', (e)=>{
+        if(e.target.tagName.toLowerCase()!== 'input'){ cb.checked = !cb.checked; cb.dispatchEvent(new Event('change',{bubbles:true})); }
+      });
+      card.addEventListener('keypress', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); cb.checked=!cb.checked; cb.dispatchEvent(new Event('change',{bubbles:true})); }});
+      cb.addEventListener('change', ()=>{ sync(); document.getElementById('servicesError').style.display='none'; });
+      sync();
     });
-  </script>
+  }
+</script>
+
+ <script>
+    (function() {
+      // Helper: reemplaza un nodo por un clon sin event listeners y devuelve el clon
+      function cleanReplace(node) {
+        if (!node || !node.parentNode) return node;
+        const clone = node.cloneNode(true);
+        node.parentNode.replaceChild(clone, node);
+        return clone;
+      }
+
+      // Espera hasta que exista el audio global (max 2s)
+      function waitForGlobalAudio(cb) {
+        const start = Date.now();
+        const tryGet = () => {
+          const a = document.getElementById('audio-barber-player');
+          if (a) return cb(a);
+          if (Date.now() - start > 2000) return cb(null);
+          setTimeout(tryGet, 100);
+        };
+        tryGet();
+      }
+
+      // Exponer handleBooking globalmente (por si el form usa onsubmit inline)
+      window.handleBooking = function handleBooking(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        if (typeof validateStep === 'function') {
+          if (!validateStep(4)) return;
+        }
+
+        const overlay = document.getElementById('confirmationModal');
+        if (!overlay) return;
+
+        overlay.classList.add('active');
+        const goHomeBtn = document.getElementById('goHomeBtn');
+        if (goHomeBtn) goHomeBtn.focus({ preventScroll: true });
+
+        // Reproducir automáticamente el audio después de agendar
+        waitForGlobalAudio((audioEl) => {
+          if (audioEl) {
+            try {
+              // Evitar doble reproducción: pausar primero cualquier audio
+              if (!audioEl.paused) audioEl.pause();
+              audioEl.currentTime = 0;
+
+              audioEl.src = 'thanks.mp3';
+              const titleEl = document.getElementById('track-title');
+              if (titleEl) titleEl.textContent = 'Thanks for booking';
+
+              // Reproducir automáticamente
+              audioEl.play().then(() => {
+                const playBtn = document.getElementById('audio-play');
+                const pauseBtn = document.getElementById('audio-pause');
+                if (playBtn) playBtn.style.display = 'none';
+                if (pauseBtn) pauseBtn.style.display = 'inline-block';
+              }).catch(err => {
+                console.error('Error al reproducir automáticamente:', err);
+              });
+            } catch (err) {
+              console.error('Error al reproducir thanks.mp3:', err);
+            }
+          }
+        });
+
+        // reset formulario si fue pasado por referencia
+        try {
+          if (e && e.target && typeof e.target.reset === 'function') e.target.reset();
+        } catch (err) { /* ignore */ }
+
+        // reestablecer UI de pasos (si existen)
+        try {
+          if (typeof updateProgressBar === 'function') updateProgressBar(1);
+          document.querySelectorAll('.form-step').forEach((s, i) => s.classList.toggle('active', i === 0));
+        } catch (err) {}
+      };
+
+      // Cuando DOM listo, instalamos control único del modal/ audio
+      document.addEventListener('DOMContentLoaded', () => {
+        waitForGlobalAudio((audioEl) => {
+          const audio = audioEl || (function(){ const a = new Audio(); a.id = 'audio-barber-player'; document.body.appendChild(a); return a; })();
+
+          // referencias UI
+          const playBtnOrig = document.getElementById('audio-play');
+          const pauseBtnOrig = document.getElementById('audio-pause');
+          const titleEl = document.getElementById('track-title');
+          const audioModalNode = document.getElementById('modal-aviso');
+          const goHomeBtn = document.getElementById('goHomeBtn');
+          const bookingForm = document.getElementById('bookingForm');
+
+          // replace nodes to clear old listeners
+          const playBtn = cleanReplace(playBtnOrig) || null;
+          const pauseBtn = cleanReplace(pauseBtnOrig) || null;
+          const btnSiNode = document.getElementById('btn-si');
+          const btnNoNode = document.getElementById('btn-no');
+          const btnSi = cleanReplace(btnSiNode) || null;
+          const btnNo = cleanReplace(btnNoNode) || null;
+          const audioModal = audioModalNode || null;
+
+          // flags
+          window.audioModalShown = window.audioModalShown || false;
+          window.bookingCompleted = window.bookingCompleted || false;
+
+          // play/pause helpers
+          function uiShowPlaying() {
+            if (playBtn) playBtn.style.display = 'none';
+            if (pauseBtn) pauseBtn.style.display = 'inline-block';
+          }
+          function uiShowPaused() {
+            if (playBtn) playBtn.style.display = 'inline-block';
+            if (pauseBtn) pauseBtn.style.display = 'none';
+          }
+
+          function playGlobal() {
+            try {
+              audio.play().then(() => {
+                uiShowPlaying();
+              }).catch(()=> {
+                // autoplay blocked — user gesture required (but here btnSi is user gesture)
+                uiShowPlaying();
+              });
+            } catch(e) { uiShowPlaying(); }
+          }
+
+          // btnSi: cargar thanks.mp3 EN EL REPRODUCTOR GLOBAL y reproducir (pausable)
+          if (btnSi) {
+            btnSi.addEventListener('click', function () {
+              if (audioModal) audioModal.style.display = 'none';
+              window.audioModalShown = true;
+
+              try {
+                // evitar doble reproducción: pausar primero cualquier audio
+                if (!audio.paused) audio.pause();
+                audio.currentTime = 0;
+
+                audio.src = 'thanks.mp3';
+                if (titleEl) titleEl.textContent = 'Thanks for booking';
+
+                // reproducir (click es user gesture, permitirá autoplay)
+                playGlobal();
+              } catch (err) {
+                console.error('Error al reproducir thanks.mp3:', err);
+              }
+            });
+          }
+
+          // btnNo: cerrar modal y marcar como mostrado (no reproducir)
+          if (btnNo) {
+            btnNo.addEventListener('click', function () {
+              if (audioModal) audioModal.style.display = 'none';
+              window.audioModalShown = true;
+            });
+          }
+
+          // clic fuera del modal: cerrar y marcar como mostrado
+          if (audioModal) {
+            audioModal.addEventListener('click', function (e) {
+              if (e.target === audioModal) {
+                audioModal.style.display = 'none';
+                window.audioModalShown = true;
+              }
+            });
+          }
+
+          // nuevo handler del playBtn: si el booking no está completado, mostrar modal
+          if (playBtn) {
+            playBtn.addEventListener('click', function (e) {
+              // Si la reserva no se ha completado, mostrar el modal de confirmación
+              if (!window.bookingCompleted) {
+                e.preventDefault();
+                if (audioModal) audioModal.style.display = 'flex';
+                return;
+              }
+              
+              // Si ya se completó la reserva, reproducir normalmente
+              playGlobal();
+            });
+          }
+
+          // pauseBtn repuesto
+          if (pauseBtn) {
+            pauseBtn.addEventListener('click', function () {
+              try {
+                audio.pause();
+                uiShowPaused();
+              } catch (err) {}
+            });
+          }
+
+          // Asegurar que no exista otro audio separado que reproduzca thanks.mp3
+          try {
+            if (window.confirmAudio && typeof window.confirmAudio.pause === 'function') {
+              try { window.confirmAudio.pause(); } catch(e) {}
+            }
+            delete window.confirmAudio;
+          } catch(e){}
+
+          // Si el modal de confirmación tiene botón Home que navega:
+          if (goHomeBtn) {
+            goHomeBtn.addEventListener('click', function () {
+              // cerrar modal principal
+              const overlay = document.getElementById('confirmationModal');
+              if (overlay) overlay.classList.remove('active');
+              // opcional: navegación
+              window.location.href = 'index.html';
+            });
+          }
+          
+          // Manejar el envío del formulario
+          if (bookingForm) {
+            bookingForm.addEventListener('submit', function(e) {
+              e.preventDefault();
+              window.bookingCompleted = true;
+              window.handleBooking(e);
+            });
+          }
+        }); // end waitForGlobalAudio
+      }); // end DOMContentLoaded
+    })();
+    </script>
+
   <script src="scripts.js"></script>
 </body>
 </html>

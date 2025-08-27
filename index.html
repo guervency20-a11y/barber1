@@ -18,6 +18,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css" />
   <!-- Boxicons para flechas personalizadas -->
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css">
   <style>
     /* ESTILOS GENERALES */
     * {
@@ -696,11 +697,11 @@
     <nav class="navegacion-principal">
       <ul>
         <li><a href="#home">Home</a></li>
-        <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="services.html">Servicios</a></li>
+        <li><a href="agenda.html">Book now</a><li>
+        <li><a href="services.html">Services</a></li>
         <li><a href="services.html#Barber">Barber</a></li>
-        <li><a href="services.html#promos">Promos</a></li>
-        <li><a href="#contactos">Contactos</a></li>
+        <li><a href="about.html">About us</a></li>
+        <li><a href="ubicacion.html#contactos">Contacts</a></li>
       </ul>
     </nav>
 
@@ -713,21 +714,21 @@
 <!-- Menú lateral para móvil -->
 <div class="menu-lateral" id="menuLateral">
   <a href="#home">Home</a>
-  <a href="agenda.html">Agendar cita</a>
-  <a href="services.html#servicios">Servicios</a>
+  <a href="agenda.html">Book now</a>
+  <a href="services.html#servicios">Services</a>
   <a href="services.html#Barber">Barber</a>
-  <a href="services.html#promos">Promos</a>
-  <a href="#contactos">Contactos</a>
+  <a href="about.html">About us</a>
+  <a href="ubicacion.html#contactos">Contacts</a>
 </div>
 
 <!-- Fondo oscuro -->
 <div class="fondo-oscuro" id="fondoOscuro"></div>
 
-<section id="home" class="hero">
+<section id="home" class="hero section">
   <div class="overlay"></div>
   <div class="hero-content">
     <h1>Men's Haircuts and Hairstyles</h1>
-    <p class="hero-subtitle">
+    <p class="hero-subtitle content">
       Premium cuts, professional service, right around the corner. Located at 1847 Commonwealth Avenue, Brighton – because looking sharp shouldn't require a road trip.
     </p>
     <div class="hero-buttons">
@@ -738,7 +739,7 @@
 </section>
 
 <!-- SECCIÓN SERVICIOS (ACTUALIZADA) -->
-<section class="servicios-populares">
+<section id="seccion-servicios" class="servicios-populares section">
   <div class="overlay-negro"></div>
 
   <div class="limitar-ancho">
@@ -751,7 +752,7 @@
       </div>
 
       <!-- Texto descriptivo actualizado -->
-      <div class="services-text">
+      <div class="services-text content">
         <p>
           Why wait for weekend crowds when you can look flawless all week? Turn your Tuesday into a self-care goal and avoid the long Saturday lines.<br>
           <strong>Weekly Discount Schedule:</strong><br>
@@ -820,6 +821,76 @@
   </div>
 </section>
 
+<!-- Audio Player -->
+    <div class="audio-player-container">
+        <!-- Botón de siguiente audio (aparece arriba) -->
+        <div class="next-audio-btn-container" id="next-audio-container">
+            <button class="next-audio-btn" id="next-audio-btn">Siguiente Audio →</button>
+        </div>
+        
+        <div class="audio-player">
+            <!-- Información de la pista -->
+            <div class="track-info">
+                <div class="track-title" id="track-title">Selecciona un audio</div>
+            </div>
+
+            <!-- Barra de progreso -->
+            <div class="audio-progress-container">
+                <input type="range" class="audio-progress-bar" id="audio-progress" value="0" min="0" max="100">
+            </div>
+
+            <!-- Tiempos -->
+            <div class="audio-time">
+                <span id="audio-current">0:00</span> / <span id="audio-duration">0:00</span>
+            </div>
+
+            <!-- Controles principales -->
+            <div class="audio-controls">
+                <button class="audio-btn" id="audio-prev" title="Anterior">⏮</button>
+                <button class="audio-btn play-pause" id="audio-play" title="Reproducir">▶</button>
+                <button class="audio-btn play-pause" id="audio-pause" title="Pausar" style="display:none;">⏸</button>
+                <button class="audio-btn" id="audio-next" title="Siguiente">⏭</button>
+            </div>
+
+            <!-- Botón de salto de silencio -->
+            <button class="jump-silence-btn" id="jump-silence" title="Saltar silencio">skip intro</button>
+
+            <!-- Lista de audios (oculta) -->
+           <ul id="audio-list" class="audio-list">
+    <li>
+        <a href="index.html#home" data-src="mens.mp3" data-skip="2">1 - Men's Style</a>
+        <button class="jump-silence-btn" data-skip="2">skip intro</button>
+    </li>
+
+    <li>
+        <a href="index.html#seccion-servicios" data-src="Fresh-not-stress.mp3" data-skip="2">2 - Sale</a>
+        <button class="jump-silence-btn" data-skip="2">skip intro</button>
+    </li>
+
+    <li>
+        <a href="services.html#section2" data-src="masterbarber.mp3" data-skip="2">3 - Master Barber</a>
+        <button class="jump-silence-btn" data-skip="2">skip intro</button>
+    </li>
+
+    <li>
+        <a href="services.html#section4" data-src="experience.mp3" data-skip="0">4 - Barbería Experience</a>
+        <button class="jump-silence-btn" data-skip="0">skip intro</button>
+    </li>
+
+    <li>
+        <a href="services.html#section3" data-src="services.mp3" data-skip="3">5 - Services & Booking</a>
+        <button class="jump-silence-btn" data-skip="3">skip intro</button>
+    </li>
+
+    <li>
+        <a href="agenda.html#soundModal" data-src="thanks.mp3" data-skip="1">6 - Thanks for booking</a>
+        <button class="jump-silence-btn" data-skip="1">skip intro</button>
+    </li>
+
+</ul>
+  </div>
+</div>
+
 <!-- Footer -->
 <footer>
   <div class="footer-content">
@@ -828,14 +899,7 @@
       <p>We provide high-quality beauty services with a team of professional stylists.</p>
     </div>
     
-    <div class="footer-section">
-      <h3>Business Hours</h3>
-      <p>Monday - Friday: 9:00 AM - 7:00 PM</p>
-      <p>Saturday: 9:00 AM - 5:00 PM</p>
-      <p>Sunday: Closed</p>
-    </div>
-    
-    <div class="footer-section">
+    <div class="footer-section" id="footer">
       <h3>Contact</h3>
       <p><i class="fas fa-map-marker-alt"></i> 123 Beauty Street, City</p>
       <p><i class="fas fa-phone"></i> (123) 456-7890</p>
@@ -943,6 +1007,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+
+<script src="scripts.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
 </body>
 </html>
