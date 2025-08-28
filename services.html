@@ -19,7 +19,7 @@
   :root {
   --black: #0a0a0a;
   --dark-gray: #1a1a1a;
-  --gold: #d4af37;
+  --gold:#FFD700; --amber:#FFA500;
   --gold-light: #e0c267;
   --white: #fff;
   --light-gray: #969292;
@@ -27,7 +27,6 @@
   --transition: all 0.3s ease;
 }
 :root {
-  --gold:#FFD700;
   --amber:#FFA500;
   --purple:#8A2BE2;
   --bg:#0a0a0a;
@@ -65,94 +64,118 @@ body::before{
 
 * { margin:0; padding:0; box-sizing:border-box; }
 
-/* === ENCABEZADO === */
-.encabezado {
-  position: fixed;
+    :root {
+      --light-gray: #f5f5f5;
+      --dark-bg: rgba(10, 10, 10, 0.95);
+      --transition: all 0.3s ease;
+      --line: rgba(255,255,255,0.1);
+    }
+
+/* Header */
+header {
+  padding: 20px 0; /* Aumentado el padding para hacerlo más grueso */
+  background-color: rgba(0, 0, 0); /* barra oscura al hacer scroll */
+  position: sticky;
   top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-  padding: 8px 0;
-  background-color: transparent;
-  transition: background-color 0.3s ease;
-}
-
-.contenedor {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.logo img {
-  height: 40px;
-}
-
-/* Ocultar logo en móvil y tablet */
-@media (max-width: 1024px) {
-  .logo {
-    display: none;
-  }
-}
-
-.navegacion-principal ul {
-  display: flex;
-  list-style: none;
-  gap: 30px;
-}
-
-.navegacion-principal a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.navegacion-principal a:hover {
-  color: var(--gold);
-}
-
-.boton-menu {
-  display: none;
-  font-size: 2rem;
-  color: var(--gold);
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 1001;
-}
-
-/* Mostrar botón de menú en móvil y tablet */
-@media (max-width: 1024px) {
-  .navegacion-principal {
-    display: none;
-  }
-  
-  .boton-menu {
-    display: block;
-  }
-}
-  
-.menu-lateral {
-  position: fixed;
-  top: 0;
-  right: -300px;
-  width: 300px;
-  height: 100vh;
-  background-color: rgb(26, 14, 24);
   z-index: 1000;
-  padding: 80px 20px 20px;
-  transition: right 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  backdrop-filter: none; /* SIN blur al inicio */
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
 }
-  
-.menu-lateral.active {
-  right: 0;
+
+header.scrolled {
+  background-color: rgba(0, 0, 0); /* barra oscura al hacer scroll */
+  backdrop-filter: blur(10px); /* blur solo cuando scrollea */
+  padding: 15px 0; /* Padding reducido al hacer scroll */
 }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      justify-content: flex-end; /* Alineado a la derecha */
+    }
+
+    .back-arrow:hover {
+      color: #fff;
+    }
+
+    /* Nav Links */
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      font-family: 'Montserrat', sans-serif;
+      padding: 12px 0; /* Padding vertical aumentado */
+    }
+
+    .nav-links a {
+      color: var(--light-gray);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+    font-weight: 600; /* Texto más grueso */
+    font-size: 1rem; /* Tamaño de fuente ligeramente mayor*/
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Mobile menu button */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--gold);
+      font-size: 1.8rem;
+      cursor: pointer;
+      position: relative;
+      right: 0px;
+      top: 50%;
+    }
+
+    /* Mobile Nav */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background-color: var(--dark-bg);
+        padding: 20px;
+        gap: 30px;
+        border-top: 1px solid var(--line);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
   
 .menu-lateral a {
   color: white;
@@ -1926,25 +1949,25 @@ h2,h3,.services-title,.step-title {
   </head>
   <body>
     <!-- Encabezado -->
-    <header class="encabezado scroll-animate">
-      <div class="contenedor">
-        <div class="logo">
-          <img src="logo.png" alt="Logo Barber Club">
-        </div>
-        <nav class="navegacion-principal desktop-nav">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="agenda.html">Book Now</a></li>
-            <li><a href="index.html#galeria-principal">Gallery</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="ubicacion.html">Location</a></li>
-          </ul>
-        </nav>
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-          <i class="fas fa-bars"></i>
-        </button>
-      </div>
-    </header>
+  <header id="mainHeader">
+    <div class="header-container">
+
+      <!-- Menú de navegación -->
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="index.html#galeria-principal">Gallery</a>
+        <a href="ubicacion.html">Location</a>
+        <a href="agenda.html">Book Now</a>
+      </nav>
+
+      <!-- Botón menú móvil -->
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
     <!-- Hero -->
   <section class="hero scroll-animate">
     <!-- Flecha de retroceso eliminada -->
@@ -1954,17 +1977,7 @@ h2,h3,.services-title,.step-title {
       <div class="reviews-count">(32)</div>
     </div>
   </section>
-    <!-- Menú móvil -->
-    <div class="mobile-menu" id="mobileMenu">
-      <button class="close-menu" id="closeMenu">
-        <i class="fas fa-times"></i>
-      </button>
-      <a href="index.html">Home</a>
-      <a href="agenda.html">Book Now</a>
-      <a href="index.html#galeria-principal">Gallery</a>
-      <a href="about.html">About</a>
-      <a href="ubicacion.html">Location</a>
-    </div>
+
     <!-- Sección de presentación del barbero -->
     <section class="barber-presentation scroll-animate" id="barber">
       <div class="barber-container section" id="section2">
@@ -1975,12 +1988,12 @@ h2,h3,.services-title,.step-title {
           <span class="barber-tag scroll-animate content">Master Barber & Artist</span>
           <h2 class="barber-name scroll-animate">Lucson Guerrier</h2>
           <p class="barber-description scroll-animate">
-            At 50, Lucson brings three decades of mastery to every chair. He started cutting hair at 16, dedicated himself fully to the craft at 22, and has been perfecting his art ever since. As a self-taught painter who's held brushes since childhood, Lucson sees every head as a canvas, every cut as a masterpiece. His artistic vision transforms ordinary haircuts into signature styles that reflect who you truly are.
+            brings more than twelve years of barbering experience, along with a lifelong passion for painting. He delivers precision and artistry in every cut. This unique blend of skills delivers clean finishes, consistent results, and the exact style you ask for. Nothing is left to chance. No guesswork. No surprises. Just reliable work that keeps clients coming back. Your style is in safe hands — and so is your confidence.
           </p>
           <div class="barber-stats">
-            <div class="stat-item scroll-animate"> <span class="stat-number">30+</span> <span class="stat-label">Years Mastering</span> </div>
-            <div class="stat-item scroll-animate"> <span class="stat-number">8000+</span> <span class="stat-label">Transformations</span> </div>
-            <div class="stat-item scroll-animate"> <span class="stat-number">50</span> <span class="stat-label">Years of Wisdom</span> </div>
+            <div class="stat-item scroll-animate"> <span class="stat-number">15+</span> <span class="stat-label">Years Mastering</span> </div>
+            <div class="stat-item scroll-animate"> <span class="stat-number">3000+</span> <span class="stat-label">Transformations</span> </div>
+            <div class="stat-item scroll-animate">
           </div>
           <a href="ubicacion.html" class="barber-cta scroll-animate">Reviews</a>
         </div>
@@ -2340,58 +2353,6 @@ h2,h3,.services-title,.step-title {
       }
     }
     
-    // JavaScript para el menú móvil y funcionalidades existentes
-    document.addEventListener('DOMContentLoaded', function() {
-      // Inicializar sistema de animaciones por scroll
-      new ScrollAnimations();
-      
-      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-      const closeMenuBtn = document.getElementById('closeMenu');
-      const mobileMenu = document.getElementById('mobileMenu');
-      
-      if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', function() {
-          mobileMenu.classList.add('active');
-          document.body.style.overflow = 'hidden';
-        });
-      }
-      
-      if (closeMenuBtn) {
-        closeMenuBtn.addEventListener('click', function() {
-          mobileMenu.classList.remove('active');
-          document.body.style.overflow = 'auto';
-        });
-      }
-      
-      // Cerrar menú al hacer clic en un enlace
-      if (mobileMenu) {
-        const menuLinks = mobileMenu.querySelectorAll('a');
-        menuLinks.forEach(link => {
-          link.addEventListener('click', function() {
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = 'auto';
-          });
-        });
-      }
-      
-      // Header con fondo al hacer scroll
-      const header = document.querySelector('.encabezado');
-      let scrollTimeout;
-      
-      window.addEventListener('scroll', function() {
-        clearTimeout(scrollTimeout);
-        
-        scrollTimeout = setTimeout(() => {
-          if (window.scrollY > 50) {
-            header.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
-            header.style.backdropFilter = 'blur(10px)';
-          } else {
-            header.style.backgroundColor = 'transparent';
-            header.style.backdropFilter = 'none';
-          }
-        }, 10);
-      }, { passive: true });
-      
       // Funcionalidad para las tarjetas de servicio (optimizada)
       const serviceCards = document.querySelectorAll('.service-card');
       
@@ -2454,7 +2415,6 @@ h2,h3,.services-title,.step-title {
           closeAllCards();
         }
       });
-    });
     
     // Smooth scrolling para enlaces internos
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2472,7 +2432,31 @@ h2,h3,.services-title,.step-title {
         }
       });
     });
+
+    // MENU GOD + SCROLL TRANSPARENTE
+document.addEventListener("DOMContentLoaded", () => {
+  const header = document.getElementById("mainHeader");
+  const mobileBtn = document.getElementById("mobileMenuBtn");
+  const navLinks = document.getElementById("navLinks");
+
+  // Toggle menú móvil
+  mobileBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    navLinks.classList.toggle("active");
+  });
+
+  // Cerrar al hacer click en un link
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => navLinks.classList.remove("active"));
+  });
+
+  // Cerrar al hacer click fuera
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".nav-links") && !e.target.closest(".mobile-menu-btn")) {
+      navLinks.classList.remove("active");
+    }
+  });
+});
   </script>
 </body>
-
 </html>
