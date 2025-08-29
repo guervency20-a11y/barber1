@@ -37,7 +37,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Stylesheet versioned -->
-  <link rel="stylesheet" href="styles.css?v=1.34">
+  <link rel="stylesheet" href="styles.css?v=1.3.5.4">
 
   <!-- Page Title -->
   <title>About Us - Majestic Cuts & Salon | South Easton, MA Barber Shop</title>
@@ -600,7 +600,7 @@
 
     <!-- Announcement Section -->
     <section class="section">
-        <div class="container">
+        <div class="container" id="section1">
             <div class="announcement">
                 <h2>✨ We've Moved — Welcome to Our New Home! ✨</h2>
                 <p>Majestic Cuts & Salon is excited to announce the grand opening of our brand-new location at <span class="highlight">105 Depot Street, South Easton, MA</span> (in the Fresh Auto Wash Plaza). Same trusted quality, fresh new vibe!</p>
@@ -735,9 +735,84 @@
             <div class="divider"></div>
             <p>Majestic Cuts & Salon is now using our brand-new booking app to make scheduling your next appointment faster and easier than ever. Browse services, check availability, and reserve your spot with just a few taps.</p>
             <p>👉 Book your appointment today through our new app and experience the royal treatment made simple.</p>
-            <a href="agenda.html" class="booking-app">Book Now</a>
+            <a href="#" class="booking-app">Book Now</a>
         </div>
     </section>
+
+    <!-- Audio Player -->
+    <div class="audio-player-container">
+        <!-- Botón de siguiente audio (aparece arriba) -->
+        <div class="next-audio-btn-container" id="next-audio-container">
+            <button class="next-audio-btn" id="next-audio-btn">Siguiente Audio →</button>
+        </div>
+        
+        <div class="audio-player">
+            <!-- Información de la pista -->
+            <div class="track-info">
+                <div class="track-title" id="track-title">Selecciona un audio</div>
+            </div>
+
+            <!-- Barra de progreso -->
+            <div class="audio-progress-container">
+                <input type="range" class="audio-progress-bar" id="audio-progress" value="0" min="0" max="100">
+            </div>
+
+            <!-- Tiempos -->
+            <div class="audio-time">
+                <span id="audio-current">0:00</span> / <span id="audio-duration">0:00</span>
+            </div>
+
+            <!-- Controles principales -->
+            <div class="audio-controls">
+                <button class="audio-btn" id="audio-prev" title="Anterior">⏮</button>
+                <button class="audio-btn play-pause" id="audio-play" title="Reproducir">▶</button>
+                <button class="audio-btn play-pause" id="audio-pause" title="Pausar" style="display:none;">⏸</button>
+                <button class="audio-btn" id="audio-next" title="Siguiente">⏭</button>
+            </div>
+
+            <!-- Botón de salto de silencio -->
+            <button class="jump-silence-btn" id="jump-silence" title="Saltar silencio">Saltar intro</button>
+
+            <!-- Lista de audios (oculta) -->
+           <ul id="audio-list" class="audio-list">
+    <li>
+        <a href="index.html#home" data-src="mens.mp3" data-skip="2">1 - Men's Style</a>
+        <button class="jump-silence-btn" data-skip="2">skip intro</button>
+    </li>
+
+    <li>
+        <a href="index.html#seccion-servicios" data-src="Fresh-not-stress.mp3" data-skip="2">2 - Sale</a>
+        <button class="jump-silence-btn" data-skip="2">skip intro</button>
+    </li>
+
+    <li>
+        <a href="services.html#section2" data-src="masterbarber.mp3" data-skip="2">3 - Master Barber</a>
+        <button class="jump-silence-btn" data-skip="2">skip intro</button>
+    </li>
+
+    <li>
+        <a href="services.html#section4" data-src="experience.mp3" data-skip="0">4 - Barbería Experience</a>
+        <button class="jump-silence-btn" data-skip="0">skip intro</button>
+    </li>
+
+    <li>
+        <a href="services.html#section3" data-src="services.mp3" data-skip="3">5 - Services & Booking</a>
+        <button class="jump-silence-btn" data-skip="3">skip intro</button>
+    </li>
+
+    <li>
+        <a href="agenda.html#soundModal" data-src="thanks.mp3" data-skip="1">6 - Thanks for booking</a>
+        <button class="jump-silence-btn" data-skip="1">skip intro</button>
+    </li>
+
+    <li>
+        <a href="about.html#section1" data-src="about.mp3" data-skip="0">3 - about us</a>
+        <button class="jump-silence-btn" data-skip="0">skip intro</button>
+    </li>
+
+</ul>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -785,8 +860,7 @@
             navLinks.classList.toggle('active');
         });
     </script>
+
+    <script src="scripts.js"></script>
 </body>
-
 </html>
-
-
