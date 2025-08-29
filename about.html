@@ -1,866 +1,227 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Required meta tags -->
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+// Reproductor de audio avanzado
+document.addEventListener("DOMContentLoaded", () => {
+    // Crear elemento de audio
+    const audio = new Audio();
+    audio.id = 'audio-barber-player';
+    document.body.appendChild(audio);
 
-  <!-- SEO meta tags -->
-  <meta name="description" content="Majestic Cuts & Salon in South Easton, MA offers premium haircuts, beard trims, styling, and more. Experience the royal treatment at our new location in Fresh Auto Wash Plaza.">
-  <meta name="keywords" content="Majestic Cuts, barbershop, haircuts, beard trims, grooming, South Easton MA, hair styling, salon">
-  <meta name="author" content="Majestic Cuts & Salon">
+    const listLinks = Array.from(document.querySelectorAll('#audio-list li a'));
+    const title = document.getElementById('track-title');
+    const playBtn = document.getElementById('audio-play');
+    const pauseBtn = document.getElementById('audio-pause');
+    const progress = document.getElementById('audio-progress');
+    const currentTimeEl = document.getElementById('audio-current');
+    const durationEl = document.getElementById('audio-duration');
+    const jumpSilenceBtn = document.getElementById('jump-silence');
+    const nextAudioContainer = document.getElementById('next-audio-container');
+    const nextAudioBtn = document.getElementById('next-audio-btn');
 
-  <!-- Open Graph / Social Media -->
-  <meta property="og:title" content="About Us - Majestic Cuts & Salon | South Easton, MA Barber Shop">
-  <meta property="og:description" content="Experience premium haircuts, beard trims, and styling at Majestic Cuts & Salon in South Easton, MA.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.majesticscutssalons.com/about-us">
-  <meta property="og:image" content="https://www.majesticscutssalons.com/images/og-about.jpg">
+    // Obtener la página actual
+    const currentPage = window.location.pathname.split("/").pop() || 'index.html';
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="About Us - Majestic Cuts & Salon">
-  <meta name="twitter:description" content="Experience premium haircuts, beard trims, and styling at Majestic Cuts & Salon in South Easton, MA.">
-  <meta name="twitter:image" content="https://www.majesticscutssalons.com/images/twitter-about.jpg">
+    // Configuración de saltos de silencio por página
+    const pageSilenceSettings = {
+        'index.html': 5,
+        'services.html': 3,
+        'ubicacion.html': 4,
+        'agenda.html': 6
+    };
 
-  <!-- Theme -->
-  <meta name="color-scheme" content="dark light">
+    // Configurar el salto de silencio para esta página
+    let silenceJump = pageSilenceSettings[currentPage] || 5;
+    jumpSilenceBtn.textContent = `Saltar intro (${silenceJump}s)`;
 
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+    // Obtener solo los enlaces que pertenecen a esta página
+    const validLinks = listLinks.filter(link => {
+        const href = link.getAttribute('href');
+        return href && href.startsWith(currentPage);
+    });
 
-  <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Prata&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    // Índice actual
+    let currentIndex = 0;
 
-  <!-- Stylesheet versioned -->
-  <link rel="stylesheet" href="styles.css?v=1.3.5.4">
+    // Función para mostrar/ocultar el botón de siguiente audio
+    function toggleNextAudioButton(show) {
+        if (show) {
+            nextAudioContainer.classList.add('visible');
+        } else {
+            nextAudioContainer.classList.remove('visible');
+        }
+    }
 
-  <!-- Page Title -->
-  <title>About Us - Majestic Cuts & Salon | South Easton, MA Barber Shop</title>
-    <style>
-        :root {
-            --gold: #FFD700;
-            --amber: #FFA500;
-            --purple: #8A2BE2;
-            --dark-bg: #0a0a0a;
-            --dark-panel: #141414;
-            --light-gray: #e0e0e0;
-            --muted: rgba(255, 255, 255, 0.6);
-            --transition: all 0.3s ease;
-            --radius: 12px;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            --line: rgba(255, 255, 255, 0.1);
+    // Cargar track por índice
+    function loadTrackByIndex(index) {
+        if (index < 0 || index >= validLinks.length) return false;
+
+        const link = validLinks[index];
+        const src = link.dataset ? link.dataset.src : null;
+        if (!src) return false;
+
+        // Actualizar el salto de silencio específico para este audio si está definido
+        if (link.dataset.silence) {
+            silenceJump = parseInt(link.dataset.silence);
+            jumpSilenceBtn.textContent = `Saltar intro (${silenceJump}s)`;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        audio.src = src;
+        title.textContent = link.textContent;
+        currentIndex = index;
 
-        body {
-            background-color: var(--dark-bg);
-            color: white;
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+        // Ocultar botón de siguiente audio al cargar un nuevo track
+        toggleNextAudioButton(false);
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        return true;
+    }
 
-        /* Header Styles */
-        header {
-            padding: 20px 0;
-            background-color: rgba(10, 10, 10, 0.95);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    // Configurar evento de salto de silencio manual
+    jumpSilenceBtn.addEventListener('click', () => {
+        if (audio.src) {
+            audio.currentTime = silenceJump;
+            if (audio.paused) audio.play();
         }
+    });
 
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    // Navegación por los enlaces de la lista
+    listLinks.forEach((link, idx) => {
+        link.addEventListener('click', (e) => {
+            if (link.getAttribute('href').startsWith(currentPage)) {
+                e.preventDefault();
+                const href = link.getAttribute('href');
+                const realIndex = validLinks.findIndex(l => l.getAttribute('href') === href);
 
-        .logo {
-            font-family: 'Prata', serif;
-            font-size: 1.8rem;
-            color: var(--gold);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+                if (realIndex !== -1 && loadTrackByIndex(realIndex)) {
+                    audio.play();
+                    playBtn.style.display = 'none';
+                    pauseBtn.style.display = 'inline';
 
-        .logo-icon {
-            color: var(--gold);
-            font-size: 1.5rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: var(--light-gray);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--gold);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Hero Section Styles */
-        .hero {
-            position: relative;
-            width: 100%;
-            height: 60vh;
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('barberia.png') center/cover no-repeat;
-        }
-
-        .hero .back-arrow {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 3rem;
-            cursor: pointer;
-            color: #FFD700;
-            z-index: 10;
-            transition: all 0.3s ease;
-            padding: 2;
-            border-radius:50%;
-        }
-
-        .hero .back-arrow:hover {
-            transform: translateX(-5px) scale(1.1);
-        }
-
-        .hero .info-box {
-            position: absolute;
-            bottom: -60px;
-            left: 10px;
-            background-color: rgba(0,0,0,0.9);
-            padding: 8px 20px;
-            border-left: 4px solid #FFD700;
-            border-radius: 5px;
-            width: 65%;
-            transition: all 0.3s ease;
-            z-index: 50;
-            box-shadow: 0 4px 7px rgba(50,50,50,0.3);
-        }
-
-        .hero .info-box:hover {
-            transform: translateY(-5px);
-        }
-
-        .hero .info-box h2 {
-            font-size: 1.6rem;
-            color: white;
-            margin-bottom: 5px;
-            font-family: 'Prata', serif;
-        }
-
-        .hero .info-box .rating {
-            color: #FFD700;
-            font-size: 1rem;
-            margin-bottom: 2px;
-        }
-
-        /* Section Styles */
-        .section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            font-family: 'Prata', serif;
-            font-size: 2.5rem;
-            color: var(--gold);
-        }
-
-        .divider {
-            height: 3px;
-            width: 60px;
-            background: linear-gradient(to right, var(--gold), var(--purple));
-            margin: 15px auto 30px;
-            border-radius: 3px;
-        }
-
-        /* Announcement Section */
-        .announcement {
-            background-color: var(--dark-panel);
-            border-radius: 10px;
-            padding: 40px;
-            margin-bottom: 40px;
-            text-align: center;
-            border-left: 4px solid var(--gold);
-        }
-
-        .announcement h2 {
-            color: var(--gold);
-            margin-bottom: 20px;
-            font-size: 2rem;
-        }
-
-        .announcement p {
-            margin-bottom: 15px;
-            color: var(--muted);
-        }
-
-        .highlight {
-            color: var(--gold);
-            font-weight: 600;
-        }
-
-        /* About Section */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-            margin: 60px 0;
-        }
-
-        .about-content h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--gold);
-        }
-
-        .about-content p {
-            margin-bottom: 15px;
-            color: var(--muted);
-        }
-
-        .about-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .stat-box {
-            text-align: center;
-            padding: 20px;
-            background-color: var(--dark-panel);
-            border-radius: var(--radius);
-            border: 1px solid var(--line);
-        }
-
-        .stat-number {
-            display: block;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-
-        /* Values Section */
-        .values-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .value-card {
-            background-color: var(--dark-panel);
-            border-radius: var(--radius);
-            padding: 30px;
-            text-align: center;
-            transition: var(--transition);
-            border: 1px solid var(--line);
-        }
-
-        .value-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow);
-        }
-
-        .value-icon {
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 20px;
-        }
-
-        .value-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: white;
-        }
-
-        .value-description {
-            color: var(--muted);
-        }
-
-        /* Team Section */
-        .team-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .team-member {
-            background-color: var(--dark-panel);
-            border-radius: var(--radius);
-            overflow: hidden;
-            transition: var(--transition);
-            text-align: center;
-            border: 1px solid var(--line);
-        }
-
-        .team-member:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow);
-        }
-
-        .member-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-        }
-
-        .no-photo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #2a2a2a;
-            color: var(--muted);
-            font-size: 5rem;
-        }
-
-        .member-info {
-            padding: 20px;
-        }
-
-        .member-name {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-            color: var(--gold);
-        }
-
-        .member-role {
-            color: var(--muted);
-            margin-bottom: 15px;
-        }
-
-        .member-hours {
-            margin-top: 15px;
-            padding: 15px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            border-left: 3px solid var(--gold);
-        }
-
-        .member-hours b {
-            color: var(--gold);
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        /* Booking Section */
-        .booking-section {
-            text-align: center;
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.05), rgba(255, 215, 0, 0.05));
-            padding: 60px 0;
-            border-radius: 10px;
-            margin: 40px 0;
-        }
-
-        .booking-app {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--gold), var(--amber));
-            color: black;
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-weight: 700;
-            text-decoration: none;
-            margin-top: 20px;
-            transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-        }
-
-        .booking-app:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
-        }
-
-        /* Footer */
-        footer {
-            background: linear-gradient(to right, #0d0d0d, #1a1a1a);
-            color: #fff;
-            padding: 40px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .footer-section h3 {
-            color: var(--gold);
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-        }
-
-        .footer-section p {
-            margin: 10px 0;
-            color: var(--muted);
-        }
-
-        .footer-section i {
-            margin-right: 10px;
-            color: var(--gold);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .social-links a {
-            color: var(--muted);
-            font-size: 1.2rem;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            color: var(--gold);
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--muted);
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .about-grid {
-                grid-template-columns: 1fr;
+                    const targetId = href.split('#')[1];
+                    const target = document.getElementById(targetId);
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                }
             }
-            
-            .about-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .team-container {
-                grid-template-columns: 1fr;
-                max-width: 500px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                flex-direction: column;
-                background-color: var(--dark-bg);
-                padding: 20px;
-                gap: 15px;
-                border-top: 1px solid var(--line);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .hero .info-box {
-                left: 1%;
-                width: 80% !important;
-                max-width: 300px;
-                padding: 10px 14px;
-                border-left: 3px solid #FFD700;
-                border-radius: 8px;
-                box-shadow: 0 4px 7px rgba(0,0,0,0.3);
-            }
-
-            .hero .info-box h2 {
-                font-size: 1.2rem;
-                margin-bottom: 4px;
-            }
-
-            .hero .info-box .rating {
-                font-size: 0.85rem;
-                margin-bottom: 2px;
-            }
-
-            .section {
-                padding: 60px 0;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .about-stats {
-                grid-template-columns: 1fr;
-            }
-            
-            .announcement {
-                padding: 25px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <i class="fas fa-crown logo-icon"></i>
-                <span>Majestic Cuts</span>
-            </div>
-            <nav class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="about.html" class="active">About</a>
-                <a href="contact.html">Contact</a>
-            </nav>
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </header>
-
-    <!-- Hero -->
-    <section class="hero">
-        <a href="javascript:void(0);" onclick="window.history.back();">
-            <div class="back-arrow"><i class="fa-solid fa-arrow-left"></i></div>
-        </a>
-        <div class="info-box">
-            <h2>Majestic Cuts Salons</h2>
-            <div class="rating">4.4 (★★★★★)</div>
-            <div class="reviews-count">(32)</div>
-        </div>
-    </section>
-
-    <!-- Announcement Section -->
-    <section class="section">
-        <div class="container" id="section1">
-            <div class="announcement">
-                <h2>✨ We've Moved — Welcome to Our New Home! ✨</h2>
-                <p>Majestic Cuts & Salon is excited to announce the grand opening of our brand-new location at <span class="highlight">105 Depot Street, South Easton, MA</span> (in the Fresh Auto Wash Plaza). Same trusted quality, fresh new vibe!</p>
-                <p>Stop by and experience the royal treatment with our full range of services — from classic cuts and beard trims to styling, dyeing, waxing, and more. For a limited time, enjoy our Special Haircut for just <span class="highlight">$34.99</span>!</p>
-                <p>📍 Visit us at 105 Depot Street, South Easton, MA 02375</p>
-                <p>📞 Call us at (617) 501-1114 or (508) 400-3043</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="section">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-content">
-                    <h3>Our Story</h3>
-                    <div class="divider"></div>
-                    <p>Founded with a passion for style and precision, Majestic Cuts has been a cornerstone of the South Easton community since 2015. What started as a small neighborhood barbershop has evolved into a premier salon known for exceptional service and unparalleled expertise.</p>
-                    <p>Our team of skilled professionals is dedicated to staying at the forefront of the latest trends and techniques in hair care and styling. We believe that a great haircut is not just about looking good—it's about feeling confident and empowered.</p>
-                    <p>At Majestic Cuts, we've created a space where tradition meets innovation, and where every client receives personalized attention tailored to their unique style and needs.</p>
-                    
-                    <div class="about-stats">
-                        <div class="stat-box">
-                            <span class="stat-number">8+</span>
-                            <span class="stat-label">Years Experience</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-number">2.5k+</span>
-                            <span class="stat-label">Happy Clients</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-number">15+</span>
-                            <span class="stat-label">Services</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-content">
-                    <h3>Why Choose Us</h3>
-                    <div class="divider"></div>
-                    <p>Located in the heart of South Easton, MA, Majestic Cuts & Salon stands out as the premier destination for quality haircuts and grooming services. Our convenient location in the Fresh Auto Wash Plaza makes us easily accessible to clients from across Massachusetts.</p>
-                    <p>We specialize in:</p>
-                    <ul style="color: var(--muted); margin-left: 20px; margin-bottom: 20px;">
-                        <li>Precision haircuts for men, women, and children</li>
-                        <li>Expert beard trimming and styling</li>
-                        <li>Professional coloring and highlights</li>
-                        <li>Traditional straight razor shaves</li>
-                        <li>Special occasion styling</li>
-                    </ul>
-                    <p>Our team of experienced barbers and stylists are committed to providing you with the highest quality service in a comfortable and welcoming atmosphere.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Values Section -->
-    <section class="section" style="background-color: var(--dark-panel);">
-        <div class="container">
-            <h2 class="section-title">Our Values</h2>
-            <div class="divider"></div>
-            <div class="values-container">
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h3 class="value-title">Excellence</h3>
-                    <p class="value-description">We are committed to delivering the highest quality service with attention to detail and precision in every cut.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="value-title">Community</h3>
-                    <p class="value-description">We believe in building lasting relationships with our clients and supporting our local South Easton community.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <h3 class="value-title">Innovation</h3>
-                    <p class="value-description">We continuously evolve our techniques and stay ahead of trends to offer you the latest styles.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Team Section -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">Meet Our Team</h2>
-            <div class="divider"></div>
-            <div class="team-container">
-                <div class="team-member">
-                    <img src="lucson.png" alt="Lucson - Master Barber" class="member-image">
-                    <div class="member-info">
-                        <h3 class="member-name">Lucson</h3>
-                        <p class="member-role">Master Barber & Owner</p>
-                        <p>With over 10 years of experience, Lucson specializes in precision cuts and classic barbering techniques. His attention to detail and commitment to customer satisfaction have made him a favorite among our clients.</p>
-                        <div class="member-hours">
-                            <b>Horarios</b>
-                            Sáb: 9:30 AM – 8:30 PM<br/>
-                            Dom: 11:00 AM – 5:30 PM<br/>
-                            Lun: Cita previa<br/>
-                            Mar–Mié: 10:00 AM – 7:30 PM<br/>
-                            Jue–Vie: 9:30 AM – 8:30 PM
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="team-member">
-                    <div class="member-image no-photo">
-                        <i class="fas fa-user-plus"></i>
-                    </div>
-                    <div class="member-info">
-                        <h3 class="member-name">Join Our Team</h3>
-                        <p class="member-role">We're Hiring Talented Stylists</p>
-                        <p>We're expanding our team and looking for skilled barbers and stylists who are passionate about their craft. If you're interested in joining the Majestic Cuts family, please contact us for more information.</p>
-                        <div class="member-hours">
-                            <b>Interested?</b>
-                            Send your portfolio to:<br/>
-                            hiring@majesticcuts.com
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Booking Section -->
-    <section class="booking-section">
-        <div class="container">
-            <h2 class="section-title">Easy Booking</h2>
-            <div class="divider"></div>
-            <p>Majestic Cuts & Salon is now using our brand-new booking app to make scheduling your next appointment faster and easier than ever. Browse services, check availability, and reserve your spot with just a few taps.</p>
-            <p>👉 Book your appointment today through our new app and experience the royal treatment made simple.</p>
-            <a href="#" class="booking-app">Book Now</a>
-        </div>
-    </section>
-
-    <!-- Audio Player -->
-    <div class="audio-player-container">
-        <!-- Botón de siguiente audio (aparece arriba) -->
-        <div class="next-audio-btn-container" id="next-audio-container">
-            <button class="next-audio-btn" id="next-audio-btn">Siguiente Audio →</button>
-        </div>
-        
-        <div class="audio-player">
-            <!-- Información de la pista -->
-            <div class="track-info">
-                <div class="track-title" id="track-title">Selecciona un audio</div>
-            </div>
-
-            <!-- Barra de progreso -->
-            <div class="audio-progress-container">
-                <input type="range" class="audio-progress-bar" id="audio-progress" value="0" min="0" max="100">
-            </div>
-
-            <!-- Tiempos -->
-            <div class="audio-time">
-                <span id="audio-current">0:00</span> / <span id="audio-duration">0:00</span>
-            </div>
-
-            <!-- Controles principales -->
-            <div class="audio-controls">
-                <button class="audio-btn" id="audio-prev" title="Anterior">⏮</button>
-                <button class="audio-btn play-pause" id="audio-play" title="Reproducir">▶</button>
-                <button class="audio-btn play-pause" id="audio-pause" title="Pausar" style="display:none;">⏸</button>
-                <button class="audio-btn" id="audio-next" title="Siguiente">⏭</button>
-            </div>
-
-            <!-- Botón de salto de silencio -->
-            <button class="jump-silence-btn" id="jump-silence" title="Saltar silencio">Saltar intro</button>
-
-            <!-- Lista de audios (oculta) -->
-           <ul id="audio-list" class="audio-list">
-    <li>
-        <a href="index.html#home" data-src="mens.mp3" data-skip="2">1 - Men's Style</a>
-        <button class="jump-silence-btn" data-skip="2">skip intro</button>
-    </li>
-
-    <li>
-        <a href="index.html#seccion-servicios" data-src="Fresh-not-stress.mp3" data-skip="2">2 - Sale</a>
-        <button class="jump-silence-btn" data-skip="2">skip intro</button>
-    </li>
-
-    <li>
-        <a href="services.html#section2" data-src="masterbarber.mp3" data-skip="2">3 - Master Barber</a>
-        <button class="jump-silence-btn" data-skip="2">skip intro</button>
-    </li>
-
-    <li>
-        <a href="services.html#section4" data-src="experience.mp3" data-skip="0">4 - Barbería Experience</a>
-        <button class="jump-silence-btn" data-skip="0">skip intro</button>
-    </li>
-
-    <li>
-        <a href="services.html#section3" data-src="services.mp3" data-skip="3">5 - Services & Booking</a>
-        <button class="jump-silence-btn" data-skip="3">skip intro</button>
-    </li>
-
-    <li>
-        <a href="agenda.html#soundModal" data-src="thanks.mp3" data-skip="1">6 - Thanks for booking</a>
-        <button class="jump-silence-btn" data-skip="1">skip intro</button>
-    </li>
-
-    <li>
-        <a href="about.html#section1" data-src="about.mp3" data-skip="0">3 - about us</a>
-        <button class="jump-silence-btn" data-skip="0">skip intro</button>
-    </li>
-
-</ul>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Majestic Cuts Salon</h3>
-                <p>We provide high-quality beauty services with a team of professional stylists. Visit our new location in South Easton, MA.</p>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Business Hours</h3>
-                <p><i class="fas fa-clock"></i> Monday - Friday: 9:00 AM - 7:00 PM</p>
-                <p><i class="fas fa-clock"></i> Saturday: 9:00 AM - 5:00 PM</p>
-                <p><i class="fas fa-clock"></i> Sunday: Closed</p>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p><i class="fas fa-map-marker-alt"></i> 105 Depot Street, South Easton, MA 02375</p>
-                <p><i class="fas fa-phone"></i> (617) 501-1114</p>
-                <p><i class="fas fa-phone"></i> (508) 400-3043</p>
-                <p><i class="fas fa-envelope"></i> info@majesticcuts.com</p>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Follow Us</h3>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-tiktok"></i></a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="copyright">
-            <p>&copy; 2023 Majestic Cuts Salon. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('active');
         });
-    </script>
+    });
 
-    <script src="scripts.js"></script>
-</body>
-</html>
+    // Controles play/pause
+    playBtn.addEventListener('click', () => {
+        audio.play();
+        playBtn.style.display = 'none';
+        pauseBtn.style.display = 'inline';
+    });
+
+    pauseBtn.addEventListener('click', () => {
+        audio.pause();
+        pauseBtn.style.display = 'none';
+        playBtn.style.display = 'inline';
+    });
+
+    // Botones siguiente/anterior
+    document.getElementById('audio-next').addEventListener('click', () => {
+        if (currentIndex < validLinks.length - 1) {
+            loadTrackByIndex(currentIndex + 1);
+            audio.play();
+            playBtn.style.display = 'none';
+            pauseBtn.style.display = 'inline';
+
+            const href = validLinks[currentIndex].getAttribute('href');
+            const targetId = href.split('#')[1];
+            const target = document.getElementById(targetId);
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            toggleNextAudioButton(true);
+            setTimeout(() => { toggleNextAudioButton(false); }, 5000);
+        }
+    });
+
+    document.getElementById('audio-prev').addEventListener('click', () => {
+        if (currentIndex > 0) {
+            loadTrackByIndex(currentIndex - 1);
+            audio.play();
+            playBtn.style.display = 'none';
+            pauseBtn.style.display = 'inline';
+
+            const href = validLinks[currentIndex].getAttribute('href');
+            const targetId = href.split('#')[1];
+            const target = document.getElementById(targetId);
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+
+    // Configurar botón de siguiente audio
+    nextAudioBtn.addEventListener('click', () => {
+        let nextAudioUrl = '';
+        switch(currentPage) {
+            case 'index.html': nextAudioUrl = 'services.html#section2'; break;
+            case 'services.html': nextAudioUrl = 'agenda.html#soundModal'; break;
+            case 'ubicacion.html': nextAudioUrl = 'agenda.html#home'; break;
+            case 'agenda.html': nextAudioUrl = 'about.html#section1'; break;
+            case 'about.html': nextAudioUrl = 'index.html#home'; break;
+            default: nextAudioUrl = 'index.html#home';
+        }
+        window.location.href = nextAudioUrl;
+    });
+
+    // Progreso y tiempos
+    audio.addEventListener('timeupdate', () => {
+        if (audio.duration && isFinite(audio.duration)) {
+            progress.value = (audio.currentTime / audio.duration) * 100;
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+            durationEl.textContent = formatTime(audio.duration);
+        }
+    });
+
+    progress.addEventListener('input', () => {
+        if (audio.duration && isFinite(audio.duration)) {
+            audio.currentTime = (progress.value / 100) * audio.duration;
+        }
+    });
+
+    function formatTime(sec) {
+        if (isNaN(sec) || !isFinite(sec)) return '0:00';
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+    }
+
+    // Cargar automáticamente el primer track de esta página
+    if (validLinks.length > 0) {
+        loadTrackByIndex(0);
+
+        // **SKIP AUTOMÁTICO** al empezar a reproducir
+        audio.addEventListener('play', () => {
+            const currentLink = validLinks[currentIndex];
+            const skip = parseInt(currentLink.dataset.skip) || 0;
+            if (skip > 0 && audio.currentTime < skip) {
+                audio.currentTime = skip;
+            }
+        });
+
+        // Verificar si hay hash en la URL y hacer scroll
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const target = document.getElementById(targetId);
+            if (target) setTimeout(() => { target.scrollIntoView({ behavior: 'smooth' }); }, 500);
+        }
+    }
+
+    // Navegación suave para enlaces internos
+    document.querySelectorAll("a[href^='#']").forEach(link => {
+        link.addEventListener("click", function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href").substring(1);
+            const target = document.getElementById(targetId);
+            if (target) target.scrollIntoView({ behavior: "smooth" });
+        });
+    });
+});
+
+// Configurar evento de salto de silencio para cada botón individual (opcional)
+document.querySelectorAll('.jump-silence-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const skipSeconds = parseInt(btn.dataset.skip) || 5;
+        if(audio.src){
+            audio.currentTime = skipSeconds;
+            if(audio.paused) audio.play();
+        }
+    });
+});
