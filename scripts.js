@@ -154,7 +154,8 @@ document.addEventListener("DOMContentLoaded", () => {
             case 'index.html': nextAudioUrl = 'services.html#section2'; break;
             case 'services.html': nextAudioUrl = 'agenda.html#soundModal'; break;
             case 'ubicacion.html': nextAudioUrl = 'agenda.html#home'; break;
-            case 'agenda.html': nextAudioUrl = 'index.html#home'; break;
+            case 'agenda.html': nextAudioUrl = 'about.html#section1'; break;
+            case 'about.html': nextAudioUrl = 'index.html#home'; break;
             default: nextAudioUrl = 'index.html#home';
         }
         window.location.href = nextAudioUrl;
